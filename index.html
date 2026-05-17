@@ -686,6 +686,7 @@
       arriving.classList.add('active');
       current = index;
       updateUI();
+      localStorage.setItem('flipbook-page', (current - 1) * 2 + 1);
       animating = false;
     }, 600);
   }
@@ -706,11 +707,13 @@
   }
 
   function jumpToPage(pageNum) {
-    if (isNaN(pageNum) || pageNum < 1 || pageNum > totalPages) return;
-    const targetSpread = pageToSpread(pageNum);
-    const direction = targetSpread > current ? 'next' : 'prev';
-    goTo(targetSpread, direction);
-  }
+  if (isNaN(pageNum) || pageNum < 1 || pageNum > totalPages) return;
+  const targetSpread = pageToSpread(pageNum);
+  const direction = targetSpread > current ? 'next' : 'prev';
+  goTo(targetSpread, direction);
+  localStorage.setItem('flipbook-page', pageNum); // ← add this
+}
+
 
   jumpBtn.addEventListener('click', () => {
     jumpToPage(parseInt(jumpInput.value, 10));
@@ -735,7 +738,13 @@
     }
   }, { passive: true });
 
+  const saved = parseInt(localStorage.getItem('flipbook-page'), 10);
+if (saved && saved >= 1 && saved <= totalPages) {
+  goTo(pageToSpread(saved), 'next');
+} else {
   updateUI();
+}
+
 })();
 </script>
 </body>
