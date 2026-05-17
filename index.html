@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Digital Book</title>
+<title>Light As Meaning</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -15,11 +15,9 @@
     --ink-light: #6b5c45;
     --gold: #c9a84c;
     --gold-light: #e8cc80;
-    --shadow: rgba(0,0,0,0.35);
-    --spine: #1a1208;
   }
 
-  body {
+body {
   height: 100vh;
   overflow: hidden;
   background: #1a1208;
@@ -30,30 +28,28 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 20px 80px;
   font-family: 'Cormorant Garamond', Georgia, serif;
 }
 
+#book-container {
+  position: relative;
+  width: min(700px, 78vw);
+}
 
-  /* ── BOOK CONTAINER ── */
-  #book-container {
-    position: relative;
-    width: min(900px, 95vw);
-  }
+#book {
+  position: relative;
+  width: 100%;
+  padding-top: min(55%, 50vh);
+  transform-style: preserve-3d;
+}
+
 
   #book-scene {
     width: 100%;
     perspective: 2500px;
   }
 
- #book {
-  position: relative;
-  width: 100%;
-  padding-top: min(56%, 55vh);
-  transform-style: preserve-3d;
-}
-
-  /* ── SPREAD (two open pages) ── */
   .spread {
     position: absolute;
     inset: 0;
@@ -68,7 +64,6 @@
     pointer-events: auto;
   }
 
-  /* ── INDIVIDUAL PAGE ── */
   .page {
     flex: 1;
     position: relative;
@@ -80,27 +75,21 @@
 
   .page-left {
     border-radius: 3px 0 0 3px;
-    box-shadow:
-      -4px 0 8px rgba(0,0,0,0.15),
-      inset -1px 0 0 rgba(0,0,0,0.08);
+    box-shadow: -4px 0 8px rgba(0,0,0,0.15), inset -1px 0 0 rgba(0,0,0,0.08);
     background: linear-gradient(to right, #ede5d4, var(--paper) 8%);
   }
 
   .page-right {
     border-radius: 0 3px 3px 0;
-    box-shadow:
-      4px 0 12px rgba(0,0,0,0.25),
-      inset 1px 0 0 rgba(0,0,0,0.06);
+    box-shadow: 4px 0 12px rgba(0,0,0,0.25), inset 1px 0 0 rgba(0,0,0,0.06);
     background: linear-gradient(to left, #ede5d4, var(--paper) 8%);
   }
 
-  /* Spine shadow between pages */
   .spread::after {
     content: '';
     position: absolute;
     left: 50%;
-    top: 0;
-    bottom: 0;
+    top: 0; bottom: 0;
     width: 2px;
     transform: translateX(-50%);
     background: linear-gradient(to right, rgba(0,0,0,0.18), rgba(0,0,0,0.05));
@@ -108,20 +97,27 @@
     z-index: 10;
   }
 
-  /* Page texture overlay */
-  .page::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-    opacity: 0.4;
-    pointer-events: none;
-    z-index: 1;
-  }
-
   /* ── COVER ── */
   .cover-spread .page-left {
     background: linear-gradient(135deg, #1a0f02 0%, #2d1f0a 40%, #1a0f02 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cover-summary {
+    padding: 12%;
+    text-align: center;
+  }
+
+  .cover-summary p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(0.65rem, 1.5vw, 0.95rem);
+    font-style: italic;
+    font-weight: 300;
+    color: rgba(232, 204, 128, 0.85);
+    line-height: 1.9;
+    letter-spacing: 0.04em;
   }
 
   .cover-spread .page-right {
@@ -288,7 +284,7 @@
     100% { opacity: 1; transform: perspective(1200px) rotateY(0deg); }
   }
 
-  /* ── NAVIGATION ARROWS ── */
+  /* ── NAV BUTTONS ── */
   .nav-btn {
     position: absolute;
     top: 50%;
@@ -306,23 +302,22 @@
     justify-content: center;
     transition: background 0.2s, border-color 0.2s;
     z-index: 20;
-    backdrop-filter: blur(4px);
   }
 
   .nav-btn:hover { background: rgba(201, 168, 76, 0.3); border-color: var(--gold); }
   .nav-btn:disabled { opacity: 0.2; cursor: default; }
-  .nav-btn:disabled:hover { background: rgba(201, 168, 76, 0.15); border-color: rgba(201, 168, 76, 0.3); }
+  .nav-btn:disabled:hover { background: rgba(201, 168, 76, 0.15); }
 
   #btn-prev { left: clamp(-38px, -5vw, -52px); }
   #btn-next { right: clamp(-38px, -5vw, -52px); }
 
-  /* ── CONTROLS BAR ── */
+  /* ── CONTROLS ── */
   #controls {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: clamp(6px, 2vw, 16px);
-    margin-top: clamp(12px, 3vw, 24px);
+    margin-top: clamp(10px, 2vw, 20px);
     flex-wrap: wrap;
   }
 
@@ -383,20 +378,18 @@
 
   .jump-form button:hover { background: rgba(201, 168, 76, 0.3); }
 
-  /* Book shadow */
   #book-shadow {
     position: absolute;
     bottom: -20px;
-    left: 5%;
-    right: 5%;
+    left: 5%; right: 5%;
     height: 30px;
     background: radial-gradient(ellipse, rgba(0,0,0,0.5) 0%, transparent 70%);
     filter: blur(8px);
     pointer-events: none;
   }
 
-  /* Responsive: on very small screens, hide left page, single page mode */
   @media (max-width: 480px) {
+    body { padding: 10px 40px; }
     .page-left { display: none; }
     .page-right { border-radius: 3px; }
     .spread::after { display: none; }
@@ -413,31 +406,20 @@
     <div id="book">
 
       <!-- ============================================================
-           PAGE CONTENT
-           Each .spread contains two .page divs (left and right).
-           The cover is spread index 0.
-           Content spreads start at index 1.
-           To add your own text, edit the .page-body sections below.
-           To add more spreads, copy a <div class="spread"> block.
+           PAGE CONTENT — edit text between these markers
            ============================================================ -->
 
       <!-- SPREAD 0: COVER -->
       <div class="spread cover-spread active" data-spread="0">
-        <div class="page page-left" style="background: linear-gradient(135deg, #1a0f02 0%, #2d1f0a 40%, #1a0f02 100%); display:flex; align-items:center; justify-content:center;">
-  <div style="padding: 12%; text-align: center;">
-    <p style="
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(0.7rem, 1.6vw, 1rem);
-      font-style: bold;
-      font-weight: 300;
-      color: rgba(232, 204, 128, 0.85);
-      line-height: 1.9;
-      letter-spacing: 0.04em;
-    ">The only thing we take with us from this world into the next life when we die, is our light, the accumulation of which is the purpose of life. </p>
-  </div>
-</div>
 
-      </div>
+        <div class="page page-left">
+          <div class="cover-summary">
+            <!-- EDIT SUMMARY TEXT BELOW -->
+            <p>The only thing we take with us from this world into the next life when we die, is our light, the accumulation of which is the purpose of life.</p>
+            <!-- END EDIT -->
+          </div>
+        </div>
+
         <div class="page page-right">
           <div class="cover-border"></div>
           <div class="cover-content">
@@ -447,19 +429,20 @@
             <div class="cover-author">By Lucius Earnlight</div>
           </div>
         </div>
+
       </div>
 
       <!-- SPREAD 1: Pages 1–2 -->
       <div class="spread" data-spread="1">
         <div class="page page-left">
           <div class="page-inner">
-            <div class="page-header">My Digital Book</div>
+            <div class="page-header">Light As Meaning</div>
             <div class="page-body">
               <div class="chapter-title">Chapter One</div>
               <div class="chapter-ornament">— ✦ —</div>
               <!-- EDIT YOUR TEXT BELOW -->
-              <p>This is the opening of your first chapter. Replace this placeholder text with your own writing. The layout supports long-form prose beautifully, with generous line spacing and carefully chosen typography to make reading a pleasure.</p>
-              <p>You may write as much or as little as you like on each page. The text will flow naturally within the page boundaries, and you can adjust the font size in the CSS if you need to fit more or less content.</p>
+              <p>This is the opening of your first chapter. Replace this placeholder text with your own writing.</p>
+              <p>You may write as much or as little as you like on each page.</p>
               <p>Continue your story here, adding as many paragraphs as the page will hold comfortably.</p>
               <!-- END EDIT -->
             </div>
@@ -471,12 +454,12 @@
         </div>
         <div class="page page-right">
           <div class="page-inner">
-            <div class="page-header">My Digital Book</div>
+            <div class="page-header">Light As Meaning</div>
             <div class="page-body">
               <!-- EDIT YOUR TEXT BELOW -->
-              <p>The story continues on this right-hand page. Each spread shows two pages at once, just like a real book held open in your hands.</p>
-              <p>Use this space to develop your ideas, characters, or arguments. The paper-coloured background and serif typography are designed to reduce eye strain during extended reading.</p>
-              <p>You can add as many spreads as you need by duplicating the spread blocks in the HTML. Each new spread increments the page numbers accordingly.</p>
+              <p>The story continues on this right-hand page.</p>
+              <p>Use this space to develop your ideas, characters, or arguments.</p>
+              <p>You can add as many spreads as you need by duplicating the spread blocks in the HTML.</p>
               <!-- END EDIT -->
             </div>
             <div class="page-footer">
@@ -491,11 +474,11 @@
       <div class="spread" data-spread="2">
         <div class="page page-left">
           <div class="page-inner">
-            <div class="page-header">My Digital Book</div>
+            <div class="page-header">Light As Meaning</div>
             <div class="page-body">
               <!-- EDIT YOUR TEXT BELOW -->
-              <p>Page three begins here. This is an ideal place to deepen the narrative or introduce a new perspective. Great writing rewards the reader who turns each page with curiosity.</p>
-              <p>Replace this paragraph with your own words. Every sentence should earn its place on the page — precise, purposeful, and true to your voice.</p>
+              <p>Page three begins here.</p>
+              <p>Replace this paragraph with your own words.</p>
               <p>The beauty of a well-made book lies not only in what it contains, but in the care with which it presents its contents to the reader.</p>
               <!-- END EDIT -->
             </div>
@@ -507,12 +490,12 @@
         </div>
         <div class="page page-right">
           <div class="page-inner">
-            <div class="page-header">My Digital Book</div>
+            <div class="page-header">Light As Meaning</div>
             <div class="page-body">
               <!-- EDIT YOUR TEXT BELOW -->
-              <p>Page four continues the thought. Notice how the left and right pages work together as a unit — the spread is the natural unit of reading in a bound book.</p>
+              <p>Page four continues the thought.</p>
               <p>Your readers will see these two pages simultaneously, so consider how the content on each side relates to and complements the other.</p>
-              <p>A well-paced book gives the reader moments of rest between moments of intensity — vary your rhythm to keep the reading experience alive.</p>
+              <p>A well-paced book gives the reader moments of rest between moments of intensity.</p>
               <!-- END EDIT -->
             </div>
             <div class="page-footer">
@@ -527,13 +510,13 @@
       <div class="spread" data-spread="3">
         <div class="page page-left">
           <div class="page-inner">
-            <div class="page-header">My Digital Book</div>
+            <div class="page-header">Light As Meaning</div>
             <div class="page-body">
               <div class="chapter-title">Chapter Two</div>
               <div class="chapter-ornament">— ✦ —</div>
               <!-- EDIT YOUR TEXT BELOW -->
-              <p>A new chapter begins. Use chapter breaks to signal a significant shift in time, perspective, or subject matter. The reader will feel the structure of your work through these deliberate divisions.</p>
-              <p>Write your chapter two opening here. Establish the new tone quickly — the first paragraph of a chapter carries enormous weight in setting expectations.</p>
+              <p>A new chapter begins.</p>
+              <p>Write your chapter two opening here.</p>
               <!-- END EDIT -->
             </div>
             <div class="page-footer">
@@ -544,11 +527,10 @@
         </div>
         <div class="page page-right">
           <div class="page-inner">
-            <div class="page-header">My Digital Book</div>
+            <div class="page-header">Light As Meaning</div>
             <div class="page-body">
               <!-- EDIT YOUR TEXT BELOW -->
-              <p>The sixth page of your book. By now your reader is invested. Honour that investment with writing that is honest, considered, and worthy of their time.</p>
-              <p>You may wish to use this space to develop an idea introduced on page five, or to introduce a tension that will carry through the remainder of the chapter.</p>
+              <p>The sixth page of your book.</p>
               <p>Every word is a choice. Choose well.</p>
               <!-- END EDIT -->
             </div>
@@ -564,12 +546,11 @@
       <div class="spread" data-spread="4">
         <div class="page page-left">
           <div class="page-inner">
-            <div class="page-header">My Digital Book</div>
+            <div class="page-header">Light As Meaning</div>
             <div class="page-body">
               <!-- EDIT YOUR TEXT BELOW -->
-              <p>Page seven. The middle of a book is where many readers either commit fully or begin to drift. Make this section earn their continued attention.</p>
-              <p>Strong writing in the middle of a book reminds the reader why they began. Return to your central theme here, but with new depth and understanding accumulated from what came before.</p>
-              <p>The best books feel inevitable in retrospect — each page prepared the reader for the next without their noticing.</p>
+              <p>Page seven. The middle of a book is where many readers either commit fully or begin to drift.</p>
+              <p>The best books feel inevitable in retrospect.</p>
               <!-- END EDIT -->
             </div>
             <div class="page-footer">
@@ -580,12 +561,11 @@
         </div>
         <div class="page page-right">
           <div class="page-inner">
-            <div class="page-header">My Digital Book</div>
+            <div class="page-header">Light As Meaning</div>
             <div class="page-body">
               <!-- EDIT YOUR TEXT BELOW -->
-              <p>Page eight. Continue your narrative or argument here with confidence. By this point your reader trusts your voice — do not betray that trust with careless writing.</p>
-              <p>If this is a work of nonfiction, consider introducing a concrete example or illustration here to ground your ideas in lived reality.</p>
-              <p>If this is fiction, this is a good place for a quiet moment before the next turn of events.</p>
+              <p>Page eight. Continue your narrative or argument here with confidence.</p>
+              <p>By this point your reader trusts your voice.</p>
               <!-- END EDIT -->
             </div>
             <div class="page-footer">
@@ -596,15 +576,14 @@
         </div>
       </div>
 
-      <!-- SPREAD 5: Pages 9–10 (Final Spread) -->
+      <!-- SPREAD 5: Pages 9–10 -->
       <div class="spread" data-spread="5">
         <div class="page page-left">
           <div class="page-inner">
-            <div class="page-header">My Digital Book</div>
+            <div class="page-header">Light As Meaning</div>
             <div class="page-body">
               <!-- EDIT YOUR TEXT BELOW -->
-              <p>The penultimate page. Begin drawing the threads together. A good ending is prepared long before it arrives — the reader should feel it approaching like the warmth of a light they have been walking toward.</p>
-              <p>Use this space to bring your key ideas into final resolution, or to set up the closing statement on the last page.</p>
+              <p>The penultimate page. Begin drawing the threads together.</p>
               <p>Whatever you have promised your reader at the beginning, honour it here.</p>
               <!-- END EDIT -->
             </div>
@@ -616,10 +595,10 @@
         </div>
         <div class="page page-right">
           <div class="page-inner">
-            <div class="page-header">My Digital Book</div>
+            <div class="page-header">Light As Meaning</div>
             <div class="page-body">
               <!-- EDIT YOUR TEXT BELOW -->
-              <p>The final page. End with something worth remembering. The last sentence of a book is the one that echoes longest in the reader's mind — make it true, make it beautiful, make it yours.</p>
+              <p>The final page. End with something worth remembering.</p>
               <p>Thank you for reading.</p>
               <div class="chapter-ornament" style="margin-top:2em;">✦</div>
               <!-- END EDIT -->
@@ -636,22 +615,21 @@
            END PAGE CONTENT
            ============================================================ -->
 
-    </div><!-- #book -->
-  </div><!-- #book-scene -->
+    </div>
+  </div>
 
   <button class="nav-btn" id="btn-prev" disabled aria-label="Previous spread">&#8592;</button>
   <button class="nav-btn" id="btn-next" aria-label="Next spread">&#8594;</button>
-</div><!-- #book-container -->
+</div>
 
 <div id="controls">
   <span id="spread-indicator">Cover</span>
- <div class="jump-form">
-  <label for="jump-input">Go to page</label>
-  <input type="number" id="jump-input" min="1" placeholder="1–10">
-  <button id="jump-btn">Go</button>
-  <button id="cover-btn">Cover</button>
-</div>
-
+  <div class="jump-form">
+    <label for="jump-input">Go to page</label>
+    <input type="number" id="jump-input" min="1" placeholder="1–10">
+    <button id="jump-btn">Go</button>
+    <button id="cover-btn">Cover</button>
+  </div>
 </div>
 
 <script>
@@ -664,7 +642,6 @@
   const jumpInput = document.getElementById('jump-input');
   const jumpBtn = document.getElementById('jump-btn');
 
-  // How many content pages total (each spread has 2, cover = 0 pages)
   const totalPages = (totalSpreads - 1) * 2;
   jumpInput.max = totalPages;
 
@@ -676,8 +653,8 @@
     const left  = (index - 1) * 2 + 1;
     const right = left + 1;
     return right <= totalPages
-      ? `Pages ${left} – ${right} of ${totalPages}`
-      : `Page ${left} of ${totalPages}`;
+      ? 'Pages ' + left + ' \u2013 ' + right + ' of ' + totalPages
+      : 'Page ' + left + ' of ' + totalPages;
   }
 
   function updateUI() {
@@ -689,80 +666,59 @@
   function goTo(index, direction) {
     if (animating || index === current || index < 0 || index >= totalSpreads) return;
     animating = true;
-
-    const leaving = spreads[current];
+    const leaving  = spreads[current];
     const arriving = spreads[index];
-
     const animClass = direction === 'next' ? 'flipping' : 'flipping-back';
-
     leaving.classList.add(animClass);
-
     setTimeout(() => {
       leaving.classList.remove('active', animClass);
       arriving.classList.add('active');
       current = index;
       updateUI();
-      localStorage.setItem('flipbook-page', (current - 1) * 2 + 1);
+      localStorage.setItem('flipbook-spread', current);
       animating = false;
     }, 600);
   }
 
   btnNext.addEventListener('click', () => goTo(current + 1, 'next'));
   btnPrev.addEventListener('click', () => goTo(current - 1, 'prev'));
+  document.getElementById('cover-btn').addEventListener('click', () => goTo(0, 'prev'));
 
-  // Keyboard navigation
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight') goTo(current + 1, 'next');
     if (e.key === 'ArrowLeft')  goTo(current - 1, 'prev');
   });
 
-  // Page jumper
-  // Page N lives on spread: Math.ceil(N / 2)
-  function pageToSpread(pageNum) {
-    return Math.ceil(pageNum / 2);
-  }
+  function pageToSpread(p) { return Math.ceil(p / 2); }
 
   function jumpToPage(pageNum) {
-  if (isNaN(pageNum) || pageNum < 1 || pageNum > totalPages) return;
-  const targetSpread = pageToSpread(pageNum);
-  const direction = targetSpread > current ? 'next' : 'prev';
-  goTo(targetSpread, direction);
-  localStorage.setItem('flipbook-page', pageNum); // ← add this
-}
+    if (isNaN(pageNum) || pageNum < 1 || pageNum > totalPages) return;
+    const target = pageToSpread(pageNum);
+    goTo(target, target > current ? 'next' : 'prev');
+  }
 
-
-  jumpBtn.addEventListener('click', () => {
-    jumpToPage(parseInt(jumpInput.value, 10));
-  });
-
- document.getElementById('cover-btn').addEventListener('click', () => goTo(0, 'prev'));
-
+  jumpBtn.addEventListener('click', () => jumpToPage(parseInt(jumpInput.value, 10)));
   jumpInput.addEventListener('keydown', e => {
     if (e.key === 'Enter') jumpToPage(parseInt(jumpInput.value, 10));
   });
 
-  // Touch/swipe support
+  // Swipe support
   let touchStartX = 0;
-  const book = document.getElementById('book');
-
-  book.addEventListener('touchstart', e => {
+  document.getElementById('book').addEventListener('touchstart', e => {
     touchStartX = e.touches[0].clientX;
   }, { passive: true });
-
-  book.addEventListener('touchend', e => {
+  document.getElementById('book').addEventListener('touchend', e => {
     const dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 40) {
-      dx < 0 ? goTo(current + 1, 'next') : goTo(current - 1, 'prev');
-    }
+    if (Math.abs(dx) > 40) dx < 0 ? goTo(current + 1, 'next') : goTo(current - 1, 'prev');
   }, { passive: true });
 
-  const saved = parseInt(localStorage.getItem('flipbook-page'), 10);
-if (saved && saved >= 1 && saved <= totalPages) {
-  goTo(pageToSpread(saved), 'next');
-} else {
-  updateUI();
-}
-
+  // Restore position
+  const saved = parseInt(localStorage.getItem('flipbook-spread'), 10);
+  if (saved && saved >= 1 && saved < totalSpreads) {
+    goTo(saved, 'next');
+  } else {
+    updateUI();
+  }
 })();
 </script>
 </body>
