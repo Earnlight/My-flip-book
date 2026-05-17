@@ -631,11 +631,13 @@
 
 <div id="controls">
   <span id="spread-indicator">Cover</span>
-  <div class="jump-form">
-    <label for="jump-input">Go to page</label>
-    <input type="number" id="jump-input" min="1" placeholder="1–10">
-    <button id="jump-btn">Go</button>
-  </div>
+ <div class="jump-form">
+  <label for="jump-input">Go to page</label>
+  <input type="number" id="jump-input" min="1" placeholder="1–10">
+  <button id="jump-btn">Go</button>
+  <button id="cover-btn">Cover</button>
+</div>
+
 </div>
 
 <script>
@@ -718,6 +720,8 @@
   jumpBtn.addEventListener('click', () => {
     jumpToPage(parseInt(jumpInput.value, 10));
   });
+
+ document.getElementById('cover-btn').addEventListener('click', () => goTo(0, 'prev'));
 
   jumpInput.addEventListener('keydown', e => {
     if (e.key === 'Enter') jumpToPage(parseInt(jumpInput.value, 10));
