@@ -62,7 +62,6 @@
   #theme-toggle {
     align-self: flex-end;
     margin-bottom: 12px;
-    position: static;
     background: var(--btn-bg);
     border: 1px solid var(--border);
     color: var(--text);
@@ -78,7 +77,6 @@
     transition: background 0.2s, border-color 0.2s, color 0.2s;
     text-transform: uppercase;
   }
-
   #theme-toggle:hover { background: var(--btn-hover); border-color: var(--gold); color: var(--gold); }
   .theme-icon { font-size: 0.9rem; }
 
@@ -87,92 +85,24 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    margin-bottom: 12px;
+    margin-bottom: 6px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 4px;
     padding: 4px 10px;
     width: min(480px, 70vw);
   }
-
-  #search-bar label {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(0.45rem, 1.2vw, 0.6rem);
-    color: var(--label-color);
-    letter-spacing: 0.15em;
-    white-space: nowrap;
-    text-transform: uppercase;
-  }
-
-  #search-input {
-    flex: 1;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--border);
-    color: var(--input-color);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(0.7rem, 1.5vw, 0.85rem);
-    outline: none;
-    padding: 2px 4px;
-  }
-
+  #search-bar label { font-family: 'Cinzel', serif; font-size: clamp(0.45rem, 1.2vw, 0.6rem); color: var(--label-color); letter-spacing: 0.15em; white-space: nowrap; text-transform: uppercase; }
+  #search-input { flex: 1; background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--input-color); font-family: 'Cormorant Garamond', serif; font-size: clamp(0.7rem, 1.5vw, 0.85rem); outline: none; padding: 2px 4px; }
   #search-input::placeholder { color: var(--text-dim); font-style: italic; }
-
-  #search-btn {
-    background: var(--btn-bg);
-    border: 1px solid var(--border);
-    color: var(--gold);
-    font-family: 'Cinzel', serif;
-    font-size: clamp(0.45rem, 1.1vw, 0.58rem);
-    letter-spacing: 0.1em;
-    padding: 3px 10px;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background 0.2s;
-    white-space: nowrap;
-  }
-
+  #search-btn { background: var(--btn-bg); border: 1px solid var(--border); color: var(--gold); font-family: 'Cinzel', serif; font-size: clamp(0.45rem, 1.1vw, 0.58rem); letter-spacing: 0.1em; padding: 3px 10px; border-radius: 3px; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
   #search-btn:hover { background: var(--btn-hover); }
+  #search-result { font-family: 'Cormorant Garamond', serif; font-size: clamp(0.55rem, 1.3vw, 0.7rem); color: var(--text-dim); font-style: italic; margin-left: 4px; white-space: nowrap; }
 
-  #search-result {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(0.55rem, 1.3vw, 0.7rem);
-    color: var(--text-dim);
-    font-style: italic;
-    margin-left: 4px;
-    white-space: nowrap;
-  }
-
- #search-nav {
-  display: none;
-  align-items: center;
-  gap: 6px;
-  margin-top: 6px;
-  justify-content: center;
-}
-
-#search-nav button {
-  background: var(--btn-bg);
-  border: 1px solid var(--border);
-  color: var(--gold);
-  font-family: 'Cinzel', serif;
-  font-size: clamp(0.45rem, 1.1vw, 0.58rem);
-  letter-spacing: 0.1em;
-  padding: 3px 10px;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-#search-nav button:hover { background: var(--btn-hover); }
-
-#search-count {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(0.45rem, 1.1vw, 0.58rem);
-  color: var(--text-dim);
-  letter-spacing: 0.1em;
-  white-space: nowrap;
-}
+  #search-nav { display: none; align-items: center; gap: 6px; margin-bottom: 10px; justify-content: center; }
+  #search-nav button { background: var(--btn-bg); border: 1px solid var(--border); color: var(--gold); font-family: 'Cinzel', serif; font-size: clamp(0.45rem, 1.1vw, 0.58rem); letter-spacing: 0.1em; padding: 3px 10px; border-radius: 3px; cursor: pointer; transition: background 0.2s; }
+  #search-nav button:hover { background: var(--btn-hover); }
+  #search-count { font-family: 'Cinzel', serif; font-size: clamp(0.45rem, 1.1vw, 0.58rem); color: var(--text-dim); letter-spacing: 0.1em; white-space: nowrap; }
 
   /* ── BOOK ── */
   #book-container {
@@ -180,15 +110,8 @@
     width: min(480px, 70vw);
     margin-top: 8px;
   }
-
   #book-scene { width: 100%; perspective: 2500px; }
-
-  #book {
-    position: relative;
-    width: 100%;
-    padding-top: min(140%, 68vh);
-    transform-style: preserve-3d;
-  }
+  #book { position: relative; width: 100%; padding-top: min(140%, 68vh); transform-style: preserve-3d; }
 
   .page {
     position: absolute;
@@ -203,57 +126,14 @@
     box-shadow: 4px 4px 20px rgba(0,0,0,0.5), -2px 0 6px rgba(0,0,0,0.15);
     transition: opacity 0.05s, background 0.3s;
   }
-
   .page.active { opacity: 1; pointer-events: auto; }
+  .page::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 12px; background: linear-gradient(to right, rgba(0,0,0,0.08), transparent); pointer-events: none; }
+  .page::before { content: ''; position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); opacity: 0.4; pointer-events: none; z-index: 1; }
 
-  .page::after {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 12px;
-    background: linear-gradient(to right, rgba(0,0,0,0.08), transparent);
-    pointer-events: none;
-  }
-
-  .page::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-    opacity: 0.4;
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .page-cover {
-    background: linear-gradient(135deg, #2d1f0a 0%, #3d2910 50%, #1a0f02 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .cover-border {
-    position: absolute;
-    inset: 5%;
-    border: 1px solid rgba(201, 168, 76, 0.3);
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .cover-border::before {
-    content: '';
-    position: absolute;
-    inset: 4px;
-    border: 1px solid rgba(201, 168, 76, 0.15);
-  }
-
-  .cover-content {
-    text-align: center;
-    padding: 10%;
-    position: relative;
-    z-index: 2;
-  }
-
+  .page-cover { background: linear-gradient(135deg, #2d1f0a 0%, #3d2910 50%, #1a0f02 100%); display: flex; align-items: center; justify-content: center; }
+  .cover-border { position: absolute; inset: 5%; border: 1px solid rgba(201, 168, 76, 0.3); pointer-events: none; z-index: 1; }
+  .cover-border::before { content: ''; position: absolute; inset: 4px; border: 1px solid rgba(201, 168, 76, 0.15); }
+  .cover-content { text-align: center; padding: 10%; position: relative; z-index: 2; }
   .cover-ornament { color: #c9a84c; font-size: clamp(1rem, 4vw, 1.6rem); margin-bottom: 0.5em; letter-spacing: 0.3em; }
   .cover-title { font-family: 'Cinzel', serif; font-size: clamp(1.4rem, 5vw, 2.6rem); font-weight: 600; color: #e8cc80; line-height: 1.2; margin: 0.3em 0; text-shadow: 0 2px 12px rgba(0,0,0,0.5); letter-spacing: 0.05em; }
   .cover-divider { width: 60%; height: 1px; background: linear-gradient(to right, transparent, #c9a84c, transparent); margin: 0.8em auto; }
@@ -261,132 +141,114 @@
   .cover-summary { margin-top: 1.5em; padding-top: 1em; border-top: 1px solid rgba(201, 168, 76, 0.2); }
   .cover-summary p { font-family: 'Cormorant Garamond', serif; font-size: clamp(0.65rem, 2vw, 0.85rem); font-style: italic; font-weight: 300; color: rgba(232, 204, 128, 0.75); line-height: 1.9; letter-spacing: 0.04em; }
 
-  .page-inner {
-    padding: clamp(16px, 6%, 48px);
-    padding-top: clamp(20px, 7%, 56px);
-    flex: 1;
+  .page-inner { padding: clamp(16px, 6%, 48px); padding-top: clamp(20px, 7%, 56px); flex: 1; display: flex; flex-direction: column; position: relative; z-index: 2; }
+  .page-header { font-family: 'Cinzel', serif; font-size: clamp(0.45rem, 1.5vw, 0.65rem); letter-spacing: 0.2em; color: var(--ink-light); text-transform: uppercase; border-bottom: 1px solid var(--paper-dark); padding-bottom: 0.6em; margin-bottom: 1.2em; text-align: center; }
+  .page-body { flex: 1; font-size: clamp(0.75rem, 2.2vw, 1rem); line-height: 1.85; color: var(--ink); font-weight: 300; text-align: justify; hyphens: auto; }
+  .page-body p + p { margin-top: 0.9em; text-indent: 1.5em; }
+  .chapter-title { font-family: 'Cinzel', serif; font-size: clamp(1rem, 3vw, 1.5rem); font-weight: 600; color: var(--ink); margin-bottom: 0.4em; letter-spacing: 0.05em; text-align: center; }
+  .chapter-ornament { color: #c9a84c; font-size: clamp(0.8rem, 2vw, 1rem); text-align: center; margin: 0.4em 0 1.2em; letter-spacing: 0.3em; }
+
+  .page-footer {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.6em;
+    border-top: 1px solid var(--paper-dark);
+    margin-top: auto;
     position: relative;
     z-index: 2;
   }
 
-  .page-header { font-family: 'Cinzel', serif; font-size: clamp(0.45rem, 1.5vw, 0.65rem); letter-spacing: 0.2em; color: var(--ink-light); text-transform: uppercase; border-bottom: 1px solid var(--paper-dark); padding-bottom: 0.6em; margin-bottom: 1.2em; text-align: center; }
+  .page-number { font-family: 'Cinzel', serif; font-size: clamp(0.5rem, 1.5vw, 0.7rem); color: var(--ink-light); letter-spacing: 0.15em; flex: 1; text-align: center; }
 
-  .page-body { flex: 1; font-size: clamp(0.75rem, 2.2vw, 1rem); line-height: 1.85; color: var(--ink); font-weight: 300; text-align: justify; hyphens: auto; }
-  .page-body p + p { margin-top: 0.9em; text-indent: 1.5em; }
+  /* ── BOOKMARK BUTTON (inside page footer) ── */
+  .bookmark-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0 4px;
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    line-height: 1;
+    color: var(--ink-light);
+    opacity: 0.4;
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 3;
+    flex-shrink: 0;
+  }
+  .bookmark-btn:hover { opacity: 0.8; transform: scale(1.15); }
+  .bookmark-btn.bookmarked { opacity: 1; color: #c9a84c; filter: drop-shadow(0 0 4px rgba(201,168,76,0.6)); }
 
-  .chapter-title { font-family: 'Cinzel', serif; font-size: clamp(1rem, 3vw, 1.5rem); font-weight: 600; color: var(--ink); margin-bottom: 0.4em; letter-spacing: 0.05em; text-align: center; }
-  .chapter-ornament { color: #c9a84c; font-size: clamp(0.8rem, 2vw, 1rem); text-align: center; margin: 0.4em 0 1.2em; letter-spacing: 0.3em; }
+  /* ── SHARE BUTTON (inside page footer) ── */
+  .share-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0 4px;
+    font-size: clamp(0.85rem, 2.2vw, 1rem);
+    line-height: 1;
+    color: var(--ink-light);
+    opacity: 0.4;
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 3;
+    flex-shrink: 0;
+  }
+  .share-btn:hover { opacity: 0.8; transform: scale(1.15); }
 
-  .page-footer { display: flex; align-items: center; justify-content: center; padding-top: 0.6em; border-top: 1px solid var(--paper-dark); margin-top: auto; position: relative; z-index: 2; gap: 1em; }
-  .page-number { font-family: 'Cinzel', serif; font-size: clamp(0.5rem, 1.5vw, 0.7rem); color: var(--ink-light); letter-spacing: 0.15em; }
-  .page-title-footer { font-size: clamp(0.45rem, 1.3vw, 0.65rem); color: var(--ink-light); font-style: italic; }
+  /* ── SHARE TOAST (clipboard fallback) ── */
+  #share-toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #1c1810;
+    border: 1px solid rgba(201,168,76,0.4);
+    color: #e8cc80;
+    font-family: 'Cinzel', serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    padding: 8px 20px;
+    border-radius: 4px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 9999;
+    white-space: nowrap;
+  }
+  #share-toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ── BOOKMARK INDICATOR ── */
+  #bookmark-indicator {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.45rem, 1.1vw, 0.58rem);
+    color: rgba(201,168,76,0.5);
+    letter-spacing: 0.12em;
+    text-align: center;
+    margin-top: 6px;
+    min-height: 1em;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  #bookmark-indicator:hover { color: var(--gold); }
 
   /* ── SEARCH HIGHLIGHT ── */
-  mark.search-highlight {
-    background: rgba(201, 168, 76, 0.35);
-    color: inherit;
-    border-radius: 2px;
-    padding: 0 1px;
-  }
+  mark.search-highlight { background: rgba(201, 168, 76, 0.35); color: inherit; border-radius: 2px; padding: 0 1px; }
 
   /* ── DEFINITION BUBBLE ── */
-  #definition-bubble {
-    position: fixed;
-    z-index: 9999;
-    max-width: 260px;
-    background: #1c1810;
-    border: 1px solid rgba(201, 168, 76, 0.4);
-    border-radius: 6px;
-    padding: 12px 14px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.6);
-    display: none;
-    pointer-events: none;
-  }
-
-  #definition-bubble::before {
-    content: '';
-    position: absolute;
-    bottom: -7px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 12px;
-    height: 12px;
-    background: #1c1810;
-    border-right: 1px solid rgba(201, 168, 76, 0.4);
-    border-bottom: 1px solid rgba(201, 168, 76, 0.4);
-    transform: translateX(-50%) rotate(45deg);
-  }
-
-  #def-word {
-    font-family: 'Cinzel', serif;
-    font-size: 0.72rem;
-    color: #e8cc80;
-    letter-spacing: 0.1em;
-    margin-bottom: 4px;
-  }
-
-  #def-type {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.65rem;
-    color: rgba(201, 168, 76, 0.5);
-    font-style: italic;
-    margin-bottom: 6px;
-  }
-
-  #def-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.78rem;
-    color: #c8b89a;
-    line-height: 1.55;
-  }
-
-  #def-loading {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.75rem;
-    color: rgba(201, 168, 76, 0.5);
-    font-style: italic;
-  }
+  #definition-bubble { position: fixed; z-index: 9999; max-width: 260px; background: #1c1810; border: 1px solid rgba(201, 168, 76, 0.4); border-radius: 6px; padding: 12px 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.6); display: none; pointer-events: none; }
+  #definition-bubble::before { content: ''; position: absolute; bottom: -7px; left: 50%; width: 12px; height: 12px; background: #1c1810; border-right: 1px solid rgba(201, 168, 76, 0.4); border-bottom: 1px solid rgba(201, 168, 76, 0.4); transform: translateX(-50%) rotate(45deg); }
+  #def-word { font-family: 'Cinzel', serif; font-size: 0.72rem; color: #e8cc80; letter-spacing: 0.1em; margin-bottom: 4px; }
+  #def-type { font-family: 'Cormorant Garamond', serif; font-size: 0.65rem; color: rgba(201, 168, 76, 0.5); font-style: italic; margin-bottom: 6px; }
+  #def-text { font-family: 'Cormorant Garamond', serif; font-size: 0.78rem; color: #c8b89a; line-height: 1.55; }
+  #def-loading { font-family: 'Cormorant Garamond', serif; font-size: 0.75rem; color: rgba(201, 168, 76, 0.5); font-style: italic; }
 
   /* ── FLIP ANIMATIONS ── */
   .flipping { animation: flipForward 0.5s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards; }
   .flipping-back { animation: flipBack 0.5s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards; }
-
-  @keyframes flipForward {
-    0%   { opacity: 1; transform: perspective(1000px) rotateY(0deg); }
-    49%  { opacity: 1; transform: perspective(1000px) rotateY(-90deg); z-index: 100; }
-    50%  { opacity: 0; }
-    100% { opacity: 0; transform: perspective(1000px) rotateY(-180deg); }
-  }
-
-  @keyframes flipBack {
-    0%   { opacity: 0; transform: perspective(1000px) rotateY(-180deg); }
-    50%  { opacity: 0; }
-    51%  { opacity: 1; transform: perspective(1000px) rotateY(-90deg); z-index: 100; }
-    100% { opacity: 1; transform: perspective(1000px) rotateY(0deg); }
-  }
+  @keyframes flipForward { 0% { opacity:1; transform:perspective(1000px) rotateY(0deg); } 49% { opacity:1; transform:perspective(1000px) rotateY(-90deg); z-index:100; } 50% { opacity:0; } 100% { opacity:0; transform:perspective(1000px) rotateY(-180deg); } }
+  @keyframes flipBack { 0% { opacity:0; transform:perspective(1000px) rotateY(-180deg); } 50% { opacity:0; } 51% { opacity:1; transform:perspective(1000px) rotateY(-90deg); z-index:100; } 100% { opacity:1; transform:perspective(1000px) rotateY(0deg); } }
 
   /* ── NAV BUTTONS ── */
-  .nav-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: var(--btn-bg);
-    border: 1px solid var(--border);
-    color: var(--gold);
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s, border-color 0.2s;
-    z-index: 20;
-  }
-
+  .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: var(--btn-bg); border: 1px solid var(--border); color: var(--gold); width: 42px; height: 42px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: background 0.2s, border-color 0.2s; z-index: 20; }
   .nav-btn:hover { background: var(--btn-hover); border-color: var(--gold); }
   .nav-btn:disabled { opacity: 0.2; cursor: default; }
   #btn-prev { left: -44px; }
@@ -394,9 +256,7 @@
 
   /* ── CONTROLS ── */
   #controls { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
-
   #spread-indicator { font-family: 'Cinzel', serif; font-size: clamp(0.55rem, 1.5vw, 0.75rem); color: var(--text); letter-spacing: 0.1em; min-width: 100px; text-align: center; }
-
   .jump-form { display: flex; align-items: center; gap: 6px; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 4px 10px; }
   .jump-form label { font-family: 'Cinzel', serif; font-size: clamp(0.5rem, 1.2vw, 0.65rem); color: var(--label-color); letter-spacing: 0.1em; white-space: nowrap; }
   .jump-form input { width: 48px; background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--input-color); font-family: 'Cinzel', serif; font-size: clamp(0.6rem, 1.3vw, 0.72rem); text-align: center; outline: none; padding: 2px 0; }
@@ -416,7 +276,6 @@
   .form-row input:focus, .form-row textarea:focus { border-color: var(--gold); }
   .form-row textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
   .form-row input::placeholder, .form-row textarea::placeholder { color: var(--text-dim); font-style: italic; }
-
   .public-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
   .toggle-wrap { position: relative; width: 36px; height: 20px; flex-shrink: 0; }
   .toggle-wrap input { opacity: 0; width: 0; height: 0; position: absolute; }
@@ -426,7 +285,6 @@
   .toggle-wrap input:checked + .toggle-slider::before { transform: translateX(16px); }
   .public-label { font-family: 'Cinzel', serif; font-size: clamp(0.45rem, 1.1vw, 0.58rem); letter-spacing: 0.15em; color: var(--form-heading); text-transform: uppercase; line-height: 1.4; }
   .public-label span { display: block; font-family: 'Cormorant Garamond', serif; font-size: clamp(0.6rem, 1.4vw, 0.72rem); letter-spacing: 0.03em; color: var(--text-dim); text-transform: none; font-style: italic; margin-top: 2px; }
-
   #submit-btn { width: 100%; padding: 10px; background: var(--btn-bg); border: 1px solid var(--border); border-radius: 3px; color: var(--gold); font-family: 'Cinzel', serif; font-size: clamp(0.5rem, 1.2vw, 0.65rem); letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: background 0.2s, border-color 0.2s; margin-top: 4px; }
   #submit-btn:hover { background: var(--btn-hover); border-color: var(--gold); }
   #form-message { text-align: center; margin-top: 12px; font-family: 'Cormorant Garamond', serif; font-size: clamp(0.65rem, 1.5vw, 0.8rem); font-style: italic; color: var(--text); min-height: 1.2em; }
@@ -438,7 +296,6 @@
 </head>
 <body>
 
-<!-- Definition bubble -->
 <div id="definition-bubble">
   <div id="def-word"></div>
   <div id="def-type"></div>
@@ -446,13 +303,13 @@
   <div id="def-loading">Looking up…</div>
 </div>
 
-<!-- Theme toggle -->
+<div id="share-toast">Page text copied to clipboard</div>
+
 <button id="theme-toggle" aria-label="Toggle light/dark mode">
   <span class="theme-icon" id="theme-icon">☀</span>
   <span id="theme-label">Light</span>
 </button>
 
-<!-- Search bar -->
 <div id="search-bar">
   <label for="search-input">Find</label>
   <input type="text" id="search-input" placeholder="Search text in the book…">
@@ -501,7 +358,11 @@
             <p>Continue your story here, adding as many paragraphs as the page will hold comfortably.</p>
             <!-- END EDIT -->
           </div>
-          <div class="page-footer"><span class="page-number">1</span></div>
+          <div class="page-footer">
+            <button class="bookmark-btn" aria-label="Bookmark this page">🔖</button>
+            <span class="page-number">1</span>
+            <button class="share-btn" aria-label="Share this page">↑</button>
+          </div>
         </div>
       </div>
 
@@ -515,7 +376,11 @@
             <p>Use this space to develop your ideas.</p>
             <!-- END EDIT -->
           </div>
-          <div class="page-footer"><span class="page-number">2</span></div>
+          <div class="page-footer">
+            <button class="bookmark-btn" aria-label="Bookmark this page">🔖</button>
+            <span class="page-number">2</span>
+            <button class="share-btn" aria-label="Share this page">↑</button>
+          </div>
         </div>
       </div>
 
@@ -540,7 +405,8 @@
   </div>
 </div>
 
-<!-- ── COMMENT SECTION ── -->
+<div id="bookmark-indicator"></div>
+
 <section id="comment-section">
   <div class="comment-heading">Leave a Comment or Question</div>
   <form id="comment-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
@@ -583,21 +449,18 @@
   const btn  = document.getElementById('theme-toggle');
   const icon = document.getElementById('theme-icon');
   const lbl  = document.getElementById('theme-label');
-
   const saved = localStorage.getItem('noegenesis-theme') || 'light';
   html.setAttribute('data-theme', saved);
-  updateUI(saved);
-
+  updateThemeUI(saved);
   btn.addEventListener('click', () => {
     const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     html.setAttribute('data-theme', next);
     localStorage.setItem('noegenesis-theme', next);
-    updateUI(next);
+    updateThemeUI(next);
   });
-
-  function updateUI(theme) {
+  function updateThemeUI(theme) {
     if (theme === 'dark') { icon.textContent = '☀'; lbl.textContent = 'Light'; }
-    else                  { icon.textContent = '☾'; lbl.textContent = 'Dark';  }
+    else                  { icon.textContent = '☾'; lbl.textContent = 'Dark'; }
   }
 })();
 
@@ -620,9 +483,7 @@ const ReaderState = (function () {
   let current  = 0;
   let animating = false;
 
-  function pageLabel(i) {
-    return i === 0 ? 'Cover' : 'Page ' + i + ' of ' + totalContent;
-  }
+  function pageLabel(i) { return i === 0 ? 'Cover' : 'Page ' + i + ' of ' + totalContent; }
 
   function updateUI() {
     indicator.textContent = pageLabel(current);
@@ -642,7 +503,6 @@ const ReaderState = (function () {
       arriving.classList.add('active');
       current = index;
       updateUI();
-      localStorage.setItem('flipbook-page', current);
       animating = false;
     }, 500);
   }
@@ -670,15 +530,131 @@ const ReaderState = (function () {
     if (Math.abs(dx) > 40) dx < 0 ? goTo(current + 1, 'next') : goTo(current - 1, 'prev');
   }, { passive: true });
 
-  const saved = parseInt(localStorage.getItem('flipbook-page'), 10);
-  if (saved && saved >= 1 && saved < total) goTo(saved, 'next');
-  else updateUI();
+  updateUI();
 
   return { goTo, pages, total, getCurrent: () => current };
 })();
 
 // ══════════════════════════════════════════
-// TEXT SEARCH — finds text and jumps to page
+// BOOKMARK
+// ══════════════════════════════════════════
+(function () {
+  const STORAGE_KEY  = 'noegenesis-bookmark-lam';
+  const indicator    = document.getElementById('bookmark-indicator');
+  let bookmarkedPage = parseInt(localStorage.getItem(STORAGE_KEY), 10) || null;
+
+  function updateIndicator() {
+    if (bookmarkedPage !== null && bookmarkedPage > 0) {
+      indicator.textContent = '🔖 Bookmark on page ' + bookmarkedPage + ' — tap to return';
+    } else {
+      indicator.textContent = '';
+    }
+    // Update all bookmark buttons
+    document.querySelectorAll('.bookmark-btn').forEach(btn => {
+      const page = btn.closest('.page');
+      const pageNum = parseInt(page.getAttribute('data-page'), 10);
+      if (pageNum === bookmarkedPage) {
+        btn.classList.add('bookmarked');
+        btn.setAttribute('aria-label', 'Remove bookmark');
+      } else {
+        btn.classList.remove('bookmarked');
+        btn.setAttribute('aria-label', 'Bookmark this page');
+      }
+    });
+  }
+
+  // Click a bookmark button on a page
+  document.querySelectorAll('.bookmark-btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const page    = btn.closest('.page');
+      const pageNum = parseInt(page.getAttribute('data-page'), 10);
+
+      if (bookmarkedPage === pageNum) {
+        // Toggle off
+        bookmarkedPage = null;
+        localStorage.removeItem(STORAGE_KEY);
+      } else {
+        bookmarkedPage = pageNum;
+        localStorage.setItem(STORAGE_KEY, pageNum);
+      }
+      updateIndicator();
+    });
+  });
+
+  // Click the indicator text to jump back
+  indicator.addEventListener('click', () => {
+    if (bookmarkedPage !== null) {
+      ReaderState.goTo(bookmarkedPage, bookmarkedPage > ReaderState.getCurrent() ? 'next' : 'prev');
+    }
+  });
+
+  updateIndicator();
+})();
+
+// ══════════════════════════════════════════
+// SHARE PAGE
+// ══════════════════════════════════════════
+(function () {
+  const toast = document.getElementById('share-toast');
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('visible');
+    setTimeout(() => toast.classList.remove('visible'), 2800);
+  }
+
+  function getPageText(page) {
+    // Grab only the page-body text, clean whitespace
+    const body = page.querySelector('.page-body');
+    if (!body) return '';
+    return body.innerText.trim();
+  }
+
+  function getPageTitle(page) {
+    const header = page.querySelector('.page-header');
+    const num    = page.querySelector('.page-number');
+    const title  = header ? header.textContent.trim() : 'Light As Meaning';
+    const pgNum  = num ? ' — Page ' + num.textContent.trim() : '';
+    return title + pgNum;
+  }
+
+  document.querySelectorAll('.share-btn').forEach(btn => {
+    btn.addEventListener('click', async e => {
+      e.stopPropagation();
+      const page  = btn.closest('.page');
+      const text  = getPageText(page);
+      const title = getPageTitle(page);
+      const shareData = {
+        title: title,
+        text:  text + '\n\n— From "Light As Meaning" by Kawnur Earnlight\nmynoegenesis.com',
+      };
+
+      // Try native share sheet first (works on mobile)
+      if (navigator.share) {
+        try {
+          await navigator.share(shareData);
+        } catch (err) {
+          // User cancelled — no toast needed
+          if (err.name !== 'AbortError') {
+            showToast('Could not share — try copying instead');
+          }
+        }
+      } else {
+        // Desktop fallback: copy to clipboard
+        try {
+          await navigator.clipboard.writeText(shareData.text);
+          showToast('Page text copied to clipboard');
+        } catch {
+          showToast('Could not copy — please select and copy manually');
+        }
+      }
+    });
+  });
+})();
+
+// ══════════════════════════════════════════
+// TEXT SEARCH
 // ══════════════════════════════════════════
 (function () {
   const input    = document.getElementById('search-input');
@@ -689,7 +665,6 @@ const ReaderState = (function () {
   const prevBtn  = document.getElementById('search-prev-btn');
   const nextBtn  = document.getElementById('search-next-btn');
 
-  // Each match: { pageIndex, node, startOffset, length }
   let matches    = [];
   let matchIndex = 0;
 
@@ -708,12 +683,11 @@ const ReaderState = (function () {
       const walker = document.createTreeWalker(pages[i], NodeFilter.SHOW_TEXT, null);
       let node;
       while ((node = walker.nextNode())) {
-        const text  = node.textContent;
-        const lower = text.toLowerCase();
+        const lower = node.textContent.toLowerCase();
         const q     = query.toLowerCase();
         let pos = 0;
         while ((pos = lower.indexOf(q, pos)) !== -1) {
-          matches.push({ pageIndex: i, node, startOffset: pos, length: query.length });
+          matches.push({ pageIndex: i, startOffset: pos, length: query.length });
           pos += query.length;
         }
       }
@@ -734,7 +708,6 @@ const ReaderState = (function () {
         if (!lower.includes(q)) return;
         const mark  = document.createElement('mark');
         mark.className = 'search-highlight';
-        // Only wrap first occurrence per text node to avoid range complexity
         const idx = lower.indexOf(q);
         try {
           const range = document.createRange();
@@ -751,7 +724,6 @@ const ReaderState = (function () {
     matchIndex = (idx + matches.length) % matches.length;
     const match = matches[matchIndex];
     countEl.textContent = (matchIndex + 1) + ' of ' + matches.length;
-
     const current = ReaderState.getCurrent();
     if (match.pageIndex !== current) {
       ReaderState.goTo(match.pageIndex, match.pageIndex > current ? 'next' : 'prev');
@@ -765,46 +737,26 @@ const ReaderState = (function () {
     resultEl.textContent = '';
     matches    = [];
     matchIndex = 0;
-
     if (!query) return;
-
     buildMatches(query);
-
-    if (!matches.length) {
-      resultEl.textContent = 'Not found';
-      return;
-    }
-
+    if (!matches.length) { resultEl.textContent = 'Not found'; return; }
     highlightAll(query);
-    navEl.style.display = 'flex';
-
-    if (matches.length === 1) {
-      resultEl.textContent = '1 result';
-    } else {
-      resultEl.textContent = matches.length + ' results';
-    }
-
+    navEl.style.display  = 'flex';
+    resultEl.textContent = matches.length + (matches.length === 1 ? ' result' : ' results');
     goToMatch(0);
   }
 
   btn.addEventListener('click', doSearch);
   input.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
   input.addEventListener('input', () => {
-    if (!input.value) {
-      clearHighlights();
-      resultEl.textContent = '';
-      navEl.style.display  = 'none';
-      matches = [];
-    }
+    if (!input.value) { clearHighlights(); resultEl.textContent = ''; navEl.style.display = 'none'; matches = []; }
   });
-
   nextBtn.addEventListener('click', () => goToMatch(matchIndex + 1));
   prevBtn.addEventListener('click', () => goToMatch(matchIndex - 1));
 })();
 
-
 // ══════════════════════════════════════════
-// DEFINITION LOOKUP — long-press / right-click
+// DEFINITION LOOKUP
 // ══════════════════════════════════════════
 (function () {
   const bubble  = document.getElementById('definition-bubble');
@@ -812,80 +764,47 @@ const ReaderState = (function () {
   const defType = document.getElementById('def-type');
   const defText = document.getElementById('def-text');
   const defLoad = document.getElementById('def-loading');
-
   let longPressTimer = null;
-  let lastWord       = '';
+  let lastWord = '';
 
-  function cleanWord(w) {
-    return w.replace(/[^a-zA-Z'-]/g, '').toLowerCase();
-  }
+  function cleanWord(w) { return w.replace(/[^a-zA-Z'-]/g, '').toLowerCase(); }
 
   function getSelectedWord() {
     const sel = window.getSelection();
-    if (sel && sel.toString().trim()) {
-      return cleanWord(sel.toString().trim().split(/\s+/)[0]);
-    }
+    if (sel && sel.toString().trim()) return cleanWord(sel.toString().trim().split(/\s+/)[0]);
     return null;
   }
 
   function showBubble(x, y) {
     bubble.style.display = 'block';
-    // Position above the touch/click point
     const bw = 260;
     let left = x - bw / 2;
     if (left < 8) left = 8;
     if (left + bw > window.innerWidth - 8) left = window.innerWidth - bw - 8;
     bubble.style.left = left + 'px';
     bubble.style.top  = (y - bubble.offsetHeight - 16) + 'px';
-    // Recalculate after display
-    requestAnimationFrame(() => {
-      bubble.style.top = (y - bubble.offsetHeight - 16) + 'px';
-    });
+    requestAnimationFrame(() => { bubble.style.top = (y - bubble.offsetHeight - 16) + 'px'; });
   }
 
-  function hideBubble() {
-    bubble.style.display = 'none';
-    lastWord = '';
-  }
+  function hideBubble() { bubble.style.display = 'none'; lastWord = ''; }
 
   async function lookupWord(word, x, y) {
     if (!word || word === lastWord) return;
     lastWord = word;
-
-    defWord.textContent  = word;
-    defType.textContent  = '';
-    defText.textContent  = '';
-    defLoad.style.display = 'block';
-    bubble.style.display  = 'block';
+    defWord.textContent = word; defType.textContent = ''; defText.textContent = '';
+    defLoad.style.display = 'block'; bubble.style.display = 'block';
     showBubble(x, y);
-
     try {
       const res  = await fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + encodeURIComponent(word));
       const data = await res.json();
       defLoad.style.display = 'none';
-
-      if (!Array.isArray(data) || !data[0]) {
-        defText.textContent = 'No definition found.';
-        showBubble(x, y);
-        return;
-      }
-
-      const entry   = data[0];
-      const meaning = entry.meanings[0];
-      const defn    = meaning.definitions[0];
-
-      defWord.textContent = entry.word;
-      defType.textContent = meaning.partOfSpeech;
-      defText.textContent = defn.definition;
+      if (!Array.isArray(data) || !data[0]) { defText.textContent = 'No definition found.'; showBubble(x, y); return; }
+      const entry = data[0]; const meaning = entry.meanings[0]; const defn = meaning.definitions[0];
+      defWord.textContent = entry.word; defType.textContent = meaning.partOfSpeech; defText.textContent = defn.definition;
       showBubble(x, y);
-    } catch {
-      defLoad.style.display = 'none';
-      defText.textContent   = 'Could not fetch definition.';
-      showBubble(x, y);
-    }
+    } catch { defLoad.style.display = 'none'; defText.textContent = 'Could not fetch definition.'; showBubble(x, y); }
   }
 
-  // Right-click on desktop
   document.getElementById('book').addEventListener('contextmenu', e => {
     const word = getSelectedWord();
     if (!word) return;
@@ -893,7 +812,6 @@ const ReaderState = (function () {
     lookupWord(word, e.clientX, e.clientY);
   });
 
-  // Long-press on mobile
   document.getElementById('book').addEventListener('touchstart', e => {
     longPressTimer = setTimeout(() => {
       const word = getSelectedWord();
@@ -903,23 +821,12 @@ const ReaderState = (function () {
     }, 600);
   }, { passive: true });
 
-  document.getElementById('book').addEventListener('touchend', () => {
-    clearTimeout(longPressTimer);
-  }, { passive: true });
+  document.getElementById('book').addEventListener('touchend',  () => clearTimeout(longPressTimer), { passive: true });
+  document.getElementById('book').addEventListener('touchmove', () => clearTimeout(longPressTimer), { passive: true });
 
-  document.getElementById('book').addEventListener('touchmove', () => {
-    clearTimeout(longPressTimer);
-  }, { passive: true });
-
-  // Tap anywhere outside bubble to dismiss
-  document.addEventListener('click', e => {
-    if (!bubble.contains(e.target)) hideBubble();
-  });
-
+  document.addEventListener('click', e => { if (!bubble.contains(e.target)) hideBubble(); });
   document.addEventListener('touchend', e => {
-    if (!bubble.contains(e.target) && !document.getElementById('book').contains(e.target)) {
-      hideBubble();
-    }
+    if (!bubble.contains(e.target) && !document.getElementById('book').contains(e.target)) hideBubble();
   }, { passive: true });
 })();
 
@@ -933,30 +840,16 @@ document.getElementById('public-toggle').addEventListener('change', function () 
 (function () {
   const form = document.getElementById('comment-form');
   const msg  = document.getElementById('form-message');
-
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
     const btn = document.getElementById('submit-btn');
-    btn.textContent = 'Sending…';
-    btn.disabled    = true;
+    btn.textContent = 'Sending…'; btn.disabled = true;
     try {
-      const res = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      });
-      if (res.ok) {
-        msg.textContent = 'Your message has been received. Thank you.';
-        form.reset();
-        document.getElementById('public-value').value = 'No';
-      } else {
-        msg.textContent = 'Something went wrong. Please try again or email directly.';
-      }
-    } catch {
-      msg.textContent = 'Could not send. Please check your connection.';
-    }
-    btn.textContent = 'Send ✦';
-    btn.disabled    = false;
+      const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
+      if (res.ok) { msg.textContent = 'Your message has been received. Thank you.'; form.reset(); document.getElementById('public-value').value = 'No'; }
+      else { msg.textContent = 'Something went wrong. Please try again or email directly.'; }
+    } catch { msg.textContent = 'Could not send. Please check your connection.'; }
+    btn.textContent = 'Send ✦'; btn.disabled = false;
   });
 })();
 </script>
