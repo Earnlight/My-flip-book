@@ -30,7 +30,6 @@
     overflow-x: hidden;
   }
 
-  /* ── HEADER ── */
   header {
     text-align: center;
     padding: clamp(48px, 10vw, 100px) 24px clamp(32px, 6vw, 64px);
@@ -62,9 +61,7 @@
     color: var(--gold-light);
     line-height: 1.1;
     letter-spacing: 0.04em;
-    text-shadow:
-      0 0 60px rgba(201, 168, 76, 0.15),
-      0 2px 20px rgba(0,0,0,0.8);
+    text-shadow: 0 0 60px rgba(201, 168, 76, 0.15), 0 2px 20px rgba(0,0,0,0.8);
     animation: fadeDown 1s 0.15s ease both;
   }
 
@@ -95,7 +92,6 @@
     animation: fadeDown 1s 0.45s ease both;
   }
 
-  /* ── GRID ── */
   .library {
     max-width: 1100px;
     margin: 0 auto;
@@ -109,10 +105,33 @@
     color: rgba(201, 168, 76, 0.35);
     text-transform: uppercase;
     text-align: center;
-    margin-bottom: clamp(24px, 4vw, 48px);
+    margin-bottom: clamp(20px, 3vw, 36px);
     animation: fadeUp 1s 0.5s ease both;
   }
 
+  /* ── FRONT MATTER: centred row ── */
+  .front-matter {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: clamp(12px, 2vw, 20px);
+    margin-bottom: clamp(24px, 4vw, 40px);
+  }
+
+  .front-matter .book-btn {
+    width: clamp(200px, 28vw, 300px);
+    flex-shrink: 0;
+  }
+
+  /* ── DIVIDER between front matter and chapters ── */
+  .grid-divider {
+    width: min(300px, 60%);
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,168,76,0.25), transparent);
+    margin: 0 auto clamp(24px, 4vw, 40px);
+  }
+
+  /* ── MAIN GRID ── */
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
@@ -159,9 +178,7 @@
   .book-btn:hover {
     border-color: rgba(201, 168, 76, 0.5);
     transform: translateY(-2px) translateX(2px);
-    box-shadow:
-      0 8px 32px rgba(0,0,0,0.5),
-      inset 0 1px 0 rgba(201, 168, 76, 0.1);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(201, 168, 76, 0.1);
   }
 
   .book-btn:hover::before { opacity: 1; }
@@ -213,42 +230,45 @@
     z-index: 1;
   }
 
-  .book-btn:hover .btn-arrow {
-    color: var(--gold);
-    transform: translateX(3px);
-  }
+  .book-btn:hover .btn-arrow { color: var(--gold); transform: translateX(3px); }
 
-  .book-btn:nth-child(1)  { animation-delay: 0.05s; }
-  .book-btn:nth-child(2)  { animation-delay: 0.10s; }
-  .book-btn:nth-child(3)  { animation-delay: 0.15s; }
-  .book-btn:nth-child(4)  { animation-delay: 0.20s; }
-  .book-btn:nth-child(5)  { animation-delay: 0.25s; }
-  .book-btn:nth-child(6)  { animation-delay: 0.30s; }
-  .book-btn:nth-child(7)  { animation-delay: 0.35s; }
-  .book-btn:nth-child(8)  { animation-delay: 0.40s; }
-  .book-btn:nth-child(9)  { animation-delay: 0.45s; }
-  .book-btn:nth-child(10) { animation-delay: 0.50s; }
-  .book-btn:nth-child(11) { animation-delay: 0.55s; }
-  .book-btn:nth-child(12) { animation-delay: 0.60s; }
-  .book-btn:nth-child(13) { animation-delay: 0.65s; }
-  .book-btn:nth-child(14) { animation-delay: 0.70s; }
-  .book-btn:nth-child(15) { animation-delay: 0.75s; }
-  .book-btn:nth-child(16) { animation-delay: 0.80s; }
-  .book-btn:nth-child(17) { animation-delay: 0.85s; }
-  .book-btn:nth-child(18) { animation-delay: 0.90s; }
-  .book-btn:nth-child(19) { animation-delay: 0.95s; }
-  .book-btn:nth-child(20) { animation-delay: 1.00s; }
-  .book-btn:nth-child(21) { animation-delay: 1.05s; }
-  .book-btn:nth-child(22) { animation-delay: 1.10s; }
-  .book-btn:nth-child(23) { animation-delay: 1.15s; }
-  .book-btn:nth-child(24) { animation-delay: 1.20s; }
-  .book-btn:nth-child(25) { animation-delay: 1.25s; }
-  .book-btn:nth-child(26) { animation-delay: 1.30s; }
-  .book-btn:nth-child(27) { animation-delay: 1.35s; }
-  .book-btn:nth-child(28) { animation-delay: 1.40s; }
-  .book-btn:nth-child(29) { animation-delay: 1.45s; }
+  /* Staggered delays — front matter */
+  .front-matter .book-btn:nth-child(1) { animation-delay: 0.05s; }
+  .front-matter .book-btn:nth-child(2) { animation-delay: 0.10s; }
+  .front-matter .book-btn:nth-child(3) { animation-delay: 0.15s; }
 
-  /* ── CONTACT SECTION ── */
+  /* Staggered delays — main grid */
+  .grid .book-btn:nth-child(1)  { animation-delay: 0.20s; }
+  .grid .book-btn:nth-child(2)  { animation-delay: 0.25s; }
+  .grid .book-btn:nth-child(3)  { animation-delay: 0.30s; }
+  .grid .book-btn:nth-child(4)  { animation-delay: 0.35s; }
+  .grid .book-btn:nth-child(5)  { animation-delay: 0.40s; }
+  .grid .book-btn:nth-child(6)  { animation-delay: 0.45s; }
+  .grid .book-btn:nth-child(7)  { animation-delay: 0.50s; }
+  .grid .book-btn:nth-child(8)  { animation-delay: 0.55s; }
+  .grid .book-btn:nth-child(9)  { animation-delay: 0.60s; }
+  .grid .book-btn:nth-child(10) { animation-delay: 0.65s; }
+  .grid .book-btn:nth-child(11) { animation-delay: 0.70s; }
+  .grid .book-btn:nth-child(12) { animation-delay: 0.75s; }
+  .grid .book-btn:nth-child(13) { animation-delay: 0.80s; }
+  .grid .book-btn:nth-child(14) { animation-delay: 0.85s; }
+  .grid .book-btn:nth-child(15) { animation-delay: 0.90s; }
+  .grid .book-btn:nth-child(16) { animation-delay: 0.95s; }
+  .grid .book-btn:nth-child(17) { animation-delay: 1.00s; }
+  .grid .book-btn:nth-child(18) { animation-delay: 1.05s; }
+  .grid .book-btn:nth-child(19) { animation-delay: 1.10s; }
+  .grid .book-btn:nth-child(20) { animation-delay: 1.15s; }
+  .grid .book-btn:nth-child(21) { animation-delay: 1.20s; }
+  .grid .book-btn:nth-child(22) { animation-delay: 1.25s; }
+  .grid .book-btn:nth-child(23) { animation-delay: 1.30s; }
+  .grid .book-btn:nth-child(24) { animation-delay: 1.35s; }
+  .grid .book-btn:nth-child(25) { animation-delay: 1.40s; }
+  .grid .book-btn:nth-child(26) { animation-delay: 1.45s; }
+  .grid .book-btn:nth-child(27) { animation-delay: 1.50s; }
+  .grid .book-btn:nth-child(28) { animation-delay: 1.55s; }
+  .grid .book-btn:nth-child(29) { animation-delay: 1.60s; }
+
+  /* ── CONTACT ── */
   .contact {
     max-width: 1100px;
     margin: 0 auto;
@@ -298,12 +318,8 @@
     transform: translateY(-2px);
   }
 
-  .contact-btn .icon {
-    font-size: 1em;
-    opacity: 0.7;
-  }
+  .contact-btn .icon { font-size: 1em; opacity: 0.7; }
 
-  /* ── FOOTER ── */
   footer {
     text-align: center;
     padding: 24px 24px 40px;
@@ -318,7 +334,6 @@
     text-transform: uppercase;
   }
 
-  /* ── ANIMATIONS ── */
   @keyframes fadeDown {
     from { opacity: 0; transform: translateY(-16px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -329,7 +344,9 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 600px) {
+    .front-matter { flex-direction: column; align-items: stretch; }
+    .front-matter .book-btn { width: 100%; }
     .grid { grid-template-columns: 1fr; }
     .contact-links { flex-direction: column; align-items: stretch; }
     .contact-btn { justify-content: center; }
@@ -342,184 +359,211 @@
   <div class="header-ornament">✦ ✦ ✦</div>
   <h1 class="header-title">My Noegenesis</h1>
   <div class="header-divider"></div>
-  <div class="header-author">Kawnur Earnlight</div><br>
-  <div class="header-byline">A complete work in twenty-nine chapters</div>
+  <div class="header-author">Kawnur Earnlight</div>
+  <div class="header-byline">A complete work in thirty-two chapters</div>
 </header>
 
 <main class="library">
   <p class="section-label">Select a chapter to begin reading</p>
-  <div class="grid">
+
+  <!-- ── FRONT MATTER (centred) ── -->
+  <div class="front-matter">
+
+    <a href="introduction.html" class="book-btn">
+      <span class="btn-number">I</span><span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Introduction</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
 
     <a href="foreword.html" class="book-btn">
-      <span class="btn-number">I</span><span class="btn-divider"></span>
+      <span class="btn-number">II</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Foreword</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="authors-notes.html" class="book-btn">
-      <span class="btn-number">II</span><span class="btn-divider"></span>
+      <span class="btn-number">III</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Author's Notes</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
+  </div>
+
+  <div class="grid-divider"></div>
+
+  <!-- ── MAIN CHAPTERS ── -->
+  <div class="grid">
+
     <a href="light-as-meaning.html" class="book-btn">
-      <span class="btn-number">III</span><span class="btn-divider"></span>
+      <span class="btn-number">IV</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Light as Meaning</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="how-to-build-your-light.html" class="book-btn">
-      <span class="btn-number">IV</span><span class="btn-divider"></span>
+      <span class="btn-number">V</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">How to Build Your Light</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="advice.html" class="book-btn">
-      <span class="btn-number">V</span><span class="btn-divider"></span>
+      <span class="btn-number">VI</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Advice</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="our-heart.html" class="book-btn">
-      <span class="btn-number">VI</span><span class="btn-divider"></span>
+      <span class="btn-number">VII</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Our Heart</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="the-continuum.html" class="book-btn">
-      <span class="btn-number">VII</span><span class="btn-divider"></span>
+      <span class="btn-number">VIII</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">The Continuum</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
+    <a href="imagination.html" class="book-btn">
+      <span class="btn-number">IX</span><span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Imagination</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
+
     <a href="the-pen.html" class="book-btn">
-      <span class="btn-number">VIII</span><span class="btn-divider"></span>
+      <span class="btn-number">X</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">The Pen</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="greatness.html" class="book-btn">
-      <span class="btn-number">IX</span><span class="btn-divider"></span>
+      <span class="btn-number">XI</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Greatness</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="our-mind.html" class="book-btn">
-      <span class="btn-number">X</span><span class="btn-divider"></span>
+      <span class="btn-number">XII</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Our Mind</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="truth.html" class="book-btn">
-      <span class="btn-number">XI</span><span class="btn-divider"></span>
+      <span class="btn-number">XIII</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Truth</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="reality.html" class="book-btn">
-      <span class="btn-number">XII</span><span class="btn-divider"></span>
+      <span class="btn-number">XIV</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Reality</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="thoughts.html" class="book-btn">
-      <span class="btn-number">XIII</span><span class="btn-divider"></span>
+      <span class="btn-number">XV</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Thoughts</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="honour.html" class="book-btn">
-      <span class="btn-number">XIV</span><span class="btn-divider"></span>
+      <span class="btn-number">XVI</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Honour</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
+    <a href="power.html" class="book-btn">
+      <span class="btn-number">XVII</span><span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Power</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
+
     <a href="reason.html" class="book-btn">
-      <span class="btn-number">XV</span><span class="btn-divider"></span>
+      <span class="btn-number">XVIII</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Reason</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="purity.html" class="book-btn">
-      <span class="btn-number">XVI</span><span class="btn-divider"></span>
+      <span class="btn-number">XIX</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Purity</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="belief.html" class="book-btn">
-      <span class="btn-number">XVII</span><span class="btn-divider"></span>
+      <span class="btn-number">XX</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Belief</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="pleasure.html" class="book-btn">
-      <span class="btn-number">XVIII</span><span class="btn-divider"></span>
+      <span class="btn-number">XXI</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Pleasure</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="understanding.html" class="book-btn">
-      <span class="btn-number">XIX</span><span class="btn-divider"></span>
+      <span class="btn-number">XXII</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Understanding</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="morality.html" class="book-btn">
-      <span class="btn-number">XX</span><span class="btn-divider"></span>
+      <span class="btn-number">XXIII</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Morality</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="the-unseen.html" class="book-btn">
-      <span class="btn-number">XXI</span><span class="btn-divider"></span>
+      <span class="btn-number">XXIV</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">The Unseen</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="age-vs-evolution.html" class="book-btn">
-      <span class="btn-number">XXII</span><span class="btn-divider"></span>
+      <span class="btn-number">XXV</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Age vs Evolution</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="the-conscience.html" class="book-btn">
-      <span class="btn-number">XXIII</span><span class="btn-divider"></span>
+      <span class="btn-number">XXVI</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">The Conscience</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="gravitation.html" class="book-btn">
-      <span class="btn-number">XXIV</span><span class="btn-divider"></span>
+      <span class="btn-number">XXVII</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Gravitation</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="the-nature-of-life.html" class="book-btn">
-      <span class="btn-number">XXV</span><span class="btn-divider"></span>
+      <span class="btn-number">XXVIII</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">The Nature of Life</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="reading.html" class="book-btn">
-      <span class="btn-number">XXVI</span><span class="btn-divider"></span>
+      <span class="btn-number">XXIX</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Reading</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="delusion.html" class="book-btn">
-      <span class="btn-number">XXVII</span><span class="btn-divider"></span>
+      <span class="btn-number">XXX</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Delusion</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="weakness.html" class="book-btn">
-      <span class="btn-number">XXVIII</span><span class="btn-divider"></span>
+      <span class="btn-number">XXXI</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Weakness</span></span>
       <span class="btn-arrow">→</span>
     </a>
 
     <a href="the-finality.html" class="book-btn">
-      <span class="btn-number">XXIX</span><span class="btn-divider"></span>
+      <span class="btn-number">XXXII</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">The Finality</span></span>
       <span class="btn-arrow">→</span>
     </a>
@@ -556,4 +600,4 @@
 </footer>
 
 </body>
-</html>
+</html
