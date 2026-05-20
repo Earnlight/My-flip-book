@@ -49,7 +49,6 @@
     transform-style: preserve-3d;
   }
 
-  /* ── EACH PAGE ── */
   .page {
     position: absolute;
     inset: 0;
@@ -71,7 +70,6 @@
     pointer-events: auto;
   }
 
-  /* Subtle left-edge shadow to suggest pages beneath */
   .page::after {
     content: '';
     position: absolute;
@@ -81,7 +79,6 @@
     pointer-events: none;
   }
 
-  /* Page texture */
   .page::before {
     content: '';
     position: absolute;
@@ -92,7 +89,6 @@
     z-index: 1;
   }
 
-  /* ── COVER PAGE ── */
   .page-cover {
     background: linear-gradient(135deg, #2d1f0a 0%, #3d2910 50%, #1a0f02 100%);
     display: flex;
@@ -171,7 +167,6 @@
     letter-spacing: 0.04em;
   }
 
-  /* ── CONTENT PAGES ── */
   .page-inner {
     padding: clamp(16px, 6%, 48px);
     padding-top: clamp(20px, 7%, 56px);
@@ -252,7 +247,6 @@
     font-style: italic;
   }
 
-  /* ── FLIP ANIMATION ── */
   .flipping {
     animation: flipForward 0.5s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
   }
@@ -275,7 +269,6 @@
     100% { opacity: 1; transform: perspective(1000px) rotateY(0deg); }
   }
 
-  /* ── NAV BUTTONS ── */
   .nav-btn {
     position: absolute;
     top: 50%;
@@ -302,7 +295,6 @@
   #btn-prev { left: -60px; }
   #btn-next { right: -60px; }
 
-  /* ── CONTROLS ── */
   #controls {
     display: flex;
     align-items: center;
@@ -378,6 +370,33 @@
     filter: blur(6px);
     pointer-events: none;
   }
+
+  /* ── HOME BUTTON ── */
+  #home-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 14px;
+    padding: 5px 16px;
+    background: rgba(201, 168, 76, 0.08);
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    border-radius: 3px;
+    color: rgba(201, 168, 76, 0.55);
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.45rem, 1.1vw, 0.6rem);
+    letter-spacing: 0.2em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+
+  #home-btn:hover {
+    color: var(--gold);
+    border-color: rgba(201, 168, 76, 0.5);
+    background: rgba(201, 168, 76, 0.15);
+  }
+
+  #home-btn .arrow { font-size: 0.8em; }
 </style>
 </head>
 <body>
@@ -441,7 +460,6 @@
             <!-- END EDIT -->
           </div>
           <div class="page-footer">
-            
             <span class="page-number">2</span>
           </div>
         </div>
@@ -459,7 +477,6 @@
             <!-- END EDIT -->
           </div>
           <div class="page-footer">
-            
             <span class="page-number">3</span>
           </div>
         </div>
@@ -476,7 +493,6 @@
             <!-- END EDIT -->
           </div>
           <div class="page-footer">
-            
             <span class="page-number">4</span>
           </div>
         </div>
@@ -495,7 +511,6 @@
             <!-- END EDIT -->
           </div>
           <div class="page-footer">
-         
             <span class="page-number">5</span>
           </div>
         </div>
@@ -512,7 +527,6 @@
             <!-- END EDIT -->
           </div>
           <div class="page-footer">
-           
             <span class="page-number">6</span>
           </div>
         </div>
@@ -529,7 +543,6 @@
             <!-- END EDIT -->
           </div>
           <div class="page-footer">
-       
             <span class="page-number">7</span>
           </div>
         </div>
@@ -546,7 +559,6 @@
             <!-- END EDIT -->
           </div>
           <div class="page-footer">
-           
             <span class="page-number">8</span>
           </div>
         </div>
@@ -563,7 +575,6 @@
             <!-- END EDIT -->
           </div>
           <div class="page-footer">
-            
             <span class="page-number">9</span>
           </div>
         </div>
@@ -581,7 +592,6 @@
             <!-- END EDIT -->
           </div>
           <div class="page-footer">
-          
             <span class="page-number">10</span>
           </div>
         </div>
@@ -601,19 +611,22 @@
 <div id="controls">
   <span id="spread-indicator">Cover</span>
   <div class="jump-form">
-   <button id="cover-btn">Cover</button>
+    <button id="cover-btn">Cover</button>
     <label for="jump-input">Go to page</label>
     <input type="number" id="jump-input" min="1" placeholder="1–10">
     <button id="jump-btn">Go</button>
-    
   </div>
 </div>
+
+<a href="index.html" id="home-btn">
+  <span class="arrow">←</span> Library
+</a>
 
 <script>
 (function () {
   const pages = document.querySelectorAll('.page');
   const total = pages.length;
-  const totalContent = total - 1; // exclude cover
+  const totalContent = total - 1;
   const btnPrev = document.getElementById('btn-prev');
   const btnNext = document.getElementById('btn-next');
   const indicator = document.getElementById('spread-indicator');
@@ -640,13 +653,10 @@
   function goTo(index, direction) {
     if (animating || index === current || index < 0 || index >= total) return;
     animating = true;
-
     const leaving  = pages[current];
     const arriving = pages[index];
     const animClass = direction === 'next' ? 'flipping' : 'flipping-back';
-
     leaving.classList.add(animClass);
-
     setTimeout(() => {
       leaving.classList.remove('active', animClass);
       arriving.classList.add('active');
@@ -676,7 +686,6 @@
     if (e.key === 'Enter') jumpToPage(parseInt(jumpInput.value, 10));
   });
 
-  // Swipe
   let touchStartX = 0;
   document.getElementById('book').addEventListener('touchstart', e => {
     touchStartX = e.touches[0].clientX;
@@ -686,7 +695,6 @@
     if (Math.abs(dx) > 40) dx < 0 ? goTo(current + 1, 'next') : goTo(current - 1, 'prev');
   }, { passive: true });
 
-  // Restore saved position
   const saved = parseInt(localStorage.getItem('flipbook-page'), 10);
   if (saved && saved >= 1 && saved < total) {
     goTo(saved, 'next');
