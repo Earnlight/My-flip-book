@@ -55,32 +55,33 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 20px 80px 40px;
+  padding: 20px 20px 40px;
   font-family: 'Cormorant Garamond', Georgia, serif;
   overflow-x: hidden;
 }
 
+
   /* ── THEME TOGGLE ── */
   #theme-toggle {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    z-index: 100;
-    background: var(--btn-bg);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-family: 'Cinzel', serif;
-    font-size: 0.6rem;
-    letter-spacing: 0.15em;
-    padding: 6px 12px;
-    border-radius: 3px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: background 0.2s, border-color 0.2s, color 0.2s;
-    text-transform: uppercase;
-  }
+  align-self: flex-end;
+  margin-bottom: 12px;
+  position: static;
+  background: var(--btn-bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  padding: 6px 12px;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  text-transform: uppercase;
+}
+
 
   #theme-toggle:hover {
     background: var(--btn-hover);
@@ -92,10 +93,11 @@
 
   /* ── BOOK ── */
   #book-container {
-    position: relative;
-    width: min(480px, 75vw);
-    margin-top: 20px;
-  }
+  position: relative;
+  width: min(480px, 82vw);
+  margin-top: 8px;
+}
+
 
   #book-scene {
     width: 100%;
@@ -337,8 +339,9 @@
 
   .nav-btn:hover { background: var(--btn-hover); border-color: var(--gold); }
   .nav-btn:disabled { opacity: 0.2; cursor: default; }
-  #btn-prev { left: -60px; }
-  #btn-next { right: -60px; }
+  ##btn-prev { left: -48px; }
+  #btn-next { right: -48px; }
+
 
   #controls {
     display: flex;
