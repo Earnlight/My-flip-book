@@ -3,697 +3,516 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Light As Meaning</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<title>Light As Meaning — Lucius Earnlight</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --paper: #fdf8f0;
-    --paper-dark: #f0e8d8;
-    --ink: #2c2416;
-    --ink-light: #6b5c45;
     --gold: #c9a84c;
     --gold-light: #e8cc80;
+    --gold-dim: rgba(201, 168, 76, 0.4);
+    --bg: #0e0b06;
+    --surface: #1a1208;
+    --surface-2: #2d1f0a;
   }
+
+  html { scroll-behavior: smooth; }
 
   body {
-    height: 100vh;
-    overflow: hidden;
-    background: #1a1208;
+    min-height: 100vh;
+    background: var(--bg);
     background-image:
-      radial-gradient(ellipse at 20% 20%, #2d1f0a 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 80%, #0d0d0d 0%, transparent 60%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 80px;
+      radial-gradient(ellipse 80% 60% at 50% 0%, #2d1f0a 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 80% 100%, #1a0f02 0%, transparent 60%);
     font-family: 'Cormorant Garamond', Georgia, serif;
+    color: var(--gold-light);
+    overflow-x: hidden;
   }
 
-  #book-container {
+  /* ── HEADER ── */
+  header {
+    text-align: center;
+    padding: clamp(48px, 10vw, 100px) 24px clamp(32px, 6vw, 64px);
     position: relative;
-    width: min(480px, 75vw);
   }
 
-  #book-scene {
-    width: 100%;
-    perspective: 2500px;
+  header::after {
+    content: '';
+    display: block;
+    width: min(400px, 70%);
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 0 auto;
+    margin-top: clamp(24px, 4vw, 48px);
   }
 
-  #book {
+  .header-ornament {
+    font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+    color: var(--gold-dim);
+    letter-spacing: 0.5em;
+    margin-bottom: 0.8em;
+    animation: fadeDown 1s ease both;
+  }
+
+  .header-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2rem, 7vw, 5rem);
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1.1;
+    letter-spacing: 0.04em;
+    text-shadow:
+      0 0 60px rgba(201, 168, 76, 0.15),
+      0 2px 20px rgba(0,0,0,0.8);
+    animation: fadeDown 1s 0.15s ease both;
+  }
+
+  .header-divider {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 1.2em auto;
+    animation: fadeDown 1s 0.25s ease both;
+  }
+
+  .header-author {
+    font-size: clamp(0.9rem, 2vw, 1.2rem);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    animation: fadeDown 1s 0.35s ease both;
+  }
+
+  .header-byline {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.5rem, 1.2vw, 0.7rem);
+    letter-spacing: 0.3em;
+    color: rgba(201, 168, 76, 0.4);
+    text-transform: uppercase;
+    margin-top: 0.6em;
+    animation: fadeDown 1s 0.45s ease both;
+  }
+
+  /* ── GRID ── */
+  .library {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: clamp(32px, 6vw, 64px) clamp(20px, 5vw, 48px) clamp(64px, 10vw, 120px);
+  }
+
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.5rem, 1.2vw, 0.65rem);
+    letter-spacing: 0.35em;
+    color: rgba(201, 168, 76, 0.35);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: clamp(24px, 4vw, 48px);
+    animation: fadeUp 1s 0.5s ease both;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+    gap: clamp(12px, 2vw, 20px);
+  }
+
+  /* ── BOOK BUTTON ── */
+  .book-btn {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: clamp(14px, 2.5vw, 20px) clamp(16px, 3vw, 24px);
+    background: linear-gradient(135deg, rgba(45, 31, 10, 0.6) 0%, rgba(26, 18, 8, 0.8) 100%);
+    border: 1px solid rgba(201, 168, 76, 0.18);
+    border-radius: 4px;
+    text-decoration: none;
     position: relative;
-    width: 100%;
-    padding-top: min(140%, 68vh);
-    transform-style: preserve-3d;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.25s, box-shadow 0.3s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
   }
 
-  /* ── EACH PAGE ── */
-  .page {
+  .book-btn::before {
+    content: '';
     position: absolute;
     inset: 0;
-    background: var(--paper);
-    border-radius: 3px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    background: linear-gradient(135deg, rgba(201, 168, 76, 0.06) 0%, transparent 60%);
     opacity: 0;
-    pointer-events: none;
-    box-shadow:
-      4px 4px 20px rgba(0,0,0,0.5),
-      -2px 0 6px rgba(0,0,0,0.15);
-    transition: opacity 0.05s;
+    transition: opacity 0.3s;
   }
 
-  .page.active {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  /* Subtle left-edge shadow to suggest pages beneath */
-  .page::after {
+  .book-btn::after {
     content: '';
     position: absolute;
     left: 0; top: 0; bottom: 0;
-    width: 12px;
-    background: linear-gradient(to right, rgba(0,0,0,0.08), transparent);
-    pointer-events: none;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
   }
 
-  /* Page texture */
-  .page::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-    opacity: 0.4;
-    pointer-events: none;
-    z-index: 1;
+  .book-btn:hover {
+    border-color: rgba(201, 168, 76, 0.5);
+    transform: translateY(-2px) translateX(2px);
+    box-shadow:
+      0 8px 32px rgba(0,0,0,0.5),
+      0 0 0 1px rgba(201, 168, 76, 0.08),
+      inset 0 1px 0 rgba(201, 168, 76, 0.1);
   }
 
-  /* ── COVER PAGE ── */
-  .page-cover {
-    background: linear-gradient(135deg, #2d1f0a 0%, #3d2910 50%, #1a0f02 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  .book-btn:hover::before { opacity: 1; }
+  .book-btn:hover::after  { opacity: 1; }
 
-  .cover-border {
-    position: absolute;
-    inset: 5%;
-    border: 1px solid rgba(201, 168, 76, 0.3);
-    pointer-events: none;
-    z-index: 1;
-  }
+  .book-btn:hover .btn-number { color: var(--gold); }
+  .book-btn:hover .btn-title  { color: #f5e4b0; }
 
-  .cover-border::before {
-    content: '';
-    position: absolute;
-    inset: 4px;
-    border: 1px solid rgba(201, 168, 76, 0.15);
-  }
-
-  .cover-content {
-    text-align: center;
-    padding: 10%;
-    position: relative;
-    z-index: 2;
-  }
-
-  .cover-ornament {
-    color: var(--gold);
-    font-size: clamp(1rem, 4vw, 1.6rem);
-    margin-bottom: 0.5em;
-    letter-spacing: 0.3em;
-  }
-
-  .cover-title {
+  /* Number badge */
+  .btn-number {
     font-family: 'Cinzel', serif;
-    font-size: clamp(1.4rem, 5vw, 2.6rem);
+    font-size: clamp(0.55rem, 1.2vw, 0.68rem);
+    color: rgba(201, 168, 76, 0.35);
+    letter-spacing: 0.1em;
+    min-width: 28px;
+    transition: color 0.3s;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Vertical divider */
+  .btn-divider {
+    width: 1px;
+    height: 28px;
+    background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.25), transparent);
+    flex-shrink: 0;
+  }
+
+  .btn-text {
+    flex: 1;
+    position: relative;
+    z-index: 1;
+  }
+
+  .btn-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.7rem, 1.6vw, 0.9rem);
     font-weight: 600;
     color: var(--gold-light);
-    line-height: 1.2;
-    margin: 0.3em 0;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.5);
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
+    line-height: 1.3;
+    transition: color 0.3s;
   }
 
-  .cover-divider {
-    width: 60%;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--gold), transparent);
-    margin: 0.8em auto;
-  }
-
-  .cover-author {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(0.8rem, 2.5vw, 1.1rem);
-    color: var(--gold);
-    font-style: italic;
-    letter-spacing: 0.15em;
-  }
-
-  .cover-summary {
-    margin-top: 1.5em;
-    padding-top: 1em;
-    border-top: 1px solid rgba(201, 168, 76, 0.2);
-  }
-
-  .cover-summary p {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(0.65rem, 2vw, 0.85rem);
-    font-style: italic;
-    font-weight: 300;
-    color: rgba(232, 204, 128, 0.75);
-    line-height: 1.9;
-    letter-spacing: 0.04em;
-  }
-
-  /* ── CONTENT PAGES ── */
-  .page-inner {
-    padding: clamp(16px, 6%, 48px);
-    padding-top: clamp(20px, 7%, 56px);
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+  /* Arrow indicator */
+  .btn-arrow {
+    font-size: 0.7rem;
+    color: rgba(201, 168, 76, 0.2);
+    transition: color 0.3s, transform 0.3s;
+    flex-shrink: 0;
     position: relative;
-    z-index: 2;
+    z-index: 1;
   }
 
-  .page-header {
+  .book-btn:hover .btn-arrow {
+    color: var(--gold);
+    transform: translateX(3px);
+  }
+
+  /* Staggered animation delays */
+  .book-btn:nth-child(1)  { animation-delay: 0.05s; }
+  .book-btn:nth-child(2)  { animation-delay: 0.10s; }
+  .book-btn:nth-child(3)  { animation-delay: 0.15s; }
+  .book-btn:nth-child(4)  { animation-delay: 0.20s; }
+  .book-btn:nth-child(5)  { animation-delay: 0.25s; }
+  .book-btn:nth-child(6)  { animation-delay: 0.30s; }
+  .book-btn:nth-child(7)  { animation-delay: 0.35s; }
+  .book-btn:nth-child(8)  { animation-delay: 0.40s; }
+  .book-btn:nth-child(9)  { animation-delay: 0.45s; }
+  .book-btn:nth-child(10) { animation-delay: 0.50s; }
+  .book-btn:nth-child(11) { animation-delay: 0.55s; }
+  .book-btn:nth-child(12) { animation-delay: 0.60s; }
+  .book-btn:nth-child(13) { animation-delay: 0.65s; }
+  .book-btn:nth-child(14) { animation-delay: 0.70s; }
+  .book-btn:nth-child(15) { animation-delay: 0.75s; }
+  .book-btn:nth-child(16) { animation-delay: 0.80s; }
+  .book-btn:nth-child(17) { animation-delay: 0.85s; }
+  .book-btn:nth-child(18) { animation-delay: 0.90s; }
+  .book-btn:nth-child(19) { animation-delay: 0.95s; }
+  .book-btn:nth-child(20) { animation-delay: 1.00s; }
+  .book-btn:nth-child(21) { animation-delay: 1.05s; }
+  .book-btn:nth-child(22) { animation-delay: 1.10s; }
+  .book-btn:nth-child(23) { animation-delay: 1.15s; }
+  .book-btn:nth-child(24) { animation-delay: 1.20s; }
+  .book-btn:nth-child(25) { animation-delay: 1.25s; }
+  .book-btn:nth-child(26) { animation-delay: 1.30s; }
+  .book-btn:nth-child(27) { animation-delay: 1.35s; }
+  .book-btn:nth-child(28) { animation-delay: 1.40s; }
+  .book-btn:nth-child(29) { animation-delay: 1.45s; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 32px 24px 48px;
+    border-top: 1px solid rgba(201, 168, 76, 0.1);
+  }
+
+  footer p {
     font-family: 'Cinzel', serif;
-    font-size: clamp(0.45rem, 1.5vw, 0.65rem);
-    letter-spacing: 0.2em;
-    color: var(--ink-light);
+    font-size: clamp(0.45rem, 1.1vw, 0.6rem);
+    color: rgba(201, 168, 76, 0.25);
+    letter-spacing: 0.3em;
     text-transform: uppercase;
-    border-bottom: 1px solid var(--paper-dark);
-    padding-bottom: 0.6em;
-    margin-bottom: 1.2em;
-    text-align: center;
   }
 
-  .page-body {
-    flex: 1;
-    font-size: clamp(0.75rem, 2.2vw, 1rem);
-    line-height: 1.85;
-    color: var(--ink);
-    font-weight: 300;
-    text-align: justify;
-    hyphens: auto;
+  /* ── ANIMATIONS ── */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
-  .page-body p + p {
-    margin-top: 0.9em;
-    text-indent: 1.5em;
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
-  .chapter-title {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(1rem, 3vw, 1.5rem);
-    font-weight: 600;
-    color: var(--ink);
-    margin-bottom: 0.4em;
-    letter-spacing: 0.05em;
-    text-align: center;
-  }
-
-  .chapter-ornament {
-    color: var(--gold);
-    font-size: clamp(0.8rem, 2vw, 1rem);
-    text-align: center;
-    margin: 0.4em 0 1.2em;
-    letter-spacing: 0.3em;
-  }
-
-  .page-footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 0.6em;
-    border-top: 1px solid var(--paper-dark);
-    margin-top: auto;
-    position: relative;
-    z-index: 2;
-    gap: 1em;
-  }
-
-  .page-number {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(0.5rem, 1.5vw, 0.7rem);
-    color: var(--ink-light);
-    letter-spacing: 0.15em;
-  }
-
-  .page-title-footer {
-    font-size: clamp(0.45rem, 1.3vw, 0.65rem);
-    color: var(--ink-light);
-    font-style: italic;
-  }
-
-  /* ── FLIP ANIMATION ── */
-  .flipping {
-    animation: flipForward 0.5s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
-  }
-
-  .flipping-back {
-    animation: flipBack 0.5s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
-  }
-
-  @keyframes flipForward {
-    0%   { opacity: 1; transform: perspective(1000px) rotateY(0deg); }
-    49%  { opacity: 1; transform: perspective(1000px) rotateY(-90deg); z-index: 100; }
-    50%  { opacity: 0; }
-    100% { opacity: 0; transform: perspective(1000px) rotateY(-180deg); }
-  }
-
-  @keyframes flipBack {
-    0%   { opacity: 0; transform: perspective(1000px) rotateY(-180deg); }
-    50%  { opacity: 0; }
-    51%  { opacity: 1; transform: perspective(1000px) rotateY(-90deg); z-index: 100; }
-    100% { opacity: 1; transform: perspective(1000px) rotateY(0deg); }
-  }
-
-  /* ── NAV BUTTONS ── */
-  .nav-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(201, 168, 76, 0.15);
-    border: 1px solid rgba(201, 168, 76, 0.4);
-    color: var(--gold);
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s, border-color 0.2s;
-    z-index: 20;
-  }
-
-  .nav-btn:hover { background: rgba(201, 168, 76, 0.35); border-color: var(--gold); }
-  .nav-btn:disabled { opacity: 0.2; cursor: default; }
-  .nav-btn:disabled:hover { background: rgba(201, 168, 76, 0.15); }
-
-  #btn-prev { left: -60px; }
-  #btn-next { right: -60px; }
-
-  /* ── CONTROLS ── */
-  #controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 16px;
-    flex-wrap: wrap;
-  }
-
-  #spread-indicator {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(0.55rem, 1.5vw, 0.75rem);
-    color: rgba(201, 168, 76, 0.7);
-    letter-spacing: 0.1em;
-    min-width: 100px;
-    text-align: center;
-  }
-
-  .jump-form {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(201, 168, 76, 0.2);
-    border-radius: 4px;
-    padding: 4px 10px;
-  }
-
-  .jump-form label {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(0.5rem, 1.2vw, 0.65rem);
-    color: rgba(201, 168, 76, 0.6);
-    letter-spacing: 0.1em;
-    white-space: nowrap;
-  }
-
-  .jump-form input {
-    width: 48px;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid rgba(201, 168, 76, 0.3);
-    color: var(--gold-light);
-    font-family: 'Cinzel', serif;
-    font-size: clamp(0.6rem, 1.3vw, 0.72rem);
-    text-align: center;
-    outline: none;
-    padding: 2px 0;
-  }
-
-  .jump-form input::placeholder { color: rgba(201, 168, 76, 0.3); }
-
-  .jump-form button {
-    background: rgba(201, 168, 76, 0.15);
-    border: 1px solid rgba(201, 168, 76, 0.3);
-    color: var(--gold);
-    font-family: 'Cinzel', serif;
-    font-size: clamp(0.5rem, 1.1vw, 0.62rem);
-    letter-spacing: 0.1em;
-    padding: 3px 10px;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-
-  .jump-form button:hover { background: rgba(201, 168, 76, 0.3); }
-
-  #book-shadow {
-    position: absolute;
-    bottom: -16px;
-    left: 5%; right: 5%;
-    height: 24px;
-    background: radial-gradient(ellipse, rgba(0,0,0,0.6) 0%, transparent 70%);
-    filter: blur(6px);
-    pointer-events: none;
+  /* ── RESPONSIVE ── */
+  @media (max-width: 480px) {
+    .grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 
-<div id="book-container">
-  <div id="book-shadow"></div>
-  <div id="book-scene">
-    <div id="book">
+<header>
+  <div class="header-ornament">✦ ✦ ✦</div>
+  <h1 class="header-title">Light As Meaning</h1>
+  <div class="header-divider"></div>
+  <div class="header-author">Lucius Earnlight</div>
+  <div class="header-byline">A complete work in twenty-nine chapters</div>
+</header>
 
-      <!-- ============================================================
-           PAGE CONTENT
-           Each .page is one single page.
-           Page 0 = cover. Pages 1+ = content.
-           To add pages, copy a .page block and update the page number.
-           ============================================================ -->
+<main class="library">
+  <p class="section-label">Select a chapter to begin reading</p>
 
-      <!-- PAGE 0: COVER -->
-      <div class="page page-cover active" data-page="0">
-        <div class="cover-border"></div>
-        <div class="cover-content">
-          <div class="cover-ornament">✦ ✦ ✦</div>
-          <div class="cover-title">Light As Meaning</div>
-          <div class="cover-divider"></div>
-          <div class="cover-author">By Lucius Earnlight</div>
-          <div class="cover-summary">
-            <!-- EDIT SUMMARY TEXT BELOW -->
-            <p>The only thing we take with us from this world into the next life when we die is our light, the accumulation of which is the purpose of life.</p>
-            <!-- END EDIT -->
-          </div>
-        </div>
-      </div>
+  <div class="grid">
 
-      <!-- PAGE 1 -->
-      <div class="page" data-page="1">
-        <div class="page-inner">
-          <div class="page-header">Light As Meaning</div>
-          <div class="page-body">
-            <div class="chapter-title">Chapter One</div>
-            <div class="chapter-ornament">— ✦ —</div>
-            <!-- EDIT YOUR TEXT BELOW -->
-            <p>This is the opening of your first chapter. Replace this placeholder text with your own writing. The layout supports long-form prose beautifully, with generous line spacing and carefully chosen typography to make reading a pleasure.</p>
-            <p>You may write as much or as little as you like on each page. The text will flow naturally within the page boundaries.</p>
-            <p>Continue your story here, adding as many paragraphs as the page will hold comfortably.</p>
-            <!-- END EDIT -->
-          </div>
-          <div class="page-footer">
-            <span class="page-number">1</span>
-          </div>
-        </div>
-      </div>
+    <!-- Each href points to the HTML file for that chapter.
+         Name the files exactly as shown, or change the href to match whatever you name them. -->
 
-      <!-- PAGE 2 -->
-      <div class="page" data-page="2">
-        <div class="page-inner">
-          <div class="page-header">Light As Meaning</div>
-          <div class="page-body">
-            <!-- EDIT YOUR TEXT BELOW -->
-            <p>The story continues on this page. Each page now shows one full page of content, giving your writing more room to breathe.</p>
-            <p>Use this space to develop your ideas, characters, or arguments. The paper-coloured background and serif typography are designed to reduce eye strain during extended reading.</p>
-            <p>You can add as many pages as you need by duplicating the page blocks in the HTML.</p>
-            <!-- END EDIT -->
-          </div>
-          <div class="page-footer">
-            
-            <span class="page-number">2</span>
-          </div>
-        </div>
-      </div>
+    <a href="foreword.html" class="book-btn">
+      <span class="btn-number">I</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Foreword</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
 
-      <!-- PAGE 3 -->
-      <div class="page" data-page="3">
-        <div class="page-inner">
-          <div class="page-header">Light As Meaning</div>
-          <div class="page-body">
-            <!-- EDIT YOUR TEXT BELOW -->
-            <p>Page three begins here. This is an ideal place to deepen the narrative or introduce a new perspective.</p>
-            <p>Replace this paragraph with your own words. Every sentence should earn its place on the page — precise, purposeful, and true to your voice.</p>
-            <p>The beauty of a well-made book lies not only in what it contains, but in the care with which it presents its contents to the reader.</p>
-            <!-- END EDIT -->
-          </div>
-          <div class="page-footer">
-            
-            <span class="page-number">3</span>
-          </div>
-        </div>
-      </div>
+    <a href="authors-notes.html" class="book-btn">
+      <span class="btn-number">II</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Author's Notes</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
 
-      <!-- PAGE 4 -->
-      <div class="page" data-page="4">
-        <div class="page-inner">
-          <div class="page-header">Light As Meaning</div>
-          <div class="page-body">
-            <!-- EDIT YOUR TEXT BELOW -->
-            <p>Page four. Every word is a choice. Choose well.</p>
-            <p>A well-paced book gives the reader moments of rest between moments of intensity — vary your rhythm to keep the reading experience alive.</p>
-            <!-- END EDIT -->
-          </div>
-          <div class="page-footer">
-            
-            <span class="page-number">4</span>
-          </div>
-        </div>
-      </div>
+    <a href="light-as-meaning.html" class="book-btn">
+      <span class="btn-number">III</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Light as Meaning</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
 
-      <!-- PAGE 5 -->
-      <div class="page" data-page="5">
-        <div class="page-inner">
-          <div class="page-header">Light As Meaning</div>
-          <div class="page-body">
-            <div class="chapter-title">Chapter Two</div>
-            <div class="chapter-ornament">— ✦ —</div>
-            <!-- EDIT YOUR TEXT BELOW -->
-            <p>A new chapter begins. Use chapter breaks to signal a significant shift in time, perspective, or subject matter.</p>
-            <p>Write your chapter two opening here. Establish the new tone quickly — the first paragraph of a chapter carries enormous weight in setting expectations.</p>
-            <!-- END EDIT -->
-          </div>
-          <div class="page-footer">
-         
-            <span class="page-number">5</span>
-          </div>
-        </div>
-      </div>
+    <a href="how-to-build-your-light.html" class="book-btn">
+      <span class="btn-number">IV</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">How to Build Your Light</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
 
-      <!-- PAGE 6 -->
-      <div class="page" data-page="6">
-        <div class="page-inner">
-          <div class="page-header">Light As Meaning</div>
-          <div class="page-body">
-            <!-- EDIT YOUR TEXT BELOW -->
-            <p>Page six. By now your reader is invested. Honour that investment with writing that is honest, considered, and worthy of their time.</p>
-            <p>You may wish to use this space to develop an idea introduced on the previous page, or to introduce a tension that will carry through the remainder of the chapter.</p>
-            <!-- END EDIT -->
-          </div>
-          <div class="page-footer">
-           
-            <span class="page-number">6</span>
-          </div>
-        </div>
-      </div>
+    <a href="advice.html" class="book-btn">
+      <span class="btn-number">V</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Advice</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
 
-      <!-- PAGE 7 -->
-      <div class="page" data-page="7">
-        <div class="page-inner">
-          <div class="page-header">Light As Meaning</div>
-          <div class="page-body">
-            <!-- EDIT YOUR TEXT BELOW -->
-            <p>Page seven. The middle of a book is where many readers either commit fully or begin to drift. Make this section earn their continued attention.</p>
-            <p>The best books feel inevitable in retrospect — each page prepared the reader for the next without their noticing.</p>
-            <!-- END EDIT -->
-          </div>
-          <div class="page-footer">
-       
-            <span class="page-number">7</span>
-          </div>
-        </div>
-      </div>
+    <a href="our-heart.html" class="book-btn">
+      <span class="btn-number">VI</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Our Heart</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
 
-      <!-- PAGE 8 -->
-      <div class="page" data-page="8">
-        <div class="page-inner">
-          <div class="page-header">Light As Meaning</div>
-          <div class="page-body">
-            <!-- EDIT YOUR TEXT BELOW -->
-            <p>Page eight. Continue your narrative or argument here with confidence. By this point your reader trusts your voice — do not betray that trust with careless writing.</p>
-            <p>If this is a work of nonfiction, consider introducing a concrete example or illustration here to ground your ideas in lived reality.</p>
-            <!-- END EDIT -->
-          </div>
-          <div class="page-footer">
-           
-            <span class="page-number">8</span>
-          </div>
-        </div>
-      </div>
+    <a href="the-continuum.html" class="book-btn">
+      <span class="btn-number">VII</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">The Continuum</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
 
-      <!-- PAGE 9 -->
-      <div class="page" data-page="9">
-        <div class="page-inner">
-          <div class="page-header">Light As Meaning</div>
-          <div class="page-body">
-            <!-- EDIT YOUR TEXT BELOW -->
-            <p>The penultimate page. Begin drawing the threads together. A good ending is prepared long before it arrives.</p>
-            <p>Whatever you have promised your reader at the beginning, honour it here.</p>
-            <!-- END EDIT -->
-          </div>
-          <div class="page-footer">
-            
-            <span class="page-number">9</span>
-          </div>
-        </div>
-      </div>
+    <a href="the-pen.html" class="book-btn">
+      <span class="btn-number">VIII</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">The Pen</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
 
-      <!-- PAGE 10 -->
-      <div class="page" data-page="10">
-        <div class="page-inner">
-          <div class="page-header">Light As Meaning</div>
-          <div class="page-body">
-            <!-- EDIT YOUR TEXT BELOW -->
-            <p>The final page. End with something worth remembering. The last sentence of a book is the one that echoes longest in the reader's mind.</p>
-            <p>Thank you for reading.</p>
-            <div class="chapter-ornament" style="margin-top:2em;">✦</div>
-            <!-- END EDIT -->
-          </div>
-          <div class="page-footer">
-          
-            <span class="page-number">10</span>
-          </div>
-        </div>
-      </div>
+    <a href="greatness.html" class="book-btn">
+      <span class="btn-number">IX</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Greatness</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
 
-      <!-- ============================================================
-           END PAGE CONTENT
-           ============================================================ -->
+    <a href="our-mind.html" class="book-btn">
+      <span class="btn-number">X</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Our Mind</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
 
-    </div>
+    <a href="truth.html" class="book-btn">
+      <span class="btn-number">XI</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Truth</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
+
+    <a href="reality.html" class="book-btn">
+      <span class="btn-number">XII</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Reality</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
+
+    <a href="thoughts.html" class="book-btn">
+      <span class="btn-number">XIII</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Thoughts</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
+
+    <a href="honour.html" class="book-btn">
+      <span class="btn-number">XIV</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Honour</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
+
+    <a href="reason.html" class="book-btn">
+      <span class="btn-number">XV</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Reason</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
+
+    <a href="purity.html" class="book-btn">
+      <span class="btn-number">XVI</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Purity</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
+
+    <a href="belief.html" class="book-btn">
+      <span class="btn-number">XVII</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Belief</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
+
+    <a href="pleasure.html" class="book-btn">
+      <span class="btn-number">XVIII</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Pleasure</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
+
+    <a href="understanding.html" class="book-btn">
+      <span class="btn-number">XIX</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Understanding</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
+
+    <a href="morality.html" class="book-btn">
+      <span class="btn-number">XX</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Morality</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
+
+    <a href="the-unseen.html" class="book-btn">
+      <span class="btn-number">XXI</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">The Unseen</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
+
+    <a href="age-vs-evolution.html" class="book-btn">
+      <span class="btn-number">XXII</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Age vs Evolution</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
+
+    <a href="the-conscience.html" class="book-btn">
+      <span class="btn-number">XXIII</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">The Conscience</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
+
+    <a href="gravitation.html" class="book-btn">
+      <span class="btn-number">XXIV</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Gravitation</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
+
+    <a href="the-nature-of-life.html" class="book-btn">
+      <span class="btn-number">XXV</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">The Nature of Life</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
+
+    <a href="reading.html" class="book-btn">
+      <span class="btn-number">XXVI</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Reading</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
+
+    <a href="delusion.html" class="book-btn">
+      <span class="btn-number">XXVII</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Delusion</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
+
+    <a href="weakness.html" class="book-btn">
+      <span class="btn-number">XXVIII</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">Weakness</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
+
+    <a href="the-finality.html" class="book-btn">
+      <span class="btn-number">XXIX</span>
+      <span class="btn-divider"></span>
+      <span class="btn-text"><span class="btn-title">The Finality</span></span>
+      <span class="btn-arrow">→</span>
+    </a>
+
   </div>
+</main>
 
-  <button class="nav-btn" id="btn-prev" disabled aria-label="Previous page">&#8592;</button>
-  <button class="nav-btn" id="btn-next" aria-label="Next page">&#8594;</button>
-</div>
+<footer>
+  <p>Light As Meaning &nbsp;·&nbsp; Lucius Earnlight &nbsp;·&nbsp; All rights reserved</p>
+</footer>
 
-<div id="controls">
-  <span id="spread-indicator">Cover</span>
-  <div class="jump-form">
-   <button id="cover-btn">Cover</button>
-    <label for="jump-input">Go to page</label>
-    <input type="number" id="jump-input" min="1" placeholder="1–10">
-    <button id="jump-btn">Go</button>
-    
-  </div>
-</div>
-
-<script>
-(function () {
-  const pages = document.querySelectorAll('.page');
-  const total = pages.length;
-  const totalContent = total - 1; // exclude cover
-  const btnPrev = document.getElementById('btn-prev');
-  const btnNext = document.getElementById('btn-next');
-  const indicator = document.getElementById('spread-indicator');
-  const jumpInput = document.getElementById('jump-input');
-  const jumpBtn = document.getElementById('jump-btn');
-
-  jumpInput.max = totalContent;
-  jumpInput.placeholder = '1\u2013' + totalContent;
-
-  let current = 0;
-  let animating = false;
-
-  function pageLabel(index) {
-    if (index === 0) return 'Cover';
-    return 'Page ' + index + ' of ' + totalContent;
-  }
-
-  function updateUI() {
-    indicator.textContent = pageLabel(current);
-    btnPrev.disabled = current === 0;
-    btnNext.disabled = current === total - 1;
-  }
-
-  function goTo(index, direction) {
-    if (animating || index === current || index < 0 || index >= total) return;
-    animating = true;
-
-    const leaving  = pages[current];
-    const arriving = pages[index];
-    const animClass = direction === 'next' ? 'flipping' : 'flipping-back';
-
-    leaving.classList.add(animClass);
-
-    setTimeout(() => {
-      leaving.classList.remove('active', animClass);
-      arriving.classList.add('active');
-      current = index;
-      updateUI();
-      localStorage.setItem('flipbook-page', current);
-      animating = false;
-    }, 500);
-  }
-
-  btnNext.addEventListener('click', () => goTo(current + 1, 'next'));
-  btnPrev.addEventListener('click', () => goTo(current - 1, 'prev'));
-  document.getElementById('cover-btn').addEventListener('click', () => goTo(0, 'prev'));
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowRight') goTo(current + 1, 'next');
-    if (e.key === 'ArrowLeft')  goTo(current - 1, 'prev');
-  });
-
-  function jumpToPage(pageNum) {
-    if (isNaN(pageNum) || pageNum < 1 || pageNum > totalContent) return;
-    goTo(pageNum, pageNum > current ? 'next' : 'prev');
-  }
-
-  jumpBtn.addEventListener('click', () => jumpToPage(parseInt(jumpInput.value, 10)));
-  jumpInput.addEventListener('keydown', e => {
-    if (e.key === 'Enter') jumpToPage(parseInt(jumpInput.value, 10));
-  });
-
-  // Swipe
-  let touchStartX = 0;
-  document.getElementById('book').addEventListener('touchstart', e => {
-    touchStartX = e.touches[0].clientX;
-  }, { passive: true });
-  document.getElementById('book').addEventListener('touchend', e => {
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 40) dx < 0 ? goTo(current + 1, 'next') : goTo(current - 1, 'prev');
-  }, { passive: true });
-
-  // Restore saved position
-  const saved = parseInt(localStorage.getItem('flipbook-page'), 10);
-  if (saved && saved >= 1 && saved < total) {
-    goTo(saved, 'next');
-  } else {
-    updateUI();
-  }
-})();
-</script>
 </body>
 </html>
