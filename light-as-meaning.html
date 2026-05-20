@@ -641,14 +641,23 @@ const ReaderState = (function () {
           }
         }
       } else {
-        // Desktop fallback: copy to clipboard
-        try {
-          await navigator.clipboard.writeText(shareData.text);
-          showToast('Page text copied to clipboard');
-        } catch {
-          showToast('Could not copy — please select and copy manually');
-        }
-      }
+  // Fallback: use execCommand which works across more browsers
+  const textarea = document.createElement('textarea');
+  textarea.value = shareData.text;
+  textarea.style.position = 'fixed';
+  textarea.style.opacity  = '0';
+  document.body.appendChild(textarea);
+  textarea.focus();
+  textarea.select();
+  try {
+    const success = document.execCommand('copy');
+    showToast(success ? 'Page text copied to clipboard' : 'Could not copy — please select and copy manually');
+  } catch {
+    showToast('Could not copy — please select and copy manually');
+  }
+  document.body.removeChild(textarea);
+}
+
     });
   });
 })();
