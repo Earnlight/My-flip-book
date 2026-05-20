@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,32 +9,118 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --paper: #fdf8f0;
-    --paper-dark: #f0e8d8;
-    --ink: #2c2416;
-    --ink-light: #6b5c45;
-    --gold: #c9a84c;
-    --gold-light: #e8cc80;
+  --paper: #fdf8f0;
+  --paper-dark: #f0e8d8;
+  --ink: #2c2416;
+  --ink-light: #6b5c45;
+  --gold: #c9a84c;
+  --gold-light: #e8cc80;
+}
+
+[data-theme="dark"] .page {
+  --paper: #1c1810;
+  --paper-dark: #2a2218;
+  --ink: #e8e0d0;
+  --ink-light: #a09080;
+  background: #1c1810;
+}
+
+
+    /* Dark mode (default) */
+    --bg: #1a1208;
+    --bg-2: #2d1f0a;
+    --bg-3: #0d0d0d;
+    --surface: rgba(255,255,255,0.04);
+    --border: rgba(201, 168, 76, 0.2);
+    --text: rgba(201, 168, 76, 0.7);
+    --text-dim: rgba(201, 168, 76, 0.4);
+    --btn-bg: rgba(201, 168, 76, 0.15);
+    --btn-hover: rgba(201, 168, 76, 0.3);
+    --input-color: #e8cc80;
+    --label-color: rgba(201, 168, 76, 0.6);
+    --form-bg: rgba(255,255,255,0.03);
+    --form-border: rgba(201, 168, 76, 0.15);
+    --form-input-bg: rgba(255,255,255,0.05);
+    --form-input-border: rgba(201, 168, 76, 0.25);
+    --form-input-text: #e8cc80;
+    --form-heading: rgba(201, 168, 76, 0.5);
+    --home-color: rgba(201, 168, 76, 0.55);
+  }
+
+  [data-theme="light"] {
+    --bg: #f5efe3;
+    --bg-2: #ede3d0;
+    --bg-3: #e0d4be;
+    --surface: rgba(0,0,0,0.03);
+    --border: rgba(139, 90, 30, 0.25);
+    --text: rgba(100, 65, 20, 0.8);
+    --text-dim: rgba(100, 65, 20, 0.45);
+    --btn-bg: rgba(139, 90, 30, 0.1);
+    --btn-hover: rgba(139, 90, 30, 0.2);
+    --input-color: #5a3a10;
+    --label-color: rgba(100, 65, 20, 0.7);
+    --form-bg: rgba(0,0,0,0.03);
+    --form-border: rgba(139, 90, 30, 0.2);
+    --form-input-bg: rgba(255,255,255,0.6);
+    --form-input-border: rgba(139, 90, 30, 0.3);
+    --form-input-text: #3a2008;
+    --form-heading: rgba(100, 65, 20, 0.6);
+    --home-color: rgba(100, 65, 20, 0.55);
+    --gold: #9a6820;
+    --gold-light: #7a5218;
   }
 
   body {
-    height: 100vh;
-    overflow: hidden;
-    background: #1a1208;
+    min-height: 100vh;
+    background: var(--bg);
     background-image:
-      radial-gradient(ellipse at 20% 20%, #2d1f0a 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 80%, #0d0d0d 0%, transparent 60%);
+      radial-gradient(ellipse at 20% 20%, var(--bg-2) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, var(--bg-3) 0%, transparent 60%);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 20px 80px;
+    justify-content: flex-start;
+    padding: 20px 80px 40px;
     font-family: 'Cormorant Garamond', Georgia, serif;
+    transition: background 0.4s, color 0.4s;
+    overflow-x: hidden;
   }
 
+  /* ── THEME TOGGLE ── */
+  #theme-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 100;
+    background: var(--btn-bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    padding: 6px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    text-transform: uppercase;
+  }
+
+  #theme-toggle:hover {
+    background: var(--btn-hover);
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .theme-icon { font-size: 0.9rem; }
+
+  /* ── BOOK ── */
   #book-container {
     position: relative;
     width: min(480px, 75vw);
+    margin-top: 20px;
   }
 
   #book-scene {
@@ -59,16 +145,11 @@
     flex-direction: column;
     opacity: 0;
     pointer-events: none;
-    box-shadow:
-      4px 4px 20px rgba(0,0,0,0.5),
-      -2px 0 6px rgba(0,0,0,0.15);
+    box-shadow: 4px 4px 20px rgba(0,0,0,0.5), -2px 0 6px rgba(0,0,0,0.15);
     transition: opacity 0.05s;
   }
 
-  .page.active {
-    opacity: 1;
-    pointer-events: auto;
-  }
+  .page.active { opacity: 1; pointer-events: auto; }
 
   .page::after {
     content: '';
@@ -119,7 +200,7 @@
   }
 
   .cover-ornament {
-    color: var(--gold);
+    color: #c9a84c;
     font-size: clamp(1rem, 4vw, 1.6rem);
     margin-bottom: 0.5em;
     letter-spacing: 0.3em;
@@ -129,7 +210,7 @@
     font-family: 'Cinzel', serif;
     font-size: clamp(1.4rem, 5vw, 2.6rem);
     font-weight: 600;
-    color: var(--gold-light);
+    color: #e8cc80;
     line-height: 1.2;
     margin: 0.3em 0;
     text-shadow: 0 2px 12px rgba(0,0,0,0.5);
@@ -139,14 +220,14 @@
   .cover-divider {
     width: 60%;
     height: 1px;
-    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    background: linear-gradient(to right, transparent, #c9a84c, transparent);
     margin: 0.8em auto;
   }
 
   .cover-author {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(0.8rem, 2.5vw, 1.1rem);
-    color: var(--gold);
+    color: #c9a84c;
     font-style: italic;
     letter-spacing: 0.15em;
   }
@@ -199,10 +280,7 @@
     hyphens: auto;
   }
 
-  .page-body p + p {
-    margin-top: 0.9em;
-    text-indent: 1.5em;
-  }
+  .page-body p + p { margin-top: 0.9em; text-indent: 1.5em; }
 
   .chapter-title {
     font-family: 'Cinzel', serif;
@@ -215,7 +293,7 @@
   }
 
   .chapter-ornament {
-    color: var(--gold);
+    color: #c9a84c;
     font-size: clamp(0.8rem, 2vw, 1rem);
     text-align: center;
     margin: 0.4em 0 1.2em;
@@ -247,13 +325,8 @@
     font-style: italic;
   }
 
-  .flipping {
-    animation: flipForward 0.5s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
-  }
-
-  .flipping-back {
-    animation: flipBack 0.5s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards;
-  }
+  .flipping { animation: flipForward 0.5s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards; }
+  .flipping-back { animation: flipBack 0.5s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards; }
 
   @keyframes flipForward {
     0%   { opacity: 1; transform: perspective(1000px) rotateY(0deg); }
@@ -273,8 +346,8 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(201, 168, 76, 0.15);
-    border: 1px solid rgba(201, 168, 76, 0.4);
+    background: var(--btn-bg);
+    border: 1px solid var(--border);
     color: var(--gold);
     width: 42px;
     height: 42px;
@@ -288,10 +361,8 @@
     z-index: 20;
   }
 
-  .nav-btn:hover { background: rgba(201, 168, 76, 0.35); border-color: var(--gold); }
+  .nav-btn:hover { background: var(--btn-hover); border-color: var(--gold); }
   .nav-btn:disabled { opacity: 0.2; cursor: default; }
-  .nav-btn:disabled:hover { background: rgba(201, 168, 76, 0.15); }
-
   #btn-prev { left: -60px; }
   #btn-next { right: -60px; }
 
@@ -307,7 +378,7 @@
   #spread-indicator {
     font-family: 'Cinzel', serif;
     font-size: clamp(0.55rem, 1.5vw, 0.75rem);
-    color: rgba(201, 168, 76, 0.7);
+    color: var(--text);
     letter-spacing: 0.1em;
     min-width: 100px;
     text-align: center;
@@ -317,8 +388,8 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(201, 168, 76, 0.2);
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: 4px;
     padding: 4px 10px;
   }
@@ -326,7 +397,7 @@
   .jump-form label {
     font-family: 'Cinzel', serif;
     font-size: clamp(0.5rem, 1.2vw, 0.65rem);
-    color: rgba(201, 168, 76, 0.6);
+    color: var(--label-color);
     letter-spacing: 0.1em;
     white-space: nowrap;
   }
@@ -335,8 +406,8 @@
     width: 48px;
     background: transparent;
     border: none;
-    border-bottom: 1px solid rgba(201, 168, 76, 0.3);
-    color: var(--gold-light);
+    border-bottom: 1px solid var(--border);
+    color: var(--input-color);
     font-family: 'Cinzel', serif;
     font-size: clamp(0.6rem, 1.3vw, 0.72rem);
     text-align: center;
@@ -344,11 +415,11 @@
     padding: 2px 0;
   }
 
-  .jump-form input::placeholder { color: rgba(201, 168, 76, 0.3); }
+  .jump-form input::placeholder { color: var(--text-dim); }
 
   .jump-form button {
-    background: rgba(201, 168, 76, 0.15);
-    border: 1px solid rgba(201, 168, 76, 0.3);
+    background: var(--btn-bg);
+    border: 1px solid var(--border);
     color: var(--gold);
     font-family: 'Cinzel', serif;
     font-size: clamp(0.5rem, 1.1vw, 0.62rem);
@@ -359,7 +430,7 @@
     transition: background 0.2s;
   }
 
-  .jump-form button:hover { background: rgba(201, 168, 76, 0.3); }
+  .jump-form button:hover { background: var(--btn-hover); }
 
   #book-shadow {
     position: absolute;
@@ -371,17 +442,192 @@
     pointer-events: none;
   }
 
+  /* ── COMMENT SECTION ── */
+  #comment-section {
+    width: min(480px, 75vw);
+    margin-top: 32px;
+    background: var(--form-bg);
+    border: 1px solid var(--form-border);
+    border-radius: 4px;
+    padding: clamp(20px, 5%, 36px);
+  }
+
+  .comment-heading {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.55rem, 1.4vw, 0.72rem);
+    letter-spacing: 0.25em;
+    color: var(--form-heading);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .comment-heading::before,
+  .comment-heading::after {
+    content: ' ✦ ';
+    opacity: 0.5;
+  }
+
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 14px;
+  }
+
+  .form-row label {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.45rem, 1.1vw, 0.58rem);
+    letter-spacing: 0.2em;
+    color: var(--form-heading);
+    text-transform: uppercase;
+  }
+
+  .form-row input,
+  .form-row textarea {
+    background: var(--form-input-bg);
+    border: 1px solid var(--form-input-border);
+    border-radius: 3px;
+    color: var(--form-input-text);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(0.75rem, 1.8vw, 0.9rem);
+    padding: 8px 10px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+
+  .form-row input:focus,
+  .form-row textarea:focus {
+    border-color: var(--gold);
+  }
+
+  .form-row textarea {
+    resize: vertical;
+    min-height: 90px;
+    line-height: 1.6;
+  }
+
+  .form-row input::placeholder,
+  .form-row textarea::placeholder {
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  /* Public toggle */
+  .public-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .toggle-wrap {
+    position: relative;
+    width: 36px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  .toggle-wrap input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+  }
+
+  .toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: var(--form-input-border);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .toggle-slider::before {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    left: 3px;
+    top: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+  }
+
+  .toggle-wrap input:checked + .toggle-slider {
+    background: var(--gold);
+  }
+
+  .toggle-wrap input:checked + .toggle-slider::before {
+    transform: translateX(16px);
+  }
+
+  .public-label {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.45rem, 1.1vw, 0.58rem);
+    letter-spacing: 0.15em;
+    color: var(--form-heading);
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+
+  .public-label span {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(0.6rem, 1.4vw, 0.72rem);
+    letter-spacing: 0.03em;
+    color: var(--text-dim);
+    text-transform: none;
+    font-style: italic;
+    margin-top: 2px;
+  }
+
+  #submit-btn {
+    width: 100%;
+    padding: 10px;
+    background: var(--btn-bg);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.5rem, 1.2vw, 0.65rem);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    margin-top: 4px;
+  }
+
+  #submit-btn:hover {
+    background: var(--btn-hover);
+    border-color: var(--gold);
+  }
+
+  #form-message {
+    text-align: center;
+    margin-top: 12px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(0.65rem, 1.5vw, 0.8rem);
+    font-style: italic;
+    color: var(--text);
+    min-height: 1.2em;
+  }
+
   /* ── HOME BUTTON ── */
   #home-btn {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    margin-top: 14px;
+    margin-top: 16px;
+    margin-bottom: 40px;
     padding: 5px 16px;
-    background: rgba(201, 168, 76, 0.08);
-    border: 1px solid rgba(201, 168, 76, 0.2);
+    background: var(--btn-bg);
+    border: 1px solid var(--border);
     border-radius: 3px;
-    color: rgba(201, 168, 76, 0.55);
+    color: var(--home-color);
     font-family: 'Cinzel', serif;
     font-size: clamp(0.45rem, 1.1vw, 0.6rem);
     letter-spacing: 0.2em;
@@ -392,14 +638,18 @@
 
   #home-btn:hover {
     color: var(--gold);
-    border-color: rgba(201, 168, 76, 0.5);
-    background: rgba(201, 168, 76, 0.15);
+    border-color: var(--gold);
+    background: var(--btn-hover);
   }
-
-  #home-btn .arrow { font-size: 0.8em; }
 </style>
 </head>
 <body>
+
+<!-- Theme toggle -->
+<button id="theme-toggle" aria-label="Toggle light/dark mode">
+  <span class="theme-icon" id="theme-icon">☀</span>
+  <span id="theme-label">Light</span>
+</button>
 
 <div id="book-container">
   <div id="book-shadow"></div>
@@ -408,9 +658,6 @@
 
       <!-- ============================================================
            PAGE CONTENT
-           Each .page is one single page.
-           Page 0 = cover. Pages 1+ = content.
-           To add pages, copy a .page block and update the page number.
            ============================================================ -->
 
       <!-- PAGE 0: COVER -->
@@ -420,11 +667,9 @@
           <div class="cover-ornament">✦ ✦ ✦</div>
           <div class="cover-title">Light As Meaning</div>
           <div class="cover-divider"></div>
-          <div class="cover-author">By Lucius Earnlight</div>
+          <div class="cover-author">By Kawnur Earnlight</div>
           <div class="cover-summary">
-            <!-- EDIT SUMMARY TEXT BELOW -->
             <p>The only thing we take with us from this world into the next life when we die is our light, the accumulation of which is the purpose of life.</p>
-            <!-- END EDIT -->
           </div>
         </div>
       </div>
@@ -437,14 +682,12 @@
             <div class="chapter-title">Chapter One</div>
             <div class="chapter-ornament">— ✦ —</div>
             <!-- EDIT YOUR TEXT BELOW -->
-            <p>This is the opening of your first chapter. Replace this placeholder text with your own writing. The layout supports long-form prose beautifully, with generous line spacing and carefully chosen typography to make reading a pleasure.</p>
-            <p>You may write as much or as little as you like on each page. The text will flow naturally within the page boundaries.</p>
+            <p>This is the opening of your first chapter. Replace this placeholder text with your own writing.</p>
+            <p>You may write as much or as little as you like on each page.</p>
             <p>Continue your story here, adding as many paragraphs as the page will hold comfortably.</p>
             <!-- END EDIT -->
           </div>
-          <div class="page-footer">
-            <span class="page-number">1</span>
-          </div>
+          <div class="page-footer"><span class="page-number">1</span></div>
         </div>
       </div>
 
@@ -454,148 +697,15 @@
           <div class="page-header">Light As Meaning</div>
           <div class="page-body">
             <!-- EDIT YOUR TEXT BELOW -->
-            <p>The story continues on this page. Each page now shows one full page of content, giving your writing more room to breathe.</p>
-            <p>Use this space to develop your ideas, characters, or arguments. The paper-coloured background and serif typography are designed to reduce eye strain during extended reading.</p>
-            <p>You can add as many pages as you need by duplicating the page blocks in the HTML.</p>
+            <p>The story continues on this page.</p>
+            <p>Use this space to develop your ideas.</p>
             <!-- END EDIT -->
           </div>
-          <div class="page-footer">
-            <span class="page-number">2</span>
-          </div>
+          <div class="page-footer"><span class="page-number">2</span></div>
         </div>
       </div>
 
-      <!-- PAGE 3 -->
-      <div class="page" data-page="3">
-        <div class="page-inner">
-          <div class="page-header">Light As Meaning</div>
-          <div class="page-body">
-            <!-- EDIT YOUR TEXT BELOW -->
-            <p>Page three begins here. This is an ideal place to deepen the narrative or introduce a new perspective.</p>
-            <p>Replace this paragraph with your own words. Every sentence should earn its place on the page — precise, purposeful, and true to your voice.</p>
-            <p>The beauty of a well-made book lies not only in what it contains, but in the care with which it presents its contents to the reader.</p>
-            <!-- END EDIT -->
-          </div>
-          <div class="page-footer">
-            <span class="page-number">3</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- PAGE 4 -->
-      <div class="page" data-page="4">
-        <div class="page-inner">
-          <div class="page-header">Light As Meaning</div>
-          <div class="page-body">
-            <!-- EDIT YOUR TEXT BELOW -->
-            <p>Page four. Every word is a choice. Choose well.</p>
-            <p>A well-paced book gives the reader moments of rest between moments of intensity — vary your rhythm to keep the reading experience alive.</p>
-            <!-- END EDIT -->
-          </div>
-          <div class="page-footer">
-            <span class="page-number">4</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- PAGE 5 -->
-      <div class="page" data-page="5">
-        <div class="page-inner">
-          <div class="page-header">Light As Meaning</div>
-          <div class="page-body">
-            <div class="chapter-title">Chapter Two</div>
-            <div class="chapter-ornament">— ✦ —</div>
-            <!-- EDIT YOUR TEXT BELOW -->
-            <p>A new chapter begins. Use chapter breaks to signal a significant shift in time, perspective, or subject matter.</p>
-            <p>Write your chapter two opening here. Establish the new tone quickly — the first paragraph of a chapter carries enormous weight in setting expectations.</p>
-            <!-- END EDIT -->
-          </div>
-          <div class="page-footer">
-            <span class="page-number">5</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- PAGE 6 -->
-      <div class="page" data-page="6">
-        <div class="page-inner">
-          <div class="page-header">Light As Meaning</div>
-          <div class="page-body">
-            <!-- EDIT YOUR TEXT BELOW -->
-            <p>Page six. By now your reader is invested. Honour that investment with writing that is honest, considered, and worthy of their time.</p>
-            <p>You may wish to use this space to develop an idea introduced on the previous page, or to introduce a tension that will carry through the remainder of the chapter.</p>
-            <!-- END EDIT -->
-          </div>
-          <div class="page-footer">
-            <span class="page-number">6</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- PAGE 7 -->
-      <div class="page" data-page="7">
-        <div class="page-inner">
-          <div class="page-header">Light As Meaning</div>
-          <div class="page-body">
-            <!-- EDIT YOUR TEXT BELOW -->
-            <p>Page seven. The middle of a book is where many readers either commit fully or begin to drift. Make this section earn their continued attention.</p>
-            <p>The best books feel inevitable in retrospect — each page prepared the reader for the next without their noticing.</p>
-            <!-- END EDIT -->
-          </div>
-          <div class="page-footer">
-            <span class="page-number">7</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- PAGE 8 -->
-      <div class="page" data-page="8">
-        <div class="page-inner">
-          <div class="page-header">Light As Meaning</div>
-          <div class="page-body">
-            <!-- EDIT YOUR TEXT BELOW -->
-            <p>Page eight. Continue your narrative or argument here with confidence. By this point your reader trusts your voice — do not betray that trust with careless writing.</p>
-            <p>If this is a work of nonfiction, consider introducing a concrete example or illustration here to ground your ideas in lived reality.</p>
-            <!-- END EDIT -->
-          </div>
-          <div class="page-footer">
-            <span class="page-number">8</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- PAGE 9 -->
-      <div class="page" data-page="9">
-        <div class="page-inner">
-          <div class="page-header">Light As Meaning</div>
-          <div class="page-body">
-            <!-- EDIT YOUR TEXT BELOW -->
-            <p>The penultimate page. Begin drawing the threads together. A good ending is prepared long before it arrives.</p>
-            <p>Whatever you have promised your reader at the beginning, honour it here.</p>
-            <!-- END EDIT -->
-          </div>
-          <div class="page-footer">
-            <span class="page-number">9</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- PAGE 10 -->
-      <div class="page" data-page="10">
-        <div class="page-inner">
-          <div class="page-header">Light As Meaning</div>
-          <div class="page-body">
-            <!-- EDIT YOUR TEXT BELOW -->
-            <p>The final page. End with something worth remembering. The last sentence of a book is the one that echoes longest in the reader's mind.</p>
-            <p>Thank you for reading.</p>
-            <div class="chapter-ornament" style="margin-top:2em;">✦</div>
-            <!-- END EDIT -->
-          </div>
-          <div class="page-footer">
-            <span class="page-number">10</span>
-          </div>
-        </div>
-      </div>
+      <!-- Add more pages following the same pattern above -->
 
       <!-- ============================================================
            END PAGE CONTENT
@@ -613,16 +723,131 @@
   <div class="jump-form">
     <button id="cover-btn">Cover</button>
     <label for="jump-input">Go to page</label>
-    <input type="number" id="jump-input" min="1" placeholder="1–10">
+    <input type="number" id="jump-input" min="1" placeholder="1–2">
     <button id="jump-btn">Go</button>
   </div>
 </div>
 
-<a href="index.html" id="home-btn">
-  <span class="arrow">←</span> Library
-</a>
+<!-- ── COMMENT SECTION ── -->
+<section id="comment-section">
+  <div class="comment-heading">Leave a Comment or Question</div>
+
+  <!--
+    SETUP INSTRUCTIONS:
+    1. Go to https://formspree.io and create a free account
+    2. Create a new form — set the destination email to earnlight@mynoegenesis.com
+    3. Copy your form's endpoint (looks like https://formspree.io/f/xxxxxxxx)
+    4. Replace YOUR_FORMSPREE_ID below with that endpoint
+  -->
+  <form id="comment-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+
+    <div class="form-row">
+      <label for="c-name">Your Name *</label>
+      <input type="text" id="c-name" name="name" required placeholder="How shall I address you?">
+    </div>
+
+    <div class="form-row">
+      <label for="c-email">Your Email <span style="opacity:0.5">(optional)</span></label>
+      <input type="email" id="c-email" name="email" placeholder="If you'd like a reply">
+    </div>
+
+    <div class="form-row">
+      <label for="c-message">Comment or Question *</label>
+      <textarea id="c-message" name="message" required placeholder="Write your thoughts here…"></textarea>
+    </div>
+
+    <!-- Hidden field telling you whether they want it public -->
+    <input type="hidden" id="public-value" name="make_public" value="No">
+
+    <div class="public-row">
+      <label class="toggle-wrap">
+        <input type="checkbox" id="public-toggle">
+        <span class="toggle-slider"></span>
+      </label>
+      <div class="public-label">
+        Make this public
+        <span>I consent to this comment being shared publicly</span>
+      </div>
+    </div>
+
+    <button type="submit" id="submit-btn">Send ✦</button>
+    <div id="form-message"></div>
+  </form>
+</section>
+
+<a href="index.html" id="home-btn">← Library</a>
 
 <script>
+// ── THEME TOGGLE ──
+(function () {
+  const html = document.documentElement;
+  const btn = document.getElementById('theme-toggle');
+  const icon = document.getElementById('theme-icon');
+  const label = document.getElementById('theme-label');
+
+  const saved = localStorage.getItem('noegenesis-theme') || 'dark';
+  html.setAttribute('data-theme', saved);
+  updateToggleUI(saved);
+
+  btn.addEventListener('click', () => {
+    const current = html.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('noegenesis-theme', next);
+    updateToggleUI(next);
+  });
+
+  function updateToggleUI(theme) {
+    if (theme === 'light') {
+      icon.textContent = '☾';
+      label.textContent = 'Dark';
+    } else {
+      icon.textContent = '☀';
+      label.textContent = 'Light';
+    }
+  }
+})();
+
+// ── PUBLIC TOGGLE ──
+document.getElementById('public-toggle').addEventListener('change', function () {
+  document.getElementById('public-value').value = this.checked ? 'Yes' : 'No';
+});
+
+// ── COMMENT FORM ──
+(function () {
+  const form = document.getElementById('comment-form');
+  const msg = document.getElementById('form-message');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        msg.textContent = 'Your message has been received. Thank you.';
+        form.reset();
+        document.getElementById('public-value').value = 'No';
+      } else {
+        msg.textContent = 'Something went wrong. Please try again or email directly.';
+      }
+    } catch {
+      msg.textContent = 'Could not send. Please check your connection.';
+    }
+
+    btn.textContent = 'Send ✦';
+    btn.disabled = false;
+  });
+})();
+
+// ── READER ──
 (function () {
   const pages = document.querySelectorAll('.page');
   const total = pages.length;
