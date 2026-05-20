@@ -9,56 +9,41 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --paper: #fdf8f0;
-    --paper-dark: #f0e8d8;
-    --ink: #2c2416;
-    --ink-light: #6b5c45;
-    --gold: #c9a84c;
-    --gold-light: #e8cc80;
+  --paper: #fdf8f0;
+  --paper-dark: #f0e8d8;
+  --ink: #2c2416;
+  --ink-light: #6b5c45;
+  --gold: #c9a84c;
+  --gold-light: #e8cc80;
 
-    /* Dark mode (default) */
-    --bg: #1a1208;
-    --bg-2: #2d1f0a;
-    --bg-3: #0d0d0d;
-    --surface: rgba(255,255,255,0.04);
-    --border: rgba(201, 168, 76, 0.2);
-    --text: rgba(201, 168, 76, 0.7);
-    --text-dim: rgba(201, 168, 76, 0.4);
-    --btn-bg: rgba(201, 168, 76, 0.15);
-    --btn-hover: rgba(201, 168, 76, 0.3);
-    --input-color: #e8cc80;
-    --label-color: rgba(201, 168, 76, 0.6);
-    --form-bg: rgba(255,255,255,0.03);
-    --form-border: rgba(201, 168, 76, 0.15);
-    --form-input-bg: rgba(255,255,255,0.05);
-    --form-input-border: rgba(201, 168, 76, 0.25);
-    --form-input-text: #e8cc80;
-    --form-heading: rgba(201, 168, 76, 0.5);
-    --home-color: rgba(201, 168, 76, 0.55);
-  }
+  --bg: #1a1208;
+  --bg-2: #2d1f0a;
+  --bg-3: #0d0d0d;
+  --surface: rgba(255,255,255,0.04);
+  --border: rgba(201, 168, 76, 0.2);
+  --text: rgba(201, 168, 76, 0.7);
+  --text-dim: rgba(201, 168, 76, 0.4);
+  --btn-bg: rgba(201, 168, 76, 0.15);
+  --btn-hover: rgba(201, 168, 76, 0.3);
+  --input-color: #e8cc80;
+  --label-color: rgba(201, 168, 76, 0.6);
+  --form-bg: rgba(255,255,255,0.03);
+  --form-border: rgba(201, 168, 76, 0.15);
+  --form-input-bg: rgba(255,255,255,0.05);
+  --form-input-border: rgba(201, 168, 76, 0.25);
+  --form-input-text: #e8cc80;
+  --form-heading: rgba(201, 168, 76, 0.5);
+  --home-color: rgba(201, 168, 76, 0.55);
+}
 
-  [data-theme="light"] {
-    --bg: #f5efe3;
-    --bg-2: #ede3d0;
-    --bg-3: #e0d4be;
-    --surface: rgba(0,0,0,0.03);
-    --border: rgba(139, 90, 30, 0.25);
-    --text: rgba(100, 65, 20, 0.8);
-    --text-dim: rgba(100, 65, 20, 0.45);
-    --btn-bg: rgba(139, 90, 30, 0.1);
-    --btn-hover: rgba(139, 90, 30, 0.2);
-    --input-color: #5a3a10;
-    --label-color: rgba(100, 65, 20, 0.7);
-    --form-bg: rgba(0,0,0,0.03);
-    --form-border: rgba(139, 90, 30, 0.2);
-    --form-input-bg: rgba(255,255,255,0.6);
-    --form-input-border: rgba(139, 90, 30, 0.3);
-    --form-input-text: #3a2008;
-    --form-heading: rgba(100, 65, 20, 0.6);
-    --home-color: rgba(100, 65, 20, 0.55);
-    --gold: #9a6820;
-    --gold-light: #7a5218;
-  }
+[data-theme="dark"] .page:not(.page-cover) {
+  --paper: #1c1810;
+  --paper-dark: rgba(255,255,255,0.08);
+  --ink: #e8e0d0;
+  --ink-light: #a09080;
+  background: #1c1810;
+}
+
 
   body {
     min-height: 100vh;
@@ -775,9 +760,9 @@
   const icon = document.getElementById('theme-icon');
   const label = document.getElementById('theme-label');
 
-  const saved = localStorage.getItem('noegenesis-theme') || 'dark';
-  html.setAttribute('data-theme', saved);
-  updateToggleUI(saved);
+  const saved = localStorage.getItem('noegenesis-theme') || 'light';
+html.setAttribute('data-theme', saved);
+updateToggleUI(saved);
 
   btn.addEventListener('click', () => {
     const current = html.getAttribute('data-theme');
@@ -788,13 +773,13 @@
   });
 
   function updateToggleUI(theme) {
-    if (theme === 'light') {
-      icon.textContent = '☾';
-      label.textContent = 'Dark';
-    } else {
-      icon.textContent = '☀';
-      label.textContent = 'Light';
-    }
+  if (theme === 'dark') {
+    icon.textContent = '☀';
+    label.textContent = 'Light';
+  } else {
+    icon.textContent = '☾';
+    label.textContent = 'Dark';
+  }
   }
 })();
 
