@@ -297,6 +297,14 @@
   /* ── HOME BUTTON ── */
   #home-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; margin-bottom: 40px; padding: 5px 16px; background: var(--btn-bg); border: 1px solid var(--border); border-radius: 3px; color: var(--home-color); font-family: 'Cinzel', serif; font-size: clamp(0.45rem, 1.1vw, 0.6rem); letter-spacing: 0.2em; text-decoration: none; text-transform: uppercase; transition: color 0.2s, border-color 0.2s, background 0.2s; }
   #home-btn:hover { color: var(--gold); border-color: var(--gold); background: var(--btn-hover); }
+ @media (max-width: 600px) {
+  body { padding: 10px 20px 40px; }
+  #book-container { width: 78vw; }
+  #btn-prev { left: -32px; }
+  #btn-next { right: -32px; }
+  #search-bar { width: 78vw; }
+  #comment-section { width: 78vw; }
+}
 </style>
 </head>
 <body>
@@ -866,15 +874,7 @@ document.getElementById('public-toggle').addEventListener('change', function () 
     btn.textContent = 'Send ✦'; btn.disabled = false;
   });
 })();
- @media (max-width: 600px) {
-  body { padding: 10px 20px 40px; }
-  #book-container { width: 78vw; }
-  #btn-prev { left: -32px; }
-  #btn-next { right: -32px; }
-  #search-bar { width: 78vw; }
-  #comment-section { width: 78vw; }
-}
-</script>
  
+</script> 
 </body>
 </html>
