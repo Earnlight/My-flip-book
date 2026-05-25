@@ -167,7 +167,7 @@
 
   .fs-btn:hover { background: var(--btn-hover); }
 
-
+  
 
 
   /* ── FULLSCREEN BUTTON — sits on top-right corner of book ── */
@@ -461,8 +461,16 @@
 </div>
 
 <div id="book-container">
+
+  <button id="theme-toggle" aria-label="Toggle light/dark mode">
+    <span class="theme-icon" id="theme-icon">☀</span>
+    <span id="theme-label">Light</span>
+  </button>
+  <button id="fullscreen-btn" aria-label="Enter fullscreen">⛶</button>
+
   <div id="book-shadow"></div>
   <div id="book-scene">
+
     <div id="book">
 
       <!-- ============================================================
