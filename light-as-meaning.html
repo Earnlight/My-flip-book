@@ -724,16 +724,21 @@ const ReaderState = (function () {
   let hideTimer    = null;
   let isFS         = false;
 
-  function enterFullscreen() {
-    isFS = true;
-    body.classList.add('reader-fullscreen');
-    fsBtn.style.display = 'none';
-    showFsChrome();
-    // Try native fullscreen API
+function enterFullscreen() {
+  isFS = true;
+  body.classList.add('reader-fullscreen');
+  fsBtn.style.display = 'none';
+  showFsChrome();
+  // Scroll to top so fixed positioning covers full screen
+  window.scrollTo(0, 0);
+  // Try native fullscreen API — silently fails on iPhone, CSS handles it
+  try {
     const el = document.documentElement;
     if (el.requestFullscreen) el.requestFullscreen().catch(() => {});
     else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-  }
+  } catch (e) {}
+}
+
 
   function exitFullscreen() {
     if (!isFS) return;
