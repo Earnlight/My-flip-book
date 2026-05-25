@@ -167,9 +167,6 @@
 
   .fs-btn:hover { background: var(--btn-hover); }
 
-  
-
-
   /* ── FULLSCREEN BUTTON — sits on top-right corner of book ── */
   #fullscreen-btn {
     position: absolute;
@@ -220,27 +217,23 @@
 
   /* ── THEME TOGGLE ── */
   #theme-toggle {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 30;
-  background: rgba(10, 8, 4, 0.55);
-  border: 1px solid rgba(201,168,76,0.3);
-  color: rgba(201,168,76,0.7);
-  border-radius: 3px;
-  padding: 5px 10px;
-  cursor: pointer;
-  font-family: 'Cinzel', serif;
-  font-size: 0.6rem;
-  letter-spacing: 0.15em;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: background 0.2s, color 0.2s, border-color 0.2s;
-  text-transform: uppercase;
-  backdrop-filter: blur(4px);
-}
-
+    align-self: flex-end;
+    margin-bottom: 12px;
+    background: var(--btn-bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    padding: 6px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    text-transform: uppercase;
+  }
   #theme-toggle:hover { background: var(--btn-hover); border-color: var(--gold); color: var(--gold); }
   .theme-icon { font-size: 0.9rem; }
 
@@ -432,23 +425,6 @@
     #search-bar { width: 78vw; }
     #comment-section { width: 78vw; }
   }
- .ctrl-icon-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 2px 6px;
-  font-size: 1rem;
-  color: var(--text);
-  opacity: 0.5;
-  transition: opacity 0.2s, transform 0.2s;
-}
-.ctrl-icon-btn:hover { opacity: 1; transform: scale(1.15); }
-.ctrl-icon-btn.bookmarked { opacity: 1; color: var(--gold); filter: drop-shadow(0 0 4px rgba(201,168,76,0.6)); }
-body.reader-fullscreen {
-  position: fixed;
-  inset: 0;
-}
-
 </style>
 </head>
 <body>
@@ -465,6 +441,11 @@ body.reader-fullscreen {
 <!-- Exit fullscreen button (top right, visible only in fullscreen) -->
 <button id="exit-fullscreen-btn">✕ Exit</button>
 
+<button id="theme-toggle" aria-label="Toggle light/dark mode">
+  <span class="theme-icon" id="theme-icon">☀</span>
+  <span id="theme-label">Light</span>
+</button>
+
 <div id="search-bar">
   <label for="search-input">Find</label>
   <input type="text" id="search-input" placeholder="Search text in the book…">
@@ -478,16 +459,8 @@ body.reader-fullscreen {
 </div>
 
 <div id="book-container">
-
-  <button id="theme-toggle" aria-label="Toggle light/dark mode">
-    <span class="theme-icon" id="theme-icon">☀</span>
-    <span id="theme-label">Light</span>
-  </button>
-  <button id="fullscreen-btn" aria-label="Enter fullscreen">⛶</button>
-
   <div id="book-shadow"></div>
   <div id="book-scene">
-
     <div id="book">
 
       <!-- ============================================================
@@ -572,10 +545,13 @@ body.reader-fullscreen {
 
 <div id="controls">
   <span id="spread-indicator">Cover</span>
-  <button id="ctrl-bookmark-btn" class="ctrl-icon-btn" aria-label="Bookmark this page">🔖</button>
-  <button id="ctrl-share-btn" class="ctrl-icon-btn" aria-label="Share this page">↑</button>
+  <div class="jump-form">
+    <button id="cover-btn">Cover</button>
+    <label for="jump-input">Go to page</label>
+    <input type="number" id="jump-input" min="1" placeholder="1–2">
+    <button id="jump-btn">Go</button>
+  </div>
 </div>
-
 
 <div id="bookmark-indicator"></div>
 
@@ -728,21 +704,16 @@ const ReaderState = (function () {
   let hideTimer    = null;
   let isFS         = false;
 
-function enterFullscreen() {
-  isFS = true;
-  body.classList.add('reader-fullscreen');
-  fsBtn.style.display = 'none';
-  showFsChrome();
-  // Scroll to top so fixed positioning covers full screen
-  window.scrollTo(0, 0);
-  // Try native fullscreen API — silently fails on iPhone, CSS handles it
-  try {
+  function enterFullscreen() {
+    isFS = true;
+    body.classList.add('reader-fullscreen');
+    fsBtn.style.display = 'none';
+    showFsChrome();
+    // Try native fullscreen API
     const el = document.documentElement;
     if (el.requestFullscreen) el.requestFullscreen().catch(() => {});
     else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-  } catch (e) {}
-}
-
+  }
 
   function exitFullscreen() {
     if (!isFS) return;
@@ -1029,7 +1000,7 @@ document.getElementById('public-toggle').addEventListener('change', function () 
     try {
       const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
       if (res.ok) { msg.textContent = 'Your message has been received. Thank you.'; form.reset(); document.getElementById('public-value').value = 'No'; }
-      else { msg.textContent = 'Something went wrong. Please try again or email directly at Earnlight@mynoegenesis.com'; }
+      else { msg.textContent = 'Something went wrong. Please try again or email directly.'; }
     } catch { msg.textContent = 'Could not send. Please check your connection.'; }
     btn.textContent = 'Send ✦'; btn.disabled = false;
   });
