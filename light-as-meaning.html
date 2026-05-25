@@ -46,38 +46,205 @@
   }
 
   body {
-  min-height: 100vh;
-  background: #1a1208;
-  background-image:
-    radial-gradient(ellipse at 20% 20%, #2d1f0a 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 80%, #0d0d0d 0%, transparent 60%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 12px 20px 40px;
-  font-family: 'Cormorant Garamond', Georgia, serif;
-}
+    min-height: 100vh;
+    background: #1a1208;
+    background-image:
+      radial-gradient(ellipse at 20% 20%, #2d1f0a 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, #0d0d0d 0%, transparent 60%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 12px 20px 40px;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+
+  /* ── FULLSCREEN MODE ── */
+  body.reader-fullscreen {
+    padding: 0;
+    justify-content: center;
+    overflow: hidden;
+    height: 100vh;
+  }
+
+  body.reader-fullscreen #book-container {
+    position: fixed;
+    inset: 0;
+    width: 100vw !important;
+    height: 100vh;
+    margin: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    background: #1a1208;
+    background-image:
+      radial-gradient(ellipse at 20% 20%, #2d1f0a 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, #0d0d0d 0%, transparent 60%);
+  }
+
+  body.reader-fullscreen #book-scene {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  body.reader-fullscreen #book {
+    flex: 1;
+    padding-top: 0 !important;
+    height: 100%;
+  }
+
+  body.reader-fullscreen .page {
+    position: absolute;
+    inset: 0;
+  }
+
+  /* Hide everything except the book in fullscreen */
+  body.reader-fullscreen #theme-toggle,
+  body.reader-fullscreen #search-bar,
+  body.reader-fullscreen #search-nav,
+  body.reader-fullscreen #controls,
+  body.reader-fullscreen #bookmark-indicator,
+  body.reader-fullscreen #comment-section,
+  body.reader-fullscreen #home-btn,
+  body.reader-fullscreen #book-shadow {
+    display: none !important;
+  }
+
+  /* Nav arrows in fullscreen — bigger, more visible */
+  body.reader-fullscreen .nav-btn {
+    width: 52px;
+    height: 52px;
+    font-size: 1.3rem;
+  }
+
+  body.reader-fullscreen #btn-prev { left: 12px; }
+  body.reader-fullscreen #btn-next { right: 12px; }
+
+  /* Fullscreen controls bar — shown at bottom in fullscreen */
+  #fs-controls {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 20px;
+    background: linear-gradient(to top, rgba(10,8,4,0.95), transparent);
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    z-index: 1010;
+    transition: opacity 0.4s;
+  }
+
+  body.reader-fullscreen #fs-controls { display: flex; }
+
+  #fs-controls.hidden { opacity: 0; pointer-events: none; }
+
+  #fs-indicator {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    color: rgba(201,168,76,0.7);
+    letter-spacing: 0.12em;
+    flex: 1;
+    text-align: center;
+  }
+
+  .fs-btn {
+    background: var(--btn-bg);
+    border: 1px solid var(--border);
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    padding: 5px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+
+  .fs-btn:hover { background: var(--btn-hover); }
+
+ <button id="theme-toggle" aria-label="Toggle light/dark mode">
+  <span class="theme-icon" id="theme-icon">☀</span>
+  <span id="theme-label">Light</span>
+</button>
+<button id="fullscreen-btn" aria-label="Enter fullscreen">⛶</button>
+
+
+  /* ── FULLSCREEN BUTTON — sits on top-right corner of book ── */
+  #fullscreen-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 30;
+    background: rgba(10, 8, 4, 0.55);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: rgba(201,168,76,0.7);
+    border-radius: 3px;
+    padding: 5px 8px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    line-height: 1;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+    backdrop-filter: blur(4px);
+  }
+
+  #fullscreen-btn:hover {
+    background: rgba(201,168,76,0.2);
+    color: var(--gold);
+    border-color: var(--gold);
+  }
+
+  /* Exit button — top-right in fullscreen */
+  #exit-fullscreen-btn {
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    z-index: 1020;
+    display: none;
+    background: rgba(10,8,4,0.7);
+    border: 1px solid rgba(201,168,76,0.35);
+    color: rgba(201,168,76,0.8);
+    border-radius: 3px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: background 0.2s, opacity 0.4s;
+    backdrop-filter: blur(4px);
+  }
+
+  body.reader-fullscreen #exit-fullscreen-btn { display: block; }
+  #exit-fullscreen-btn.hidden { opacity: 0; pointer-events: none; }
 
   /* ── THEME TOGGLE ── */
   #theme-toggle {
-    align-self: flex-end;
-    margin-bottom: 12px;
-    background: var(--btn-bg);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-family: 'Cinzel', serif;
-    font-size: 0.6rem;
-    letter-spacing: 0.15em;
-    padding: 6px 12px;
-    border-radius: 3px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: background 0.2s, border-color 0.2s, color 0.2s;
-    text-transform: uppercase;
-  }
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 30;
+  background: rgba(10, 8, 4, 0.55);
+  border: 1px solid rgba(201,168,76,0.3);
+  color: rgba(201,168,76,0.7);
+  border-radius: 3px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  text-transform: uppercase;
+  backdrop-filter: blur(4px);
+}
+
   #theme-toggle:hover { background: var(--btn-hover); border-color: var(--gold); color: var(--gold); }
   .theme-icon { font-size: 0.9rem; }
 
@@ -107,18 +274,20 @@
 
   /* ── BOOK ── */
   #book-container {
-  position: relative;
-  width: min(480px, 80vw);
-  margin-top: 8px;
-  overflow: visible;
-}
+    position: relative;
+    width: min(480px, 80vw);
+    margin-top: 8px;
+    overflow: visible;
+  }
+
   #book-scene { width: 100%; perspective: 2500px; }
+
   #book {
-  position: relative;
-  width: 100%;
-  padding-top: min(140%, 72vh);
-  transform-style: preserve-3d;
-}
+    position: relative;
+    width: 100%;
+    padding-top: min(140%, 72vh);
+    transform-style: preserve-3d;
+  }
 
   .page {
     position: absolute;
@@ -150,7 +319,7 @@
 
   .page-inner { padding: clamp(16px, 6%, 48px); padding-top: clamp(20px, 7%, 56px); flex: 1; display: flex; flex-direction: column; position: relative; z-index: 2; }
   .page-header { font-family: 'Cinzel', serif; font-size: clamp(0.45rem, 1.5vw, 0.65rem); letter-spacing: 0.2em; color: var(--ink-light); text-transform: uppercase; border-bottom: 1px solid var(--paper-dark); padding-bottom: 0.6em; margin-bottom: 1.2em; text-align: center; }
-  .page-body { flex: 1; font-size: clamp(0.75rem, 2.2vw, 1rem); line-height: 1.85; color: var(--ink); font-weight: 300; text-align: justify; hyphens: auto; }
+  .page-body { flex: 1; font-size: clamp(0.75rem, 2.2vw, 1rem); line-height: 1.85; color: var(--ink); font-weight: 300; text-align: justify; hyphens: auto; overflow-y: auto; }
   .page-body p + p { margin-top: 0.9em; text-indent: 1.5em; }
   .chapter-title { font-family: 'Cinzel', serif; font-size: clamp(1rem, 3vw, 1.5rem); font-weight: 600; color: var(--ink); margin-bottom: 0.4em; letter-spacing: 0.05em; text-align: center; }
   .chapter-ornament { color: #c9a84c; font-size: clamp(0.8rem, 2vw, 1rem); text-align: center; margin: 0.4em 0 1.2em; letter-spacing: 0.3em; }
@@ -168,79 +337,43 @@
 
   .page-number { font-family: 'Cinzel', serif; font-size: clamp(0.5rem, 1.5vw, 0.7rem); color: var(--ink-light); letter-spacing: 0.15em; flex: 1; text-align: center; }
 
-  /* ── BOOKMARK BUTTON (inside page footer) ── */
   .bookmark-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0 4px;
-    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-    line-height: 1;
-    color: var(--ink-light);
-    opacity: 0.4;
-    transition: opacity 0.2s, transform 0.2s;
-    z-index: 3;
-    flex-shrink: 0;
+    background: none; border: none; cursor: pointer; padding: 0 4px;
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem); line-height: 1;
+    color: var(--ink-light); opacity: 0.4;
+    transition: opacity 0.2s, transform 0.2s; z-index: 3; flex-shrink: 0;
   }
   .bookmark-btn:hover { opacity: 0.8; transform: scale(1.15); }
   .bookmark-btn.bookmarked { opacity: 1; color: #c9a84c; filter: drop-shadow(0 0 4px rgba(201,168,76,0.6)); }
 
-  /* ── SHARE BUTTON (inside page footer) ── */
   .share-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0 4px;
-    font-size: clamp(0.85rem, 2.2vw, 1rem);
-    line-height: 1;
-    color: var(--ink-light);
-    opacity: 0.4;
-    transition: opacity 0.2s, transform 0.2s;
-    z-index: 3;
-    flex-shrink: 0;
+    background: none; border: none; cursor: pointer; padding: 0 4px;
+    font-size: clamp(0.85rem, 2.2vw, 1rem); line-height: 1;
+    color: var(--ink-light); opacity: 0.4;
+    transition: opacity 0.2s, transform 0.2s; z-index: 3; flex-shrink: 0;
   }
   .share-btn:hover { opacity: 0.8; transform: scale(1.15); }
 
-  /* ── SHARE TOAST (clipboard fallback) ── */
   #share-toast {
-    position: fixed;
-    bottom: 32px;
-    left: 50%;
+    position: fixed; bottom: 32px; left: 50%;
     transform: translateX(-50%) translateY(20px);
-    background: #1c1810;
-    border: 1px solid rgba(201,168,76,0.4);
-    color: #e8cc80;
-    font-family: 'Cinzel', serif;
-    font-size: 0.62rem;
-    letter-spacing: 0.15em;
-    padding: 8px 20px;
-    border-radius: 4px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s, transform 0.3s;
-    z-index: 9999;
-    white-space: nowrap;
+    background: #1c1810; border: 1px solid rgba(201,168,76,0.4);
+    color: #e8cc80; font-family: 'Cinzel', serif; font-size: 0.62rem;
+    letter-spacing: 0.15em; padding: 8px 20px; border-radius: 4px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s; z-index: 9999; white-space: nowrap;
   }
   #share-toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  /* ── BOOKMARK INDICATOR ── */
   #bookmark-indicator {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(0.45rem, 1.1vw, 0.58rem);
-    color: rgba(201,168,76,0.5);
-    letter-spacing: 0.12em;
-    text-align: center;
-    margin-top: 6px;
-    min-height: 1em;
-    cursor: pointer;
-    transition: color 0.2s;
+    font-family: 'Cinzel', serif; font-size: clamp(0.45rem, 1.1vw, 0.58rem);
+    color: rgba(201,168,76,0.5); letter-spacing: 0.12em; text-align: center;
+    margin-top: 6px; min-height: 1em; cursor: pointer; transition: color 0.2s;
   }
   #bookmark-indicator:hover { color: var(--gold); }
 
-  /* ── SEARCH HIGHLIGHT ── */
   mark.search-highlight { background: rgba(201, 168, 76, 0.35); color: inherit; border-radius: 2px; padding: 0 1px; }
 
-  /* ── DEFINITION BUBBLE ── */
   #definition-bubble { position: fixed; z-index: 9999; max-width: 260px; background: #1c1810; border: 1px solid rgba(201, 168, 76, 0.4); border-radius: 6px; padding: 12px 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.6); display: none; pointer-events: none; }
   #definition-bubble::before { content: ''; position: absolute; bottom: -7px; left: 50%; width: 12px; height: 12px; background: #1c1810; border-right: 1px solid rgba(201, 168, 76, 0.4); border-bottom: 1px solid rgba(201, 168, 76, 0.4); transform: translateX(-50%) rotate(45deg); }
   #def-word { font-family: 'Cinzel', serif; font-size: 0.72rem; color: #e8cc80; letter-spacing: 0.1em; margin-bottom: 4px; }
@@ -248,20 +381,17 @@
   #def-text { font-family: 'Cormorant Garamond', serif; font-size: 0.78rem; color: #c8b89a; line-height: 1.55; }
   #def-loading { font-family: 'Cormorant Garamond', serif; font-size: 0.75rem; color: rgba(201, 168, 76, 0.5); font-style: italic; }
 
-  /* ── FLIP ANIMATIONS ── */
   .flipping { animation: flipForward 0.5s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards; }
   .flipping-back { animation: flipBack 0.5s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards; }
   @keyframes flipForward { 0% { opacity:1; transform:perspective(1000px) rotateY(0deg); } 49% { opacity:1; transform:perspective(1000px) rotateY(-90deg); z-index:100; } 50% { opacity:0; } 100% { opacity:0; transform:perspective(1000px) rotateY(-180deg); } }
   @keyframes flipBack { 0% { opacity:0; transform:perspective(1000px) rotateY(-180deg); } 50% { opacity:0; } 51% { opacity:1; transform:perspective(1000px) rotateY(-90deg); z-index:100; } 100% { opacity:1; transform:perspective(1000px) rotateY(0deg); } }
 
-  /* ── NAV BUTTONS ── */
   .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: var(--btn-bg); border: 1px solid var(--border); color: var(--gold); width: 42px; height: 42px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: background 0.2s, border-color 0.2s; z-index: 20; }
   .nav-btn:hover { background: var(--btn-hover); border-color: var(--gold); }
   .nav-btn:disabled { opacity: 0.2; cursor: default; }
   #btn-prev { left: -36px; }
-#btn-next { right: -36px; }
+  #btn-next { right: -36px; }
 
-  /* ── CONTROLS ── */
   #controls { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
   #spread-indicator { font-family: 'Cinzel', serif; font-size: clamp(0.55rem, 1.5vw, 0.75rem); color: var(--text); letter-spacing: 0.1em; min-width: 100px; text-align: center; }
   .jump-form { display: flex; align-items: center; gap: 6px; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 4px 10px; }
@@ -273,7 +403,6 @@
 
   #book-shadow { position: absolute; bottom: -16px; left: 5%; right: 5%; height: 24px; background: radial-gradient(ellipse, rgba(0,0,0,0.6) 0%, transparent 70%); filter: blur(6px); pointer-events: none; }
 
-  /* ── COMMENT SECTION ── */
   #comment-section { width: min(480px, 75vw); margin-top: 32px; background: var(--form-bg); border: 1px solid var(--form-border); border-radius: 4px; padding: clamp(20px, 5%, 36px); }
   .comment-heading { font-family: 'Cinzel', serif; font-size: clamp(0.55rem, 1.4vw, 0.72rem); letter-spacing: 0.25em; color: var(--form-heading); text-transform: uppercase; text-align: center; margin-bottom: 20px; }
   .comment-heading::before, .comment-heading::after { content: ' ✦ '; opacity: 0.5; }
@@ -296,17 +425,17 @@
   #submit-btn:hover { background: var(--btn-hover); border-color: var(--gold); }
   #form-message { text-align: center; margin-top: 12px; font-family: 'Cormorant Garamond', serif; font-size: clamp(0.65rem, 1.5vw, 0.8rem); font-style: italic; color: var(--text); min-height: 1.2em; }
 
-  /* ── HOME BUTTON ── */
   #home-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; margin-bottom: 40px; padding: 5px 16px; background: var(--btn-bg); border: 1px solid var(--border); border-radius: 3px; color: var(--home-color); font-family: 'Cinzel', serif; font-size: clamp(0.45rem, 1.1vw, 0.6rem); letter-spacing: 0.2em; text-decoration: none; text-transform: uppercase; transition: color 0.2s, border-color 0.2s, background 0.2s; }
   #home-btn:hover { color: var(--gold); border-color: var(--gold); background: var(--btn-hover); }
- @media (max-width: 600px) {
-  body { padding: 10px 20px 40px; }
-  #book-container { width: 78vw; }
-  #btn-prev { left: -32px; }
-  #btn-next { right: -32px; }
-  #search-bar { width: 78vw; }
-  #comment-section { width: 78vw; }
-}
+
+  @media (max-width: 600px) {
+    body { padding: 10px 20px 40px; }
+    #book-container { width: 78vw; }
+    #btn-prev { left: -32px; }
+    #btn-next { right: -32px; }
+    #search-bar { width: 78vw; }
+    #comment-section { width: 78vw; }
+  }
 </style>
 </head>
 <body>
@@ -320,10 +449,8 @@
 
 <div id="share-toast">Page text copied to clipboard</div>
 
-<button id="theme-toggle" aria-label="Toggle light/dark mode">
-  <span class="theme-icon" id="theme-icon">☀</span>
-  <span id="theme-label">Light</span>
-</button>
+<!-- Exit fullscreen button (top right, visible only in fullscreen) -->
+<button id="exit-fullscreen-btn">✕ Exit</button>
 
 <div id="search-bar">
   <label for="search-input">Find</label>
@@ -406,8 +533,20 @@
     </div>
   </div>
 
+  <!-- Fullscreen toggle button — sits on book corner -->
+  <button id="fullscreen-btn" aria-label="Enter fullscreen">⛶</button>
+
+  <!-- Nav arrows -->
   <button class="nav-btn" id="btn-prev" disabled aria-label="Previous page">&#8592;</button>
   <button class="nav-btn" id="btn-next" aria-label="Next page">&#8594;</button>
+
+  <!-- Fullscreen bottom controls bar -->
+  <div id="fs-controls">
+    <button class="fs-btn" id="fs-cover-btn">Cover</button>
+    <span id="fs-indicator">Cover</span>
+    <button class="fs-btn" id="fs-prev-btn">←</button>
+    <button class="fs-btn" id="fs-next-btn">→</button>
+  </div>
 </div>
 
 <div id="controls">
@@ -489,21 +628,26 @@ const ReaderState = (function () {
   const btnPrev      = document.getElementById('btn-prev');
   const btnNext      = document.getElementById('btn-next');
   const indicator    = document.getElementById('spread-indicator');
+  const fsIndicator  = document.getElementById('fs-indicator');
   const jumpInput    = document.getElementById('jump-input');
   const jumpBtn      = document.getElementById('jump-btn');
 
   jumpInput.max         = totalContent;
   jumpInput.placeholder = '1\u2013' + totalContent;
 
-  let current  = 0;
+  let current   = 0;
   let animating = false;
 
   function pageLabel(i) { return i === 0 ? 'Cover' : 'Page ' + i + ' of ' + totalContent; }
 
   function updateUI() {
-    indicator.textContent = pageLabel(current);
+    const label = pageLabel(current);
+    indicator.textContent   = label;
+    fsIndicator.textContent = label;
     btnPrev.disabled = current === 0;
     btnNext.disabled = current === total - 1;
+    document.getElementById('fs-prev-btn').disabled = current === 0;
+    document.getElementById('fs-next-btn').disabled = current === total - 1;
   }
 
   function goTo(index, direction) {
@@ -530,24 +674,89 @@ const ReaderState = (function () {
   btnNext.addEventListener('click', () => goTo(current + 1, 'next'));
   btnPrev.addEventListener('click', () => goTo(current - 1, 'prev'));
   document.getElementById('cover-btn').addEventListener('click', () => goTo(0, 'prev'));
+  document.getElementById('fs-cover-btn').addEventListener('click', () => goTo(0, 'prev'));
+  document.getElementById('fs-prev-btn').addEventListener('click', () => goTo(current - 1, 'prev'));
+  document.getElementById('fs-next-btn').addEventListener('click', () => goTo(current + 1, 'next'));
   jumpBtn.addEventListener('click', () => jumpToPage(parseInt(jumpInput.value, 10)));
   jumpInput.addEventListener('keydown', e => { if (e.key === 'Enter') jumpToPage(parseInt(jumpInput.value, 10)); });
 
   document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight') goTo(current + 1, 'next');
     if (e.key === 'ArrowLeft')  goTo(current - 1, 'prev');
+    if (e.key === 'Escape') exitFullscreen();
   });
 
   let touchStartX = 0;
-  document.getElementById('book').addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  document.getElementById('book').addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
   document.getElementById('book').addEventListener('touchend', e => {
     const dx = e.changedTouches[0].clientX - touchStartX;
     if (Math.abs(dx) > 40) dx < 0 ? goTo(current + 1, 'next') : goTo(current - 1, 'prev');
   }, { passive: true });
 
   updateUI();
-
   return { goTo, pages, total, getCurrent: () => current };
+})();
+
+// ══════════════════════════════════════════
+// FULLSCREEN
+// ══════════════════════════════════════════
+(function () {
+  const body       = document.body;
+  const fsBtn      = document.getElementById('fullscreen-btn');
+  const exitBtn    = document.getElementById('exit-fullscreen-btn');
+  const fsControls = document.getElementById('fs-controls');
+  let hideTimer    = null;
+  let isFS         = false;
+
+  function enterFullscreen() {
+    isFS = true;
+    body.classList.add('reader-fullscreen');
+    fsBtn.style.display = 'none';
+    showFsChrome();
+    // Try native fullscreen API
+    const el = document.documentElement;
+    if (el.requestFullscreen) el.requestFullscreen().catch(() => {});
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+  }
+
+  function exitFullscreen() {
+    if (!isFS) return;
+    isFS = false;
+    body.classList.remove('reader-fullscreen');
+    fsBtn.style.display = '';
+    clearTimeout(hideTimer);
+    // Exit native fullscreen
+    if (document.exitFullscreen && document.fullscreenElement) document.exitFullscreen();
+    else if (document.webkitExitFullscreen && document.webkitFullscreenElement) document.webkitExitFullscreen();
+  }
+
+  function showFsChrome() {
+    exitBtn.classList.remove('hidden');
+    fsControls.classList.remove('hidden');
+    clearTimeout(hideTimer);
+    // Auto-hide after 3 seconds of inactivity
+    hideTimer = setTimeout(() => {
+      exitBtn.classList.add('hidden');
+      fsControls.classList.add('hidden');
+    }, 3000);
+  }
+
+  fsBtn.addEventListener('click', enterFullscreen);
+  exitBtn.addEventListener('click', exitFullscreen);
+
+  // Show chrome on any touch/move in fullscreen
+  document.addEventListener('touchstart', () => { if (isFS) showFsChrome(); }, { passive: true });
+  document.addEventListener('mousemove',  () => { if (isFS) showFsChrome(); });
+
+  // Handle native fullscreen exit (e.g. swipe down on iOS)
+  document.addEventListener('fullscreenchange', () => {
+    if (!document.fullscreenElement && isFS) exitFullscreen();
+  });
+  document.addEventListener('webkitfullscreenchange', () => {
+    if (!document.webkitFullscreenElement && isFS) exitFullscreen();
+  });
 })();
 
 // ══════════════════════════════════════════
@@ -559,49 +768,28 @@ const ReaderState = (function () {
   let bookmarkedPage = parseInt(localStorage.getItem(STORAGE_KEY), 10) || null;
 
   function updateIndicator() {
-    if (bookmarkedPage !== null && bookmarkedPage > 0) {
-      indicator.textContent = '🔖 Bookmark on page ' + bookmarkedPage + ' — tap to return';
-    } else {
-      indicator.textContent = '';
-    }
-    // Update all bookmark buttons
+    indicator.textContent = (bookmarkedPage !== null && bookmarkedPage > 0)
+      ? '🔖 Bookmark on page ' + bookmarkedPage + ' — tap to return' : '';
     document.querySelectorAll('.bookmark-btn').forEach(btn => {
-      const page = btn.closest('.page');
-      const pageNum = parseInt(page.getAttribute('data-page'), 10);
-      if (pageNum === bookmarkedPage) {
-        btn.classList.add('bookmarked');
-        btn.setAttribute('aria-label', 'Remove bookmark');
-      } else {
-        btn.classList.remove('bookmarked');
-        btn.setAttribute('aria-label', 'Bookmark this page');
-      }
+      const pageNum = parseInt(btn.closest('.page').getAttribute('data-page'), 10);
+      btn.classList.toggle('bookmarked', pageNum === bookmarkedPage);
+      btn.setAttribute('aria-label', pageNum === bookmarkedPage ? 'Remove bookmark' : 'Bookmark this page');
     });
   }
 
-  // Click a bookmark button on a page
   document.querySelectorAll('.bookmark-btn').forEach(btn => {
     btn.addEventListener('click', e => {
       e.stopPropagation();
-      const page    = btn.closest('.page');
-      const pageNum = parseInt(page.getAttribute('data-page'), 10);
-
-      if (bookmarkedPage === pageNum) {
-        // Toggle off
-        bookmarkedPage = null;
-        localStorage.removeItem(STORAGE_KEY);
-      } else {
-        bookmarkedPage = pageNum;
-        localStorage.setItem(STORAGE_KEY, pageNum);
-      }
+      const pageNum = parseInt(btn.closest('.page').getAttribute('data-page'), 10);
+      if (bookmarkedPage === pageNum) { bookmarkedPage = null; localStorage.removeItem(STORAGE_KEY); }
+      else { bookmarkedPage = pageNum; localStorage.setItem(STORAGE_KEY, pageNum); }
       updateIndicator();
     });
   });
 
-  // Click the indicator text to jump back
   indicator.addEventListener('click', () => {
-    if (bookmarkedPage !== null) {
+    if (bookmarkedPage !== null)
       ReaderState.goTo(bookmarkedPage, bookmarkedPage > ReaderState.getCurrent() ? 'next' : 'prev');
-    }
   });
 
   updateIndicator();
@@ -619,60 +807,36 @@ const ReaderState = (function () {
     setTimeout(() => toast.classList.remove('visible'), 2800);
   }
 
-  function getPageText(page) {
-    // Grab only the page-body text, clean whitespace
-    const body = page.querySelector('.page-body');
-    if (!body) return '';
-    return body.innerText.trim();
-  }
-
-  function getPageTitle(page) {
-    const header = page.querySelector('.page-header');
-    const num    = page.querySelector('.page-number');
-    const title  = header ? header.textContent.trim() : 'Light As Meaning';
-    const pgNum  = num ? ' — Page ' + num.textContent.trim() : '';
-    return title + pgNum;
-  }
-
   document.querySelectorAll('.share-btn').forEach(btn => {
     btn.addEventListener('click', async e => {
       e.stopPropagation();
-      const page  = btn.closest('.page');
-      const text  = getPageText(page);
-      const title = getPageTitle(page);
+      const page = btn.closest('.page');
+      const body = page.querySelector('.page-body');
+      const header = page.querySelector('.page-header');
+      const num  = page.querySelector('.page-number');
+      const text = body ? body.innerText.trim() : '';
+      const title = (header ? header.textContent.trim() : 'Light As Meaning')
+                  + (num ? ' — Page ' + num.textContent.trim() : '');
       const shareData = {
-        title: title,
-        text:  text + '\n\n— From "Light As Meaning" by Kawnur Earnlight\nhttps://www.mynoegenesis.com',
+        title,
+        text: text + '\n\n— From "Light As Meaning" by Kawnur Earnlight\nhttps://www.mynoegenesis.com',
       };
 
-      // Try native share sheet first (works on mobile)
       if (navigator.share) {
-        try {
-          await navigator.share(shareData);
-        } catch (err) {
-          // User cancelled — no toast needed
-          if (err.name !== 'AbortError') {
-            showToast('Could not share — try copying instead');
-          }
-        }
+        try { await navigator.share(shareData); }
+        catch (err) { if (err.name !== 'AbortError') showToast('Could not share'); }
       } else {
-  // Fallback: use execCommand which works across more browsers
-  const textarea = document.createElement('textarea');
-  textarea.value = shareData.text;
-  textarea.style.position = 'fixed';
-  textarea.style.opacity  = '0';
-  document.body.appendChild(textarea);
-  textarea.focus();
-  textarea.select();
-  try {
-    const success = document.execCommand('copy');
-    showToast(success ? 'Page text copied to clipboard' : 'Could not copy — please select and copy manually');
-  } catch {
-    showToast('Could not copy — please select and copy manually');
-  }
-  document.body.removeChild(textarea);
-}
-
+        const ta = document.createElement('textarea');
+        ta.value = shareData.text;
+        ta.style.cssText = 'position:fixed;opacity:0';
+        document.body.appendChild(ta);
+        ta.focus(); ta.select();
+        try {
+          const ok = document.execCommand('copy');
+          showToast(ok ? 'Page text copied to clipboard' : 'Could not copy — please select and copy manually');
+        } catch { showToast('Could not copy — please select and copy manually'); }
+        document.body.removeChild(ta);
+      }
     });
   });
 })();
@@ -688,84 +852,70 @@ const ReaderState = (function () {
   const countEl  = document.getElementById('search-count');
   const prevBtn  = document.getElementById('search-prev-btn');
   const nextBtn  = document.getElementById('search-next-btn');
-
-  let matches    = [];
-  let matchIndex = 0;
+  let matches = [], matchIndex = 0;
 
   function clearHighlights() {
     document.querySelectorAll('mark.search-highlight').forEach(m => {
-      const parent = m.parentNode;
-      parent.replaceChild(document.createTextNode(m.textContent), m);
-      parent.normalize();
+      m.parentNode.replaceChild(document.createTextNode(m.textContent), m);
+      m.parentNode.normalize();
     });
   }
 
   function buildMatches(query) {
     matches = [];
-    const pages = ReaderState.pages;
-    for (let i = 1; i < pages.length; i++) {
-      const walker = document.createTreeWalker(pages[i], NodeFilter.SHOW_TEXT, null);
+    ReaderState.pages.forEach((page, i) => {
+      if (i === 0) return;
+      const walker = document.createTreeWalker(page, NodeFilter.SHOW_TEXT, null);
       let node;
       while ((node = walker.nextNode())) {
         const lower = node.textContent.toLowerCase();
-        const q     = query.toLowerCase();
+        const q = query.toLowerCase();
         let pos = 0;
-        while ((pos = lower.indexOf(q, pos)) !== -1) {
-          matches.push({ pageIndex: i, startOffset: pos, length: query.length });
-          pos += query.length;
-        }
+        while ((pos = lower.indexOf(q, pos)) !== -1) { matches.push({ pageIndex: i }); pos += q.length; }
       }
-    }
+    });
   }
 
   function highlightAll(query) {
     clearHighlights();
-    const pages = ReaderState.pages;
-    for (let i = 1; i < pages.length; i++) {
-      const walker = document.createTreeWalker(pages[i], NodeFilter.SHOW_TEXT, null);
-      const nodes  = [];
-      let node;
+    ReaderState.pages.forEach((page, i) => {
+      if (i === 0) return;
+      const walker = document.createTreeWalker(page, NodeFilter.SHOW_TEXT, null);
+      const nodes = []; let node;
       while ((node = walker.nextNode())) nodes.push(node);
-      nodes.forEach(textNode => {
-        const lower = textNode.textContent.toLowerCase();
-        const q     = query.toLowerCase();
+      nodes.forEach(tn => {
+        const lower = tn.textContent.toLowerCase();
+        const q = query.toLowerCase();
         if (!lower.includes(q)) return;
-        const mark  = document.createElement('mark');
+        const mark = document.createElement('mark');
         mark.className = 'search-highlight';
-        const idx = lower.indexOf(q);
         try {
           const range = document.createRange();
-          range.setStart(textNode, idx);
-          range.setEnd(textNode, idx + query.length);
+          const idx = lower.indexOf(q);
+          range.setStart(tn, idx); range.setEnd(tn, idx + q.length);
           range.surroundContents(mark);
         } catch {}
       });
-    }
+    });
   }
 
   function goToMatch(idx) {
     if (!matches.length) return;
     matchIndex = (idx + matches.length) % matches.length;
-    const match = matches[matchIndex];
     countEl.textContent = (matchIndex + 1) + ' of ' + matches.length;
-    const current = ReaderState.getCurrent();
-    if (match.pageIndex !== current) {
-      ReaderState.goTo(match.pageIndex, match.pageIndex > current ? 'next' : 'prev');
-    }
+    const pi = matches[matchIndex].pageIndex;
+    if (pi !== ReaderState.getCurrent()) ReaderState.goTo(pi, pi > ReaderState.getCurrent() ? 'next' : 'prev');
   }
 
   function doSearch() {
     const query = input.value.trim();
-    clearHighlights();
-    navEl.style.display  = 'none';
-    resultEl.textContent = '';
-    matches    = [];
-    matchIndex = 0;
+    clearHighlights(); navEl.style.display = 'none'; resultEl.textContent = '';
+    matches = []; matchIndex = 0;
     if (!query) return;
     buildMatches(query);
     if (!matches.length) { resultEl.textContent = 'Not found'; return; }
     highlightAll(query);
-    navEl.style.display  = 'flex';
+    navEl.style.display = 'flex';
     resultEl.textContent = matches.length + (matches.length === 1 ? ' result' : ' results');
     goToMatch(0);
   }
@@ -788,17 +938,14 @@ const ReaderState = (function () {
   const defType = document.getElementById('def-type');
   const defText = document.getElementById('def-text');
   const defLoad = document.getElementById('def-loading');
-  let longPressTimer = null;
-  let lastWord = '';
+  let longPressTimer = null, lastWord = '';
 
   function cleanWord(w) { return w.replace(/[^a-zA-Z'-]/g, '').toLowerCase(); }
-
   function getSelectedWord() {
     const sel = window.getSelection();
     if (sel && sel.toString().trim()) return cleanWord(sel.toString().trim().split(/\s+/)[0]);
     return null;
   }
-
   function showBubble(x, y) {
     bubble.style.display = 'block';
     const bw = 260;
@@ -806,48 +953,37 @@ const ReaderState = (function () {
     if (left < 8) left = 8;
     if (left + bw > window.innerWidth - 8) left = window.innerWidth - bw - 8;
     bubble.style.left = left + 'px';
-    bubble.style.top  = (y - bubble.offsetHeight - 16) + 'px';
     requestAnimationFrame(() => { bubble.style.top = (y - bubble.offsetHeight - 16) + 'px'; });
   }
-
   function hideBubble() { bubble.style.display = 'none'; lastWord = ''; }
 
   async function lookupWord(word, x, y) {
     if (!word || word === lastWord) return;
     lastWord = word;
     defWord.textContent = word; defType.textContent = ''; defText.textContent = '';
-    defLoad.style.display = 'block'; bubble.style.display = 'block';
-    showBubble(x, y);
+    defLoad.style.display = 'block'; bubble.style.display = 'block'; showBubble(x, y);
     try {
       const res  = await fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + encodeURIComponent(word));
       const data = await res.json();
       defLoad.style.display = 'none';
       if (!Array.isArray(data) || !data[0]) { defText.textContent = 'No definition found.'; showBubble(x, y); return; }
-      const entry = data[0]; const meaning = entry.meanings[0]; const defn = meaning.definitions[0];
-      defWord.textContent = entry.word; defType.textContent = meaning.partOfSpeech; defText.textContent = defn.definition;
+      const m = data[0].meanings[0];
+      defWord.textContent = data[0].word; defType.textContent = m.partOfSpeech; defText.textContent = m.definitions[0].definition;
       showBubble(x, y);
     } catch { defLoad.style.display = 'none'; defText.textContent = 'Could not fetch definition.'; showBubble(x, y); }
   }
 
   document.getElementById('book').addEventListener('contextmenu', e => {
-    const word = getSelectedWord();
-    if (!word) return;
-    e.preventDefault();
-    lookupWord(word, e.clientX, e.clientY);
+    const word = getSelectedWord(); if (!word) return; e.preventDefault(); lookupWord(word, e.clientX, e.clientY);
   });
-
   document.getElementById('book').addEventListener('touchstart', e => {
     longPressTimer = setTimeout(() => {
-      const word = getSelectedWord();
-      if (!word) return;
-      const touch = e.touches[0];
-      lookupWord(word, touch.clientX, touch.clientY);
+      const word = getSelectedWord(); if (!word) return;
+      lookupWord(word, e.touches[0].clientX, e.touches[0].clientY);
     }, 600);
   }, { passive: true });
-
   document.getElementById('book').addEventListener('touchend',  () => clearTimeout(longPressTimer), { passive: true });
   document.getElementById('book').addEventListener('touchmove', () => clearTimeout(longPressTimer), { passive: true });
-
   document.addEventListener('click', e => { if (!bubble.contains(e.target)) hideBubble(); });
   document.addEventListener('touchend', e => {
     if (!bubble.contains(e.target) && !document.getElementById('book').contains(e.target)) hideBubble();
@@ -860,7 +996,6 @@ const ReaderState = (function () {
 document.getElementById('public-toggle').addEventListener('change', function () {
   document.getElementById('public-value').value = this.checked ? 'Yes' : 'No';
 });
-
 (function () {
   const form = document.getElementById('comment-form');
   const msg  = document.getElementById('form-message');
@@ -871,18 +1006,16 @@ document.getElementById('public-toggle').addEventListener('change', function () 
     try {
       const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
       if (res.ok) { msg.textContent = 'Your message has been received. Thank you.'; form.reset(); document.getElementById('public-value').value = 'No'; }
-      else { msg.textContent = 'Something went wrong. Please try again or email directly.'; }
+      else { msg.textContent = 'Something went wrong. Please try again or email directly at Earnlight@mynoegenesis.com'; }
     } catch { msg.textContent = 'Could not send. Please check your connection.'; }
     btn.textContent = 'Send ✦'; btn.disabled = false;
   });
 })();
- 
-</script> 
- <script>
+</script>
+<script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/service-worker.js');
   }
 </script>
-
 </body>
 </html>
