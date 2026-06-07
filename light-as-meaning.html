@@ -145,8 +145,8 @@
   #search-btn { background: var(--btn-bg); border: 1px solid var(--border); color: var(--gold); font-family: 'Cinzel', serif; font-size: clamp(0.45rem, 1.1vw, 0.58rem); letter-spacing: 0.1em; padding: 3px 10px; border-radius: 3px; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
   #search-btn:hover { background: var(--btn-hover); }
   /* Clear search button */
-  #search-clear { background: var(--btn-bg); border: 1px solid var(--border); color: var(--gold); font-family: 'Cinzel', serif; font-size: 0.72rem; line-height: 1; padding: 3px 8px; border-radius: 3px; cursor: pointer; transition: background 0.2s, opacity 0.2s; opacity: 0; pointer-events: none; }
-  #search-clear.visible { opacity: 1; pointer-events: auto; }
+  #search-clear { background: var(--btn-bg); border: 1px solid var(--border); color: var(--gold); font-family: 'Cinzel', serif; font-size: 0.72rem; line-height: 1; padding: 3px 8px; border-radius: 3px; cursor: pointer; transition: background 0.2s; display: none; }
+  #search-clear.visible { display: inline-flex; align-items: center; }
   #search-clear:hover { background: var(--btn-hover); }
 
   #recent-btn { background: var(--btn-bg); border: 1px solid var(--border); color: var(--gold); font-family: 'Cinzel', serif; font-size: 0.8rem; line-height: 1; padding: 3px 8px; border-radius: 3px; cursor: pointer; transition: background 0.2s; }
@@ -241,8 +241,6 @@
   /* Bar page-number label */
   .page-number { font-family: 'Cinzel', serif; font-size: 0.6rem; color: #b5a474; letter-spacing: 0.15em; text-align: center; flex: 1; cursor: pointer; transition: color 0.2s; }
   .page-number:hover { color: var(--gold); }
-  /* Adjust share button colour for the dark bar background */
-  #page-bar .share-btn { color: #b5a474; font-size: 1rem; }
   .page-jump-input { width: 4em; background: transparent; border: none; border-bottom: 1px solid var(--frame); color: var(--ink); font-family: 'Cinzel', serif; font-size: inherit; text-align: center; outline: none; padding: 1px 0; }
 
   .bookmark-btn { background: none; border: none; cursor: pointer; padding: 0 4px; font-size: max(0.85rem, 3.4cqi); line-height: 1; color: var(--ink-light); opacity: 0.4; transition: opacity 0.2s, transform 0.2s; z-index: 3; flex-shrink: 0; }
@@ -270,8 +268,8 @@
   mark.search-highlight { background: rgba(227,193,77,0.4); color: inherit; border-radius: 2px; padding: 0 1px; }
   mark.search-highlight.current { background: #e8843c; color: #1a1208; box-shadow: 0 0 8px rgba(232,132,60,0.75); }
 
-  /* Selection action button */
-  #hl-action { position: fixed; z-index: 9000; display: none; }
+  /* Selection action popup — Highlight + Share buttons side by side */
+  #hl-action { position: fixed; z-index: 9000; display: none; gap: 6px; }
   #hl-action button { background: var(--menu-bg); border: 1px solid var(--gold); color: var(--gold-light); font-family: 'Cinzel', serif; font-size: 0.56rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 12px; border-radius: 4px; cursor: pointer; box-shadow: 0 6px 22px rgba(0,0,0,0.55); white-space: nowrap; }
   #hl-action button:hover { background: var(--btn-hover); color: var(--gold); }
 
@@ -284,6 +282,8 @@
   #highlights-menu .hl-text { flex: 1; font-family: 'Cormorant Garamond', serif; font-size: 0.92rem; color: var(--input-color); line-height: 1.5; font-style: italic; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   #highlights-menu .hl-remove { opacity: 0.5; font-size: 0.78rem; color: var(--text); transition: opacity 0.2s, color 0.2s; padding-top: 2px; }
   #highlights-menu .hl-remove:hover { opacity: 1; color: var(--gold); }
+  #highlights-menu .hl-share { opacity: 0.45; font-size: 0.78rem; color: var(--text); transition: opacity 0.2s, color 0.2s; padding-top: 2px; cursor: pointer; flex-shrink: 0; }
+  #highlights-menu .hl-share:hover { opacity: 1; color: var(--gold); }
   #highlights-menu .hl-empty { padding: 14px 10px; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--text-dim); font-size: 0.85rem; text-align: center; line-height: 1.5; }
   #highlights-menu .hl-page { font-family: 'Cinzel', serif; font-size: 0.48rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); opacity: 0.9; min-width: 32px; text-align: center; padding-top: 3px; flex-shrink: 0; border-right: 1px solid var(--border); margin-right: 2px; padding-right: 8px; }
 
@@ -361,7 +361,10 @@
 </div>
 
 <div id="share-toast">Page text copied to clipboard</div>
-<div id="hl-action"><button type="button">✦ Highlight</button></div>
+<div id="hl-action">
+  <button type="button" id="hl-btn-highlight">✦ Highlight</button>
+  <button type="button" id="hl-btn-share">↑ Share</button>
+</div>
 
 <!-- Fullscreen pop-up bars -->
 <div id="fs-topbar">
@@ -450,7 +453,6 @@
     <button class="page-nav-btn page-prev-btn" id="bar-prev" aria-label="Previous page">← Prev</button>
     <span class="page-number" id="bar-page-num">Cover</span>
     <button class="page-nav-btn page-next-btn" id="bar-next" aria-label="Next page">Next →</button>
-    <button class="share-btn" id="bar-share" aria-label="Share this page">↑</button>
   </div>
 
   <!-- Fullscreen button — on the e-reader, top-right corner -->
@@ -698,7 +700,8 @@ const ReaderState = (function () {
 (function () {
   const HL_KEY  = 'noegenesis-highlights-lam';
   const action  = document.getElementById('hl-action');
-  const actBtn  = action.querySelector('button');
+  const actBtn   = document.getElementById('hl-btn-highlight');
+  const shareBtn = document.getElementById('hl-btn-share');
   const menu    = document.getElementById('highlights-menu');
   const menuBtn = document.getElementById('highlights-btn');
   let highlights = [];   // {id, pageIndex, text, spans:[...]}
@@ -804,7 +807,7 @@ const ReaderState = (function () {
   }
 
   function showActionAt(rect) {
-    action.style.display = 'block';
+    action.style.display = 'flex';
     const aw = action.offsetWidth;
     let left = rect.left + rect.width / 2 - aw / 2;
     left = Math.max(8, Math.min(left, window.innerWidth - aw - 8));
@@ -827,6 +830,15 @@ const ReaderState = (function () {
   document.addEventListener('selectionchange', () => { if (window.getSelection().isCollapsed) hideAction(); });
   actBtn.addEventListener('mousedown', e => e.preventDefault());
   actBtn.addEventListener('click', addFromSelection);
+  if (shareBtn) {
+    shareBtn.addEventListener('mousedown', e => e.preventDefault()); // keep selection alive
+    shareBtn.addEventListener('click', () => {
+      const sel  = window.getSelection();
+      const text = sel ? sel.toString().trim() : '';
+      hideAction();
+      if (text && window.__sharePassage) window.__sharePassage(text);
+    });
+  }
 
   function goToHighlight(h) {
     const target = h.spans && h.spans[0];
@@ -865,9 +877,11 @@ const ReaderState = (function () {
       const pg = document.createElement('span'); pg.className = 'hl-page';
       pg.textContent = h.pageIndex === 0 ? 'Cover' : 'P.\u2009' + h.pageIndex;
       const t  = document.createElement('span'); t.className  = 'hl-text';   t.textContent = h.text;
+      const sh = document.createElement('span'); sh.className = 'hl-share';  sh.textContent = '↑'; sh.title = 'Share this passage';
       const rm = document.createElement('span'); rm.className = 'hl-remove'; rm.textContent = '✕';
-      item.appendChild(pg); item.appendChild(t); item.appendChild(rm);
+      item.appendChild(pg); item.appendChild(t); item.appendChild(sh); item.appendChild(rm);
       t.addEventListener('click', () => { goToHighlight(h); menu.classList.remove('open'); });
+      sh.addEventListener('click', e => { e.stopPropagation(); if (window.__sharePassage) window.__sharePassage(h.text); });
       rm.addEventListener('click', e => { e.stopPropagation(); removeHighlight(h); renderMenu(); });
       menu.appendChild(item);
     });
@@ -956,47 +970,36 @@ const ReaderState = (function () {
 })();
 
 // ══════════════════════════════════════════
-// SHARE PAGE — bar share button shares the currently visible page
+// SHARE UTILITY — used by selection popup and highlights menu
 // ══════════════════════════════════════════
 (function () {
-  const toast  = document.getElementById('share-toast');
-  const barShr = document.getElementById('bar-share');
+  const toast = document.getElementById('share-toast');
   function showToast(msg) {
     toast.textContent = msg; toast.classList.add('visible');
     setTimeout(() => toast.classList.remove('visible'), 2800);
   }
-  if (!barShr) return;
-  barShr.addEventListener('click', async e => {
-    e.stopPropagation();
-    const page   = document.querySelector('.page.active');
-    const body   = page ? page.querySelector('.page-body') : null;
-    const header = page ? page.querySelector('.page-header') : null;
-    const pgNum  = document.getElementById('bar-page-num');
-    const text   = body ? body.innerText.trim() : '';
-    const title  = (header ? header.textContent.trim() : 'Light As Meaning')
-                 + (pgNum ? ' \u2014 ' + pgNum.textContent.trim() : '');
-    const shareData = {
-      title,
+  async function sharePassage(text) {
+    const payload = {
+      title: 'From \u201cLight As Meaning\u201d by Kawnur Earnlight',
       text: text + '\n\n\u2014 From \u201cLight As Meaning\u201d by Kawnur Earnlight\nhttps://www.mynoegenesis.com',
     };
     if (navigator.share) {
-      try { await navigator.share(shareData); }
-      catch (err) { if (err.name !== 'AbortError') showToast('Could not share'); }
-    } else {
-      const t = document.createElement('textarea');
-      t.value = shareData.text; t.style.cssText = 'position:fixed;opacity:0';
-      document.body.appendChild(t); t.focus(); t.select();
-      try {
-        const ok = document.execCommand('copy');
-        showToast(ok ? 'Page text copied to clipboard' : 'Could not copy \u2014 please select and copy manually');
-      } catch { showToast('Could not copy \u2014 please select and copy manually'); }
-      document.body.removeChild(t);
+      try { await navigator.share(payload); return; }
+      catch (err) { if (err.name === 'AbortError') return; }
     }
-  });
+    const t = document.createElement('textarea');
+    t.value = payload.text; t.style.cssText = 'position:fixed;opacity:0';
+    document.body.appendChild(t); t.focus(); t.select();
+    try { const ok = document.execCommand('copy'); showToast(ok ? 'Passage copied to clipboard' : 'Could not copy'); }
+    catch { showToast('Could not copy'); }
+    document.body.removeChild(t);
+  }
+  // Exposed globally so the highlight IIFE and highlights menu can use it
+  window.__sharePassage = sharePassage;
 })();
 
 // ══════════════════════════════════════════
-// TEXT SEARCH — fixed: new term searched immediately; same term advances
+// TEXT SEARCH — Search always fresh-searches; Prev/Next navigate; ✕ always clears
 // ══════════════════════════════════════════
 (function () {
   const input    = document.getElementById('search-input');
@@ -1007,11 +1010,9 @@ const ReaderState = (function () {
   const countEl  = document.getElementById('search-count');
   const prevBtn  = document.getElementById('search-prev-btn');
   const nextBtn  = document.getElementById('search-next-btn');
-  let matches = [], matchIndex = 0, lastQuery = '';
+  let matches = [], matchIndex = 0;
 
-  function showClearBtn(visible) {
-    clearBtn.classList.toggle('visible', visible);
-  }
+  function showClearBtn(visible) { clearBtn.classList.toggle('visible', visible); }
 
   function clearHighlights() {
     document.querySelectorAll('mark.search-highlight').forEach(m => {
@@ -1022,7 +1023,7 @@ const ReaderState = (function () {
 
   function clearSearch() {
     clearHighlights();
-    input.value = ''; matches = []; matchIndex = 0; lastQuery = '';
+    input.value = ''; matches = []; matchIndex = 0;
     resultEl.textContent = ''; countEl.textContent = '';
     navEl.style.display = 'none';
     showClearBtn(false);
@@ -1074,36 +1075,28 @@ const ReaderState = (function () {
     }
   }
 
-  function freshSearch(query) {
-    highlightAll(query);
-    lastQuery = query;
+  // Search button always does a FRESH search — no "same term → advance" logic
+  function doSearch() {
+    const query = input.value.trim();
+    if (!query) { clearSearch(); return; }
+    clearHighlights(); matches = []; matchIndex = 0;
+    navEl.style.display = 'none'; countEl.textContent = ''; resultEl.textContent = '';
     addRecent(query);
+    highlightAll(query);
     showClearBtn(true);
-    if (!matches.length) { resultEl.textContent = 'Not found'; navEl.style.display = 'none'; return; }
+    if (!matches.length) { resultEl.textContent = 'Not found'; return; }
     resultEl.textContent = matches.length + (matches.length === 1 ? ' result' : ' results');
     navEl.style.display = 'flex';
     goToMatch(0);
   }
 
-  function doSearch() {
-    const query = input.value.trim();
-    if (!query) { clearSearch(); return; }
-    resultEl.textContent = '';
-    // Same term → advance to next match; different term → fresh search immediately
-    if (query.toLowerCase() === lastQuery.toLowerCase() && matches.length) {
-      goToMatch(matchIndex + 1);
-    } else {
-      clearHighlights(); matches = []; matchIndex = 0;
-      navEl.style.display = 'none'; countEl.textContent = '';
-      freshSearch(query);
-    }
-  }
-
   btn.addEventListener('click', doSearch);
   clearBtn.addEventListener('click', clearSearch);
   input.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+  // Show/hide clear button whenever input content changes
   input.addEventListener('input', () => {
-    if (!input.value) { clearSearch(); }
+    showClearBtn(!!input.value);
+    if (!input.value) { clearHighlights(); matches = []; matchIndex = 0; resultEl.textContent = ''; countEl.textContent = ''; navEl.style.display = 'none'; }
   });
   nextBtn.addEventListener('click', () => goToMatch(matchIndex + 1));
   prevBtn.addEventListener('click', () => goToMatch(matchIndex - 1));
