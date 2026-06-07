@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#1a1208">
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#1d1a0e">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Light As Meaning</title>
@@ -11,249 +11,162 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --paper: #fdf8f0;
-    --paper-dark: #f0e8d8;
-    --ink: #2c2416;
-    --ink-light: #6b5c45;
-    --gold: #c9a84c;
-    --gold-light: #e8cc80;
-    --bg: #1a1208;
-    --bg-2: #2d1f0a;
-    --bg-3: #0d0d0d;
-    --surface: rgba(255,255,255,0.04);
-    --border: rgba(201, 168, 76, 0.2);
-    --text: rgba(201, 168, 76, 0.7);
-    --text-dim: rgba(201, 168, 76, 0.4);
-    --btn-bg: rgba(201, 168, 76, 0.15);
-    --btn-hover: rgba(201, 168, 76, 0.3);
-    --input-color: #e8cc80;
-    --label-color: rgba(201, 168, 76, 0.6);
-    --form-bg: rgba(255,255,255,0.03);
-    --form-border: rgba(201, 168, 76, 0.15);
-    --form-input-bg: rgba(255,255,255,0.05);
-    --form-input-border: rgba(201, 168, 76, 0.25);
-    --form-input-text: #e8cc80;
-    --form-heading: rgba(201, 168, 76, 0.5);
-    --home-color: rgba(201, 168, 76, 0.55);
+    --paper: #fefcf5; --paper-dark: #ece2c8; --ink: #2c2614; --ink-light: #6f6038;
+    --gold: #e3c14d; --gold-light: #f5dd8c; --bg: #1d1a0e; --bg-2: #3a3114; --bg-3: #14120a;
+    --surface: rgba(245,221,140,0.05); --border: rgba(227,193,77,0.28);
+    --text: rgba(245,221,140,0.82); --text-dim: rgba(227,193,77,0.5);
+    --btn-bg: rgba(227,193,77,0.16); --btn-hover: rgba(227,193,77,0.34);
+    --input-color: #f5dd8c; --label-color: rgba(227,193,77,0.7);
+    --form-bg: rgba(245,221,140,0.04); --form-border: rgba(227,193,77,0.18);
+    --form-input-bg: rgba(245,221,140,0.06); --form-input-border: rgba(227,193,77,0.3);
+    --form-input-text: #f5dd8c; --form-heading: rgba(227,193,77,0.62);
+    --home-color: rgba(227,193,77,0.66); --frame: rgba(227,193,77,0.5);
+    --frame-soft: rgba(227,193,77,0.2); --menu-bg: #211d11;
   }
 
   [data-theme="dark"] .page:not(.page-cover) {
-    --paper: #1c1810;
-    --paper-dark: rgba(255,255,255,0.08);
-    --ink: #e8e0d0;
-    --ink-light: #a09080;
-    background: #1c1810;
+    --paper: #221e11; --paper-dark: rgba(245,221,140,0.12);
+    --ink: #f0e7d0; --ink-light: #b5a474; background: #221e11;
   }
 
   body {
-    min-height: 100vh;
-    background: #1a1208;
+    min-height: 100vh; background: #1d1a0e;
     background-image:
-      radial-gradient(ellipse at 20% 20%, #2d1f0a 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 80%, #0d0d0d 0%, transparent 60%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 12px 20px 40px;
+      radial-gradient(ellipse at 20% 20%, #4a3d18 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, #2a2410 0%, transparent 62%);
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+    /* FIX: extra top padding so fixed home-btn doesn't overlap search bar */
+    padding: 50px 20px 40px;
     font-family: 'Cormorant Garamond', Georgia, serif;
   }
 
   /* ── FULLSCREEN MODE ── */
-  body.reader-fullscreen {
-    padding: 0;
-    justify-content: center;
-    overflow: hidden;
-    height: 100vh;
-  }
-
+  body.reader-fullscreen { padding: 0; justify-content: center; overflow: hidden; height: 100vh; }
   body.reader-fullscreen #book-container {
-    position: fixed;
-    inset: 0;
-    width: 100vw !important;
-    height: 100vh;
-    margin: 0;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    background: #1a1208;
+    position: fixed; inset: 0; width: 100vw !important; height: 100vh; margin: 0; z-index: 1000;
+    display: flex; flex-direction: column; background: #1d1a0e;
     background-image:
-      radial-gradient(ellipse at 20% 20%, #2d1f0a 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 80%, #0d0d0d 0%, transparent 60%);
+      radial-gradient(ellipse at 20% 20%, #4a3d18 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, #2a2410 0%, transparent 62%);
   }
-
-  body.reader-fullscreen #book-scene {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
+  body.reader-fullscreen #book-scene { flex: 1; display: flex; align-items: center; justify-content: center; }
   body.reader-fullscreen #book {
-    flex: 1;
-    padding-top: 0 !important;
-    height: 100%;
+    flex: 0 0 auto; padding-top: 0 !important;
+    width: min(96vw, calc(96vh / 1.24)); aspect-ratio: 1 / 1.24; height: auto;
   }
+  body.reader-fullscreen .page { position: absolute; inset: 0; }
 
-  body.reader-fullscreen .page {
-    position: absolute;
-    inset: 0;
-  }
-
-  /* Hide everything except the book in fullscreen */
-  body.reader-fullscreen #theme-toggle,
+  /* Hide page furniture in fullscreen */
   body.reader-fullscreen #search-bar,
   body.reader-fullscreen #search-nav,
   body.reader-fullscreen #controls,
-  body.reader-fullscreen #bookmark-indicator,
+  body.reader-fullscreen #goto-page-row,
   body.reader-fullscreen #comment-section,
+  body.reader-fullscreen #comments-display,
   body.reader-fullscreen #home-btn,
-  body.reader-fullscreen #book-shadow {
-    display: none !important;
-  }
+  body.reader-fullscreen #book-shadow,
+  body.reader-fullscreen #fs-navbar,
+  body.reader-fullscreen #highlights-menu { display: none !important; }
 
-  /* Nav arrows in fullscreen — bigger, more visible */
-  body.reader-fullscreen .nav-btn {
-    width: 52px;
-    height: 52px;
-    font-size: 1.3rem;
-  }
-
-  body.reader-fullscreen #btn-prev { left: 12px; }
-  body.reader-fullscreen #btn-next { right: 12px; }
-
-  /* Fullscreen controls bar — shown at bottom in fullscreen */
-  #fs-controls {
-    display: none;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 10px 20px;
-    background: linear-gradient(to top, rgba(10,8,4,0.95), transparent);
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    z-index: 1010;
-    transition: opacity 0.4s;
-  }
-
-  body.reader-fullscreen #fs-controls { display: flex; }
-
-  #fs-controls.hidden { opacity: 0; pointer-events: none; }
-
-  #fs-indicator {
-    font-family: 'Cinzel', serif;
-    font-size: 0.65rem;
-    color: rgba(201,168,76,0.7);
-    letter-spacing: 0.12em;
-    flex: 1;
-    text-align: center;
-  }
-
-  .fs-btn {
-    background: var(--btn-bg);
-    border: 1px solid var(--border);
-    color: var(--gold);
-    font-family: 'Cinzel', serif;
-    font-size: 0.58rem;
-    letter-spacing: 0.1em;
-    padding: 5px 12px;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background 0.2s;
-    white-space: nowrap;
-  }
-
-  .fs-btn:hover { background: var(--btn-hover); }
-
-  /* ── FULLSCREEN BUTTON — sits on top-right corner of book ── */
+  /* ── FULLSCREEN BUTTON — on the e-reader, top-right corner ── */
   #fullscreen-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 30;
-    background: rgba(10, 8, 4, 0.55);
-    border: 1px solid rgba(201,168,76,0.3);
-    color: rgba(201,168,76,0.7);
-    border-radius: 3px;
-    padding: 5px 8px;
-    cursor: pointer;
-    font-size: 0.75rem;
-    line-height: 1;
+    position: absolute; top: 10px; right: 10px; z-index: 30;
+    background: rgba(20,16,6,0.55); border: 1px solid var(--border);
+    color: var(--text); border-radius: 3px; padding: 5px 9px; cursor: pointer;
+    font-size: 0.78rem; line-height: 1; backdrop-filter: blur(4px);
     transition: background 0.2s, color 0.2s, border-color 0.2s;
-    backdrop-filter: blur(4px);
   }
+  #fullscreen-btn:hover { background: var(--btn-hover); color: var(--gold); border-color: var(--gold); }
 
-  #fullscreen-btn:hover {
-    background: rgba(201,168,76,0.2);
-    color: var(--gold);
-    border-color: var(--gold);
+  /* ── ELEGANT BOOKMARK RIBBON — top-left of book, appears with chrome movement ── */
+  #bookmark-ribbon {
+    position: absolute; top: -3px; left: 22px; z-index: 30;
+    width: 34px; height: 56px; display: flex;  /* always visible */
+    flex-direction: column; align-items: center; justify-content: flex-start;
+    padding-top: 7px; gap: 2px; cursor: pointer; user-select: none;
+    background: linear-gradient(160deg, #f7e49c 0%, #e3c14d 38%, #c9a435 65%, #9e7d1f 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 76%, 0 100%);
+    box-shadow: 2px 4px 14px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.72), inset -1px 0 4px rgba(120,90,20,0.25);
+    opacity: 0.32; /* ornamental default — no bookmark set */
+    transition: opacity 0.4s, transform 0.2s;
   }
-
-  /* Exit button — top-right in fullscreen */
-  #exit-fullscreen-btn {
-    position: fixed;
-    top: 14px;
-    right: 14px;
-    z-index: 1020;
-    display: none;
-    background: rgba(10,8,4,0.7);
-    border: 1px solid rgba(201,168,76,0.35);
-    color: rgba(201,168,76,0.8);
-    border-radius: 3px;
-    padding: 6px 10px;
-    cursor: pointer;
-    font-family: 'Cinzel', serif;
-    font-size: 0.55rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    transition: background 0.2s, opacity 0.4s;
-    backdrop-filter: blur(4px);
+  #bookmark-ribbon::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(122deg, rgba(255,255,255,0.62) 0%, rgba(255,255,255,0.08) 34%, transparent 56%);
   }
+  #bookmark-ribbon:hover { transform: translateY(3px); opacity: 0.75; }
+  #bookmark-ribbon:active { transform: translateY(5px); }
+  /* Fully opaque when a bookmark is set */
+  #bookmark-ribbon.has-bookmark { opacity: 1; }
+  .bm-tick { position: relative; z-index: 2; font-size: 0.42rem; color: rgba(44,38,20,0.7); line-height: 1; letter-spacing: 0.05em; }
+  .bm-num  { position: relative; z-index: 2; font-family: 'Cinzel', serif; font-weight: 600; font-size: 0.88rem; color: #1e1808; text-shadow: 0 1px 0 rgba(255,255,255,0.5); line-height: 1; letter-spacing: -0.01em; }
 
-  body.reader-fullscreen #exit-fullscreen-btn { display: block; }
-  #exit-fullscreen-btn.hidden { opacity: 0; pointer-events: none; }
-
-  /* ── THEME TOGGLE ── */
-  #theme-toggle {
-    align-self: flex-end;
-    margin-bottom: 12px;
-    background: var(--btn-bg);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-family: 'Cinzel', serif;
-    font-size: 0.6rem;
-    letter-spacing: 0.15em;
-    padding: 6px 12px;
-    border-radius: 3px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: background 0.2s, border-color 0.2s, color 0.2s;
-    text-transform: uppercase;
+  /* ── FULLSCREEN POP-UP BARS ── */
+  #fs-topbar, #fs-navbar {
+    position: fixed; left: 0; right: 0; z-index: 1020; display: none;
+    align-items: center; padding: 12px 16px; transition: opacity 0.35s;
   }
-  #theme-toggle:hover { background: var(--btn-hover); border-color: var(--gold); color: var(--gold); }
-  .theme-icon { font-size: 0.9rem; }
+  #fs-topbar { top: 0; justify-content: flex-end; background: linear-gradient(to bottom, rgba(15,12,5,0.94), transparent); }
+  #fs-navbar { bottom: 0; justify-content: center; gap: 14px; background: linear-gradient(to top, rgba(15,12,5,0.94), transparent); }
+  body.reader-fullscreen #fs-topbar, body.reader-fullscreen #fs-navbar { display: flex; }
+  body.reader-fullscreen.chrome-hidden #fs-topbar,
+  body.reader-fullscreen.chrome-hidden #fs-navbar { opacity: 0; pointer-events: none; }
+  .fs-chip {
+    background: rgba(20,16,6,0.74); border: 1px solid var(--border); color: var(--text);
+    border-radius: 3px; padding: 7px 12px; cursor: pointer; font-family: 'Cinzel', serif;
+    font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1;
+    transition: background 0.2s, color 0.2s, border-color 0.2s; backdrop-filter: blur(4px); white-space: nowrap;
+  }
+  .fs-chip:hover { background: var(--btn-hover); color: var(--gold); border-color: var(--gold); }
+  .fs-chip:disabled { opacity: 0.3; cursor: default; }
+  #fs-indicator { font-family: 'Cinzel', serif; font-size: 0.62rem; color: var(--text); letter-spacing: 0.12em; min-width: 120px; text-align: center; }
+
+  /* ── HOME BUTTON — fixed top-left of viewport ── */
+  #home-btn {
+    position: fixed; top: 10px; left: 12px; z-index: 1100;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px; background: rgba(20,16,6,0.72); border: 1px solid var(--border);
+    border-radius: 3px; color: var(--home-color); font-family: 'Cinzel', serif;
+    font-size: clamp(0.42rem, 1.1vw, 0.58rem); letter-spacing: 0.18em; text-decoration: none;
+    text-transform: uppercase; backdrop-filter: blur(6px);
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  #home-btn:hover { color: var(--gold); border-color: var(--gold); background: var(--btn-hover); }
 
   /* ── SEARCH BAR ── */
   #search-bar {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 6px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 4px 10px;
-    width: min(480px, 70vw);
+    position: relative; display: flex; align-items: center; gap: 6px; margin-bottom: 6px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+    padding: 4px 10px; width: min(640px, 88vw);
   }
   #search-bar label { font-family: 'Cinzel', serif; font-size: clamp(0.45rem, 1.2vw, 0.6rem); color: var(--label-color); letter-spacing: 0.15em; white-space: nowrap; text-transform: uppercase; }
   #search-input { flex: 1; background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--input-color); font-family: 'Cormorant Garamond', serif; font-size: clamp(0.7rem, 1.5vw, 0.85rem); outline: none; padding: 2px 4px; }
   #search-input::placeholder { color: var(--text-dim); font-style: italic; }
   #search-btn { background: var(--btn-bg); border: 1px solid var(--border); color: var(--gold); font-family: 'Cinzel', serif; font-size: clamp(0.45rem, 1.1vw, 0.58rem); letter-spacing: 0.1em; padding: 3px 10px; border-radius: 3px; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
   #search-btn:hover { background: var(--btn-hover); }
+  /* Clear search button */
+  #search-clear { background: var(--btn-bg); border: 1px solid var(--border); color: var(--gold); font-family: 'Cinzel', serif; font-size: 0.72rem; line-height: 1; padding: 3px 8px; border-radius: 3px; cursor: pointer; transition: background 0.2s, opacity 0.2s; opacity: 0; pointer-events: none; }
+  #search-clear.visible { opacity: 1; pointer-events: auto; }
+  #search-clear:hover { background: var(--btn-hover); }
+
+  #recent-btn { background: var(--btn-bg); border: 1px solid var(--border); color: var(--gold); font-family: 'Cinzel', serif; font-size: 0.8rem; line-height: 1; padding: 3px 8px; border-radius: 3px; cursor: pointer; transition: background 0.2s; }
+  #recent-btn:hover { background: var(--btn-hover); }
+  #recent-menu {
+    display: none; position: absolute; top: calc(100% + 5px); right: 0;
+    min-width: 210px; max-height: 260px; overflow-y: auto;
+    background: var(--menu-bg); border: 1px solid var(--border); border-radius: 5px;
+    box-shadow: 0 10px 32px rgba(0,0,0,0.55); z-index: 60; padding: 4px;
+  }
+  #recent-menu.open { display: block; }
+  #recent-menu .recent-title { font-family: 'Cinzel', serif; font-size: 0.5rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-dim); padding: 6px 8px 4px; }
+  #recent-menu .recent-item { display: flex; align-items: center; gap: 8px; padding: 6px 8px; font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; color: var(--input-color); cursor: pointer; border-radius: 3px; }
+  #recent-menu .recent-item:hover { background: var(--btn-hover); }
+  #recent-menu .recent-item .term { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  #recent-menu .recent-item .remove { opacity: 0.45; font-size: 0.72rem; transition: opacity 0.2s; }
+  #recent-menu .recent-item .remove:hover { opacity: 0.9; }
+  #recent-menu .recent-empty { padding: 10px 8px; font-style: italic; color: var(--text-dim); font-size: 0.82rem; font-family: 'Cormorant Garamond', serif; text-align: center; }
+  #recent-menu .recent-clear { width: 100%; margin-top: 4px; background: none; border: none; border-top: 1px solid var(--border); color: var(--text-dim); font-family: 'Cinzel', serif; font-size: 0.52rem; letter-spacing: 0.12em; padding: 7px; cursor: pointer; text-transform: uppercase; }
+  #recent-menu .recent-clear:hover { color: var(--gold); }
   #search-result { font-family: 'Cormorant Garamond', serif; font-size: clamp(0.55rem, 1.3vw, 0.7rem); color: var(--text-dim); font-style: italic; margin-left: 4px; white-space: nowrap; }
 
   #search-nav { display: none; align-items: center; gap: 6px; margin-bottom: 10px; justify-content: center; }
@@ -262,145 +175,146 @@
   #search-count { font-family: 'Cinzel', serif; font-size: clamp(0.45rem, 1.1vw, 0.58rem); color: var(--text-dim); letter-spacing: 0.1em; white-space: nowrap; }
 
   /* ── BOOK ── */
-  #book-container {
-    position: relative;
-    width: min(480px, 80vw);
-    margin-top: 8px;
-    overflow: visible;
-  }
-
+  #book-container { position: relative; width: min(640px, 88vw); margin-top: 16px; overflow: visible; }
   #book-scene { width: 100%; perspective: 2500px; }
-
-  #book {
-    position: relative;
-    width: 100%;
-    padding-top: min(140%, 72vh);
-    transform-style: preserve-3d;
-  }
+  #book { position: relative; width: 100%; padding-top: min(124%, 84vh); transform-style: preserve-3d; }
 
   .page {
-    position: absolute;
-    inset: 0;
-    background: var(--paper);
-    border-radius: 3px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    opacity: 0;
-    pointer-events: none;
-    box-shadow: 4px 4px 20px rgba(0,0,0,0.5), -2px 0 6px rgba(0,0,0,0.15);
+    position: absolute; inset: 0; container-type: inline-size;
+    background: var(--paper); border-radius: 4px; border: 1px solid var(--frame-soft);
+    overflow: hidden; display: flex; flex-direction: column; opacity: 0; pointer-events: none;
+    box-shadow: 0 20px 54px rgba(0,0,0,0.55), 0 5px 16px rgba(0,0,0,0.35),
+      inset 0 0 0 1px rgba(255,255,255,0.05), inset 0 1px 0 rgba(255,255,255,0.14);
     transition: opacity 0.05s, background 0.3s;
   }
   .page.active { opacity: 1; pointer-events: auto; }
-  .page::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 12px; background: linear-gradient(to right, rgba(0,0,0,0.08), transparent); pointer-events: none; }
+  .page::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 12px; background: linear-gradient(to right, rgba(0,0,0,0.10), transparent); pointer-events: none; z-index: 3; }
   .page::before { content: ''; position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); opacity: 0.4; pointer-events: none; z-index: 1; }
 
-  .page-cover { background: linear-gradient(135deg, #2d1f0a 0%, #3d2910 50%, #1a0f02 100%); display: flex; align-items: center; justify-content: center; }
-  .cover-border { position: absolute; inset: 5%; border: 1px solid rgba(201, 168, 76, 0.3); pointer-events: none; z-index: 1; }
-  .cover-border::before { content: ''; position: absolute; inset: 4px; border: 1px solid rgba(201, 168, 76, 0.15); }
+  .page-cover { background: linear-gradient(135deg, #3f3414 0%, #5c4a18 50%, #241d0a 100%); display: flex; align-items: center; justify-content: center; }
+  .cover-border { position: absolute; inset: 5%; border: 1px solid var(--frame); pointer-events: none; z-index: 1; }
+  .cover-border::before { content: ''; position: absolute; inset: 4px; border: 1px solid var(--frame-soft); }
   .cover-content { text-align: center; padding: 10%; position: relative; z-index: 2; }
-  .cover-ornament { color: #c9a84c; font-size: clamp(1rem, 4vw, 1.6rem); margin-bottom: 0.5em; letter-spacing: 0.3em; }
-  .cover-title { font-family: 'Cinzel', serif; font-size: clamp(1.4rem, 5vw, 2.6rem); font-weight: 600; color: #e8cc80; line-height: 1.2; margin: 0.3em 0; text-shadow: 0 2px 12px rgba(0,0,0,0.5); letter-spacing: 0.05em; }
-  .cover-divider { width: 60%; height: 1px; background: linear-gradient(to right, transparent, #c9a84c, transparent); margin: 0.8em auto; }
-  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: clamp(0.8rem, 2.5vw, 1.1rem); color: #c9a84c; font-style: italic; letter-spacing: 0.15em; }
-  .cover-summary { margin-top: 1.5em; padding-top: 1em; border-top: 1px solid rgba(201, 168, 76, 0.2); }
-  .cover-summary p { font-family: 'Cormorant Garamond', serif; font-size: clamp(0.65rem, 2vw, 0.85rem); font-style: italic; font-weight: 300; color: rgba(232, 204, 128, 0.75); line-height: 1.9; letter-spacing: 0.04em; }
+  .cover-ornament { color: var(--gold); font-size: max(0.95rem, 5.5cqi); margin-bottom: 0.5em; letter-spacing: 0.3em; }
+  .cover-title { font-family: 'Cinzel', serif; font-size: max(1.3rem, 8.5cqi); font-weight: 600; color: var(--gold-light); line-height: 1.2; margin: 0.3em 0; text-shadow: 0 2px 12px rgba(0,0,0,0.5); letter-spacing: 0.05em; }
+  .cover-divider { width: 60%; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); margin: 0.8em auto; }
+  .cover-author { font-family: 'Cormorant Garamond', serif; font-size: max(0.8rem, 3.6cqi); color: var(--gold); font-style: italic; letter-spacing: 0.15em; }
+  .cover-summary { margin-top: 1.5em; padding-top: 1em; border-top: 1px solid var(--frame-soft); }
+  .cover-summary p { font-family: 'Cormorant Garamond', serif; font-size: max(0.62rem, 2.9cqi); font-style: italic; font-weight: 300; color: rgba(245,221,140,0.8); line-height: 1.9; letter-spacing: 0.04em; }
 
-  .page-inner { padding: clamp(16px, 6%, 48px); padding-top: clamp(20px, 7%, 56px); flex: 1; display: flex; flex-direction: column; position: relative; z-index: 2; }
-  .page-header { font-family: 'Cinzel', serif; font-size: clamp(0.45rem, 1.5vw, 0.65rem); letter-spacing: 0.2em; color: var(--ink-light); text-transform: uppercase; border-bottom: 1px solid var(--paper-dark); padding-bottom: 0.6em; margin-bottom: 1.2em; text-align: center; }
-  .page-body { flex: 1; font-size: clamp(0.75rem, 2.2vw, 1rem); line-height: 1.85; color: var(--ink); font-weight: 300; text-align: justify; hyphens: auto; overflow-y: auto; }
+  .page-inner {
+    margin: max(5px, 1.2cqi); border: 1px solid var(--frame); border-radius: 3px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04), inset 0 0 26px rgba(0,0,0,0.05);
+    padding: max(10px, 3.5cqi); padding-top: max(12px, 4.5cqi);
+    flex: 1; display: flex; flex-direction: column; position: relative; z-index: 2; overflow: hidden;
+  }
+  .page-header { font-family: 'Cinzel', serif; font-size: max(0.5rem, 2.1cqi); letter-spacing: 0.2em; color: var(--ink-light); text-transform: uppercase; border-bottom: 1px solid var(--paper-dark); padding-bottom: 0.6em; margin-bottom: 1.2em; text-align: center; }
+  .page-body { flex: 1; font-size: max(0.72rem, 2.5cqi); line-height: 1.72; color: var(--ink); font-weight: 300; text-align: justify; hyphens: auto; overflow-y: auto; }
   .page-body p + p { margin-top: 0.9em; text-indent: 1.5em; }
-  .chapter-title { font-family: 'Cinzel', serif; font-size: clamp(1rem, 3vw, 1.5rem); font-weight: 600; color: var(--ink); margin-bottom: 0.4em; letter-spacing: 0.05em; text-align: center; }
-  .chapter-ornament { color: #c9a84c; font-size: clamp(0.8rem, 2vw, 1rem); text-align: center; margin: 0.4em 0 1.2em; letter-spacing: 0.3em; }
+  .chapter-title { font-family: 'Cinzel', serif; font-size: max(1rem, 5cqi); font-weight: 600; color: var(--ink); margin-bottom: 0.4em; letter-spacing: 0.05em; text-align: center; }
+  .chapter-ornament { color: var(--gold); font-size: max(0.78rem, 3cqi); text-align: center; margin: 0.4em 0 1.2em; letter-spacing: 0.3em; }
 
-  .page-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 0.6em;
-    border-top: 1px solid var(--paper-dark);
-    margin-top: auto;
-    position: relative;
-    z-index: 2;
+  /* FIX: user-highlight stays as inline text, never becomes a block/image */
+  .user-highlight {
+    display: inline;
+    background: linear-gradient(180deg, rgba(255,226,150,0.65), rgba(227,193,77,0.52));
+    color: inherit; border-radius: 2px; padding: 0 1px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 0 7px rgba(227,193,77,0.45);
+    cursor: grab;
   }
+  .user-highlight:active { cursor: grabbing; }
 
-  .page-number { font-family: 'Cinzel', serif; font-size: clamp(0.5rem, 1.5vw, 0.7rem); color: var(--ink-light); letter-spacing: 0.15em; flex: 1; text-align: center; }
-
-  .bookmark-btn {
-    background: none; border: none; cursor: pointer; padding: 0 4px;
-    font-size: clamp(0.9rem, 2.5vw, 1.1rem); line-height: 1;
-    color: var(--ink-light); opacity: 0.4;
-    transition: opacity 0.2s, transform 0.2s; z-index: 3; flex-shrink: 0;
+  /* ── CONNECTED PAGE BAR — sits flush below the book, visible on every page ── */
+  #page-bar {
+    width: 100%; background: #221e11;
+    border: 1px solid var(--frame-soft); border-top: 1px solid rgba(245,221,140,0.12);
+    border-radius: 0 0 4px 4px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 16px 9px; position: relative; z-index: 5;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.55);
+    transition: opacity 0.35s;
   }
+  /* In fullscreen the bar is a natural flex child at the bottom of the screen */
+  body.reader-fullscreen #page-bar { border-radius: 0; }
+  /* Fade bar when still in fullscreen, just like the top chrome */
+  body.reader-fullscreen.chrome-hidden #page-bar { opacity: 0; pointer-events: none; }
+  /* Bar page-number label */
+  .page-number { font-family: 'Cinzel', serif; font-size: 0.6rem; color: #b5a474; letter-spacing: 0.15em; text-align: center; flex: 1; cursor: pointer; transition: color 0.2s; }
+  .page-number:hover { color: var(--gold); }
+  /* Adjust share button colour for the dark bar background */
+  #page-bar .share-btn { color: #b5a474; font-size: 1rem; }
+  .page-jump-input { width: 4em; background: transparent; border: none; border-bottom: 1px solid var(--frame); color: var(--ink); font-family: 'Cinzel', serif; font-size: inherit; text-align: center; outline: none; padding: 1px 0; }
+
+  .bookmark-btn { background: none; border: none; cursor: pointer; padding: 0 4px; font-size: max(0.85rem, 3.4cqi); line-height: 1; color: var(--ink-light); opacity: 0.4; transition: opacity 0.2s, transform 0.2s; z-index: 3; flex-shrink: 0; }
   .bookmark-btn:hover { opacity: 0.8; transform: scale(1.15); }
-  .bookmark-btn.bookmarked { opacity: 1; color: #c9a84c; filter: drop-shadow(0 0 4px rgba(201,168,76,0.6)); }
+  .bookmark-btn.bookmarked { opacity: 1; color: var(--gold); filter: drop-shadow(0 0 4px rgba(227,193,77,0.6)); }
 
-  .share-btn {
-    background: none; border: none; cursor: pointer; padding: 0 4px;
-    font-size: clamp(0.85rem, 2.2vw, 1rem); line-height: 1;
-    color: var(--ink-light); opacity: 0.4;
-    transition: opacity 0.2s, transform 0.2s; z-index: 3; flex-shrink: 0;
-  }
+  .share-btn { background: none; border: none; cursor: pointer; padding: 0 4px; font-size: max(0.8rem, 3.1cqi); line-height: 1; color: var(--ink-light); opacity: 0.4; transition: opacity 0.2s, transform 0.2s; z-index: 3; flex-shrink: 0; }
   .share-btn:hover { opacity: 0.8; transform: scale(1.15); }
 
-  #share-toast {
-    position: fixed; bottom: 32px; left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background: #1c1810; border: 1px solid rgba(201,168,76,0.4);
-    color: #e8cc80; font-family: 'Cinzel', serif; font-size: 0.62rem;
-    letter-spacing: 0.15em; padding: 8px 20px; border-radius: 4px;
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.3s, transform 0.3s; z-index: 9999; white-space: nowrap;
-  }
+  #share-toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--menu-bg); border: 1px solid var(--border); color: var(--gold-light); font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 0.15em; padding: 8px 20px; border-radius: 4px; opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.3s; z-index: 9999; white-space: nowrap; }
   #share-toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  #bookmark-indicator {
-    font-family: 'Cinzel', serif; font-size: clamp(0.45rem, 1.1vw, 0.58rem);
-    color: rgba(201,168,76,0.5); letter-spacing: 0.12em; text-align: center;
-    margin-top: 6px; min-height: 1em; cursor: pointer; transition: color 0.2s;
+  /* ── GO-TO-PAGE BUTTON (replaces old bookmark indicator) ── */
+  #goto-page-row { display: flex; justify-content: center; margin-top: 12px; }
+  #goto-page-btn {
+    background: var(--btn-bg); border: 1px solid var(--border); color: var(--gold);
+    font-family: 'Cinzel', serif; font-size: clamp(0.5rem, 1.1vw, 0.62rem); letter-spacing: 0.14em;
+    text-transform: uppercase; padding: 7px 22px; border-radius: 3px; cursor: pointer;
+    transition: background 0.2s, border-color 0.2s; min-width: 160px; text-align: center;
   }
-  #bookmark-indicator:hover { color: var(--gold); }
+  #goto-page-btn:hover { background: var(--btn-hover); border-color: var(--gold); }
+  #goto-page-btn .page-jump-input { color: var(--gold-light); border-bottom-color: var(--border); }
 
-  mark.search-highlight { background: rgba(201, 168, 76, 0.35); color: inherit; border-radius: 2px; padding: 0 1px; }
+  /* Search highlights */
+  mark.search-highlight { background: rgba(227,193,77,0.4); color: inherit; border-radius: 2px; padding: 0 1px; }
+  mark.search-highlight.current { background: #e8843c; color: #1a1208; box-shadow: 0 0 8px rgba(232,132,60,0.75); }
 
-  #definition-bubble { position: fixed; z-index: 9999; max-width: 260px; background: #1c1810; border: 1px solid rgba(201, 168, 76, 0.4); border-radius: 6px; padding: 12px 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.6); display: none; pointer-events: none; }
-  #definition-bubble::before { content: ''; position: absolute; bottom: -7px; left: 50%; width: 12px; height: 12px; background: #1c1810; border-right: 1px solid rgba(201, 168, 76, 0.4); border-bottom: 1px solid rgba(201, 168, 76, 0.4); transform: translateX(-50%) rotate(45deg); }
-  #def-word { font-family: 'Cinzel', serif; font-size: 0.72rem; color: #e8cc80; letter-spacing: 0.1em; margin-bottom: 4px; }
-  #def-type { font-family: 'Cormorant Garamond', serif; font-size: 0.65rem; color: rgba(201, 168, 76, 0.5); font-style: italic; margin-bottom: 6px; }
-  #def-text { font-family: 'Cormorant Garamond', serif; font-size: 0.78rem; color: #c8b89a; line-height: 1.55; }
-  #def-loading { font-family: 'Cormorant Garamond', serif; font-size: 0.75rem; color: rgba(201, 168, 76, 0.5); font-style: italic; }
+  /* Selection action button */
+  #hl-action { position: fixed; z-index: 9000; display: none; }
+  #hl-action button { background: var(--menu-bg); border: 1px solid var(--gold); color: var(--gold-light); font-family: 'Cinzel', serif; font-size: 0.56rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 12px; border-radius: 4px; cursor: pointer; box-shadow: 0 6px 22px rgba(0,0,0,0.55); white-space: nowrap; }
+  #hl-action button:hover { background: var(--btn-hover); color: var(--gold); }
 
-  .flipping { animation: flipForward 0.5s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards; }
-  .flipping-back { animation: flipBack 0.5s cubic-bezier(0.645, 0.045, 0.355, 1.000) forwards; }
-  @keyframes flipForward { 0% { opacity:1; transform:perspective(1000px) rotateY(0deg); } 49% { opacity:1; transform:perspective(1000px) rotateY(-90deg); z-index:100; } 50% { opacity:0; } 100% { opacity:0; transform:perspective(1000px) rotateY(-180deg); } }
-  @keyframes flipBack { 0% { opacity:0; transform:perspective(1000px) rotateY(-180deg); } 50% { opacity:0; } 51% { opacity:1; transform:perspective(1000px) rotateY(-90deg); z-index:100; } 100% { opacity:1; transform:perspective(1000px) rotateY(0deg); } }
+  /* Highlights list */
+  #highlights-menu { position: fixed; z-index: 70; display: none; left: 50%; bottom: 90px; transform: translateX(-50%); width: min(440px, 88vw); max-height: 52vh; overflow-y: auto; background: var(--menu-bg); border: 1px solid var(--border); border-radius: 6px; box-shadow: 0 14px 44px rgba(0,0,0,0.6); padding: 8px; }
+  #highlights-menu.open { display: block; }
+  #highlights-menu .hl-title { font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); text-align: center; padding: 8px 6px 10px; border-bottom: 1px solid var(--border); margin-bottom: 4px; }
+  #highlights-menu .hl-item { display: flex; align-items: flex-start; gap: 10px; padding: 9px 10px; border-radius: 4px; cursor: pointer; }
+  #highlights-menu .hl-item:hover { background: var(--btn-hover); }
+  #highlights-menu .hl-text { flex: 1; font-family: 'Cormorant Garamond', serif; font-size: 0.92rem; color: var(--input-color); line-height: 1.5; font-style: italic; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  #highlights-menu .hl-remove { opacity: 0.5; font-size: 0.78rem; color: var(--text); transition: opacity 0.2s, color 0.2s; padding-top: 2px; }
+  #highlights-menu .hl-remove:hover { opacity: 1; color: var(--gold); }
+  #highlights-menu .hl-empty { padding: 14px 10px; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--text-dim); font-size: 0.85rem; text-align: center; line-height: 1.5; }
+  #highlights-menu .hl-page { font-family: 'Cinzel', serif; font-size: 0.48rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); opacity: 0.9; min-width: 32px; text-align: center; padding-top: 3px; flex-shrink: 0; border-right: 1px solid var(--border); margin-right: 2px; padding-right: 8px; }
 
-  .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: var(--btn-bg); border: 1px solid var(--border); color: var(--gold); width: 42px; height: 42px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: background 0.2s, border-color 0.2s; z-index: 20; }
-  .nav-btn:hover { background: var(--btn-hover); border-color: var(--gold); }
-  .nav-btn:disabled { opacity: 0.2; cursor: default; }
-  #btn-prev { left: -36px; }
-  #btn-next { right: -36px; }
+  .flipping { animation: flipForward 0.5s cubic-bezier(0.645,0.045,0.355,1.000) forwards; }
+  .flipping-back { animation: flipBack 0.5s cubic-bezier(0.645,0.045,0.355,1.000) forwards; }
+  @keyframes flipForward { 0%{opacity:1;transform:perspective(1000px) rotateY(0deg)} 49%{opacity:1;transform:perspective(1000px) rotateY(-90deg);z-index:100} 50%{opacity:0} 100%{opacity:0;transform:perspective(1000px) rotateY(-180deg)} }
+  @keyframes flipBack { 0%{opacity:0;transform:perspective(1000px) rotateY(-180deg)} 50%{opacity:0} 51%{opacity:1;transform:perspective(1000px) rotateY(-90deg);z-index:100} 100%{opacity:1;transform:perspective(1000px) rotateY(0deg)} }
 
-  #controls { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+  /* Nav buttons in the page bar — styled as proper buttons */
+  .page-nav-btn { background: var(--btn-bg); border: 1px solid var(--border); color: var(--gold); font-family: 'Cinzel', serif; font-size: 0.52rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 14px; border-radius: 3px; cursor: pointer; transition: background 0.2s, border-color 0.2s, opacity 0.2s; flex-shrink: 0; white-space: nowrap; }
+  .page-nav-btn:hover { background: var(--btn-hover); border-color: var(--gold); }
+  .page-nav-btn:disabled { opacity: 0.22; cursor: default; }
+
+  #controls { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 16px; flex-wrap: wrap; }
   #spread-indicator { font-family: 'Cinzel', serif; font-size: clamp(0.55rem, 1.5vw, 0.75rem); color: var(--text); letter-spacing: 0.1em; min-width: 100px; text-align: center; }
-  .jump-form { display: flex; align-items: center; gap: 6px; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 4px 10px; }
-  .jump-form label { font-family: 'Cinzel', serif; font-size: clamp(0.5rem, 1.2vw, 0.65rem); color: var(--label-color); letter-spacing: 0.1em; white-space: nowrap; }
-  .jump-form input { width: 48px; background: transparent; border: none; border-bottom: 1px solid var(--border); color: var(--input-color); font-family: 'Cinzel', serif; font-size: clamp(0.6rem, 1.3vw, 0.72rem); text-align: center; outline: none; padding: 2px 0; }
-  .jump-form input::placeholder { color: var(--text-dim); }
-  .jump-form button { background: var(--btn-bg); border: 1px solid var(--border); color: var(--gold); font-family: 'Cinzel', serif; font-size: clamp(0.5rem, 1.1vw, 0.62rem); letter-spacing: 0.1em; padding: 3px 10px; border-radius: 3px; cursor: pointer; transition: background 0.2s; }
-  .jump-form button:hover { background: var(--btn-hover); }
+  #cover-btn, #highlights-btn { background: var(--btn-bg); border: 1px solid var(--border); color: var(--gold); font-family: 'Cinzel', serif; font-size: clamp(0.5rem, 1.1vw, 0.62rem); letter-spacing: 0.1em; padding: 5px 14px; border-radius: 3px; cursor: pointer; transition: background 0.2s; }
+  #cover-btn:hover, #highlights-btn:hover { background: var(--btn-hover); }
 
-  #book-shadow { position: absolute; bottom: -16px; left: 5%; right: 5%; height: 24px; background: radial-gradient(ellipse, rgba(0,0,0,0.6) 0%, transparent 70%); filter: blur(6px); pointer-events: none; }
+  #book-shadow { position: absolute; bottom: -16px; left: 5%; right: 5%; height: 24px; background: radial-gradient(ellipse, rgba(0,0,0,0.55) 0%, transparent 70%); filter: blur(6px); pointer-events: none; }
 
-  #comment-section { width: min(480px, 75vw); margin-top: 32px; background: var(--form-bg); border: 1px solid var(--form-border); border-radius: 4px; padding: clamp(20px, 5%, 36px); }
+  #comment-section { width: min(640px, 88vw); margin-top: 32px; background: var(--form-bg); border: 1px solid var(--form-border); border-radius: 4px; padding: clamp(20px, 5%, 36px); }
   .comment-heading { font-family: 'Cinzel', serif; font-size: clamp(0.55rem, 1.4vw, 0.72rem); letter-spacing: 0.25em; color: var(--form-heading); text-transform: uppercase; text-align: center; margin-bottom: 20px; }
   .comment-heading::before, .comment-heading::after { content: ' ✦ '; opacity: 0.5; }
   .form-row { display: flex; flex-direction: column; gap: 4px; margin-bottom: 14px; }
   .form-row label { font-family: 'Cinzel', serif; font-size: clamp(0.45rem, 1.1vw, 0.58rem); letter-spacing: 0.2em; color: var(--form-heading); text-transform: uppercase; }
-  .form-row input, .form-row textarea { background: var(--form-input-bg); border: 1px solid var(--form-input-border); border-radius: 3px; color: var(--form-input-text); font-family: 'Cormorant Garamond', serif; font-size: clamp(0.75rem, 1.8vw, 0.9rem); padding: 8px 10px; outline: none; transition: border-color 0.2s; width: 100%; }
+  .form-row input, .form-row textarea { background: var(--form-input-bg); border: 1px solid var(--form-input-border); border-radius: 3px; color: var(--form-input-text); font-family: 'Cormorant Garamond', serif; font-size: clamp(0.75rem, 1.8vw, 0.9rem); padding: 8px 10px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; width: 100%; }
   .form-row input:focus, .form-row textarea:focus { border-color: var(--gold); }
   .form-row textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+  .form-row textarea.drag-over { border-color: var(--gold); box-shadow: 0 0 0 2px rgba(227,193,77,0.3); }
   .form-row input::placeholder, .form-row textarea::placeholder { color: var(--text-dim); font-style: italic; }
+  .hint-drag { font-family: 'Cormorant Garamond', serif; font-size: clamp(0.6rem, 1.3vw, 0.72rem); font-style: italic; color: var(--text-dim); margin-top: 2px; }
   .public-row { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
   .toggle-wrap { position: relative; width: 36px; height: 20px; flex-shrink: 0; }
   .toggle-wrap input { opacity: 0; width: 0; height: 0; position: absolute; }
@@ -414,20 +328,30 @@
   #submit-btn:hover { background: var(--btn-hover); border-color: var(--gold); }
   #form-message { text-align: center; margin-top: 12px; font-family: 'Cormorant Garamond', serif; font-size: clamp(0.65rem, 1.5vw, 0.8rem); font-style: italic; color: var(--text); min-height: 1.2em; }
 
-  #home-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; margin-bottom: 40px; padding: 5px 16px; background: var(--btn-bg); border: 1px solid var(--border); border-radius: 3px; color: var(--home-color); font-family: 'Cinzel', serif; font-size: clamp(0.45rem, 1.1vw, 0.6rem); letter-spacing: 0.2em; text-decoration: none; text-transform: uppercase; transition: color 0.2s, border-color 0.2s, background 0.2s; }
-  #home-btn:hover { color: var(--gold); border-color: var(--gold); background: var(--btn-hover); }
+  #comments-display { width: min(640px, 88vw); margin-top: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .comments-title { font-family: 'Cinzel', serif; font-size: clamp(0.55rem, 1.4vw, 0.72rem); letter-spacing: 0.25em; color: var(--form-heading); text-transform: uppercase; text-align: center; margin: 6px 0 4px; }
+  .comment-card { background: var(--form-bg); border: 1px solid var(--form-border); border-left: 2px solid var(--gold); border-radius: 4px; padding: 14px 16px; }
+  .comment-card .cc-name { font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 7px; }
+  .comment-card .cc-msg { font-family: 'Cormorant Garamond', serif; font-size: clamp(0.8rem, 1.8vw, 0.95rem); color: var(--text); line-height: 1.65; }
+
+  #definition-bubble { position: fixed; z-index: 9999; max-width: 260px; background: var(--menu-bg); border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.6); display: none; pointer-events: none; }
+  #definition-bubble::before { content: ''; position: absolute; bottom: -7px; left: 50%; width: 12px; height: 12px; background: var(--menu-bg); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); transform: translateX(-50%) rotate(45deg); }
+  #def-word { font-family: 'Cinzel', serif; font-size: 0.72rem; color: var(--gold-light); letter-spacing: 0.1em; margin-bottom: 4px; }
+  #def-type { font-family: 'Cormorant Garamond', serif; font-size: 0.65rem; color: var(--text-dim); font-style: italic; margin-bottom: 6px; }
+  #def-text { font-family: 'Cormorant Garamond', serif; font-size: 0.78rem; color: #d8c8a4; line-height: 1.55; }
+  #def-loading { font-family: 'Cormorant Garamond', serif; font-size: 0.75rem; color: var(--text-dim); font-style: italic; }
 
   @media (max-width: 600px) {
-    body { padding: 10px 20px 40px; }
-    #book-container { width: 78vw; }
-    #btn-prev { left: -32px; }
-    #btn-next { right: -32px; }
-    #search-bar { width: 78vw; }
-    #comment-section { width: 78vw; }
+    body { padding: 50px 20px 40px; }
+    #search-bar { width: 88vw; }
+    #comment-section, #comments-display { width: 88vw; }
   }
 </style>
 </head>
 <body>
+
+<!-- Fixed top-left library link -->
+<a href="index.html" id="home-btn">← Library</a>
 
 <div id="definition-bubble">
   <div id="def-word"></div>
@@ -437,20 +361,27 @@
 </div>
 
 <div id="share-toast">Page text copied to clipboard</div>
+<div id="hl-action"><button type="button">✦ Highlight</button></div>
 
-<!-- Exit fullscreen button (top right, visible only in fullscreen) -->
-<button id="exit-fullscreen-btn">✕ Exit</button>
+<!-- Fullscreen pop-up bars -->
+<div id="fs-topbar">
+  <button id="exit-fullscreen-btn" class="fs-chip">✕ Exit</button>
+</div>
+<div id="fs-navbar">
+  <button id="fs-prev" class="fs-chip">← Prev</button>
+  <span id="fs-indicator">Cover</span>
+  <button id="fs-next" class="fs-chip">Next →</button>
+</div>
 
-<button id="theme-toggle" aria-label="Toggle light/dark mode">
-  <span class="theme-icon" id="theme-icon">☀</span>
-  <span id="theme-label">Light</span>
-</button>
-
+<!-- Search bar with clear button -->
 <div id="search-bar">
   <label for="search-input">Find</label>
   <input type="text" id="search-input" placeholder="Search text in the book…">
   <button id="search-btn">Search</button>
+  <button id="search-clear" aria-label="Clear search" title="Clear search">✕</button>
+  <button id="recent-btn" aria-label="Previous searches" title="Previous searches">▾</button>
   <span id="search-result"></span>
+  <div id="recent-menu"></div>
 </div>
 <div id="search-nav">
   <button id="search-prev-btn">← Prev</button>
@@ -459,13 +390,14 @@
 </div>
 
 <div id="book-container">
-  <div id="book-shadow"></div>
   <div id="book-scene">
     <div id="book">
 
-      <!-- ============================================================
-           PAGE CONTENT
-           ============================================================ -->
+      <!-- Bookmark ribbon lives INSIDE #book so it stays on the e-reader in normal and fullscreen modes -->
+      <div id="bookmark-ribbon" role="button" tabindex="0" aria-label="Go to bookmarked page">
+        <span class="bm-tick">✦</span>
+        <span class="bm-num" id="bm-num"></span>
+      </div>
 
       <!-- PAGE 0: COVER -->
       <div class="page page-cover active" data-page="0">
@@ -494,11 +426,6 @@
             <p>Continue your story here, adding as many paragraphs as the page will hold comfortably.</p>
             <!-- END EDIT -->
           </div>
-          <div class="page-footer">
-            <button class="bookmark-btn" aria-label="Bookmark this page">🔖</button>
-            <span class="page-number">1</span>
-            <button class="share-btn" aria-label="Share this page">↑</button>
-          </div>
         </div>
       </div>
 
@@ -512,48 +439,36 @@
             <p>Use this space to develop your ideas.</p>
             <!-- END EDIT -->
           </div>
-          <div class="page-footer">
-            <button class="bookmark-btn" aria-label="Bookmark this page">🔖</button>
-            <span class="page-number">2</span>
-            <button class="share-btn" aria-label="Share this page">↑</button>
-          </div>
         </div>
       </div>
-
-      <!-- ============================================================
-           END PAGE CONTENT
-           ============================================================ -->
 
     </div>
   </div>
 
-  <!-- Fullscreen toggle button — sits on book corner -->
-  <button id="fullscreen-btn" aria-label="Enter fullscreen">⛶</button>
-
-  <!-- Nav arrows -->
-  <button class="nav-btn" id="btn-prev" disabled aria-label="Previous page">&#8592;</button>
-  <button class="nav-btn" id="btn-next" aria-label="Next page">&#8594;</button>
-
-  <!-- Fullscreen bottom controls bar -->
-  <div id="fs-controls">
-    <button class="fs-btn" id="fs-cover-btn">Cover</button>
-    <span id="fs-indicator">Cover</span>
-    <button class="fs-btn" id="fs-prev-btn">←</button>
-    <button class="fs-btn" id="fs-next-btn">→</button>
+  <!-- ── PAGE BAR — connected to book bottom, visible on every page including cover ── -->
+  <div id="page-bar">
+    <button class="page-nav-btn page-prev-btn" id="bar-prev" aria-label="Previous page">← Prev</button>
+    <span class="page-number" id="bar-page-num">Cover</span>
+    <button class="page-nav-btn page-next-btn" id="bar-next" aria-label="Next page">Next →</button>
+    <button class="share-btn" id="bar-share" aria-label="Share this page">↑</button>
   </div>
+
+  <!-- Fullscreen button — on the e-reader, top-right corner -->
+  <button id="fullscreen-btn" aria-label="Enter fullscreen">⛶</button>
 </div>
 
 <div id="controls">
+  <button id="cover-btn">Cover</button>
   <span id="spread-indicator">Cover</span>
-  <div class="jump-form">
-    <button id="cover-btn">Cover</button>
-    <label for="jump-input">Go to page</label>
-    <input type="number" id="jump-input" min="1" placeholder="1–2">
-    <button id="jump-btn">Go</button>
-  </div>
+  <button id="highlights-btn">Highlights</button>
 </div>
 
-<div id="bookmark-indicator"></div>
+<div id="highlights-menu"></div>
+
+<!-- Go-to-page button (replaces old bookmark indicator) -->
+<div id="goto-page-row">
+  <button id="goto-page-btn" type="button">Go to Page</button>
+</div>
 
 <section id="comment-section">
   <div class="comment-heading">Leave a Comment or Question</div>
@@ -569,7 +484,9 @@
     <div class="form-row">
       <label for="c-message">Comment or Question *</label>
       <textarea id="c-message" name="message" required placeholder="Write your thoughts here…"></textarea>
+      <div class="hint-drag">Tip: highlight a passage in the book and drag it here.</div>
     </div>
+    <input type="hidden" name="page" value="light as meaning">
     <input type="hidden" id="public-value" name="make_public" value="No">
     <div class="public-row">
       <label class="toggle-wrap">
@@ -578,7 +495,7 @@
       </label>
       <div class="public-label">
         Make this public
-        <span>I consent to this comment being shared publicly</span>
+        <span>I consent to this being shared publicly, if approved</span>
       </div>
     </div>
     <button type="submit" id="submit-btn">Send ✦</button>
@@ -586,30 +503,37 @@
   </form>
 </section>
 
-<a href="index.html" id="home-btn">← Library</a>
+<div id="comments-display"></div>
 
 <script>
 // ══════════════════════════════════════════
-// THEME TOGGLE
+// CHROME VISIBILITY
 // ══════════════════════════════════════════
 (function () {
-  const html = document.documentElement;
-  const btn  = document.getElementById('theme-toggle');
-  const icon = document.getElementById('theme-icon');
-  const lbl  = document.getElementById('theme-label');
-  const saved = localStorage.getItem('noegenesis-theme') || 'light';
-  html.setAttribute('data-theme', saved);
-  updateThemeUI(saved);
-  btn.addEventListener('click', () => {
-    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', next);
-    localStorage.setItem('noegenesis-theme', next);
-    updateThemeUI(next);
-  });
-  function updateThemeUI(theme) {
-    if (theme === 'dark') { icon.textContent = '☀'; lbl.textContent = 'Light'; }
-    else                  { icon.textContent = '☾'; lbl.textContent = 'Dark'; }
+  let timer;
+  function activity() {
+    document.body.classList.remove('chrome-hidden');
+    clearTimeout(timer);
+    timer = setTimeout(() => document.body.classList.add('chrome-hidden'), 2500);
   }
+  ['mousemove','mousedown','touchstart','touchmove','keydown','wheel'].forEach(ev =>
+    document.addEventListener(ev, activity, { passive: true }));
+  activity();
+  window.__chromeActivity = activity;
+})();
+
+// ══════════════════════════════════════════
+// THEME — locked to dark permanently
+// ══════════════════════════════════════════
+document.documentElement.setAttribute('data-theme', 'dark');
+
+// ══════════════════════════════════════════
+// AUTO PAGE NUMBERING — sets data-page on each .page element
+// ══════════════════════════════════════════
+(function () {
+  Array.from(document.querySelectorAll('.page')).forEach((p, i) => {
+    p.setAttribute('data-page', i);
+  });
 })();
 
 // ══════════════════════════════════════════
@@ -619,15 +543,7 @@ const ReaderState = (function () {
   const pages        = Array.from(document.querySelectorAll('.page'));
   const total        = pages.length;
   const totalContent = total - 1;
-  const btnPrev      = document.getElementById('btn-prev');
-  const btnNext      = document.getElementById('btn-next');
   const indicator    = document.getElementById('spread-indicator');
-  const fsIndicator  = document.getElementById('fs-indicator');
-  const jumpInput    = document.getElementById('jump-input');
-  const jumpBtn      = document.getElementById('jump-btn');
-
-  jumpInput.max         = totalContent;
-  jumpInput.placeholder = '1\u2013' + totalContent;
 
   let current   = 0;
   let animating = false;
@@ -636,12 +552,26 @@ const ReaderState = (function () {
 
   function updateUI() {
     const label = pageLabel(current);
-    indicator.textContent   = label;
-    fsIndicator.textContent = label;
-    btnPrev.disabled = current === 0;
-    btnNext.disabled = current === total - 1;
-    document.getElementById('fs-prev-btn').disabled = current === 0;
-    document.getElementById('fs-next-btn').disabled = current === total - 1;
+    indicator.textContent = label;
+    const fsInd = document.getElementById('fs-indicator');
+    if (fsInd) fsInd.textContent = label;
+    // Bar page-number label
+    const bpn = document.getElementById('bar-page-num');
+    if (bpn && !bpn.querySelector('input')) {
+      bpn.textContent = current === 0 ? 'Cover' : current + ' of ' + totalContent;
+    }
+    // All prev/next buttons (bar + any others)
+    document.querySelectorAll('.page-prev-btn').forEach(b => { b.disabled = current === 0; });
+    document.querySelectorAll('.page-next-btn').forEach(b => { b.disabled = current === total - 1; });
+    const fp = document.getElementById('fs-prev');
+    const fn = document.getElementById('fs-next');
+    if (fp) fp.disabled = current === 0;
+    if (fn) fn.disabled = current === total - 1;
+    // Refresh bookmark bar button state
+    if (typeof window.__refreshBookmarkBar === 'function') window.__refreshBookmarkBar();
+    // Go-to-page button always shows fresh
+    const gp = document.getElementById('goto-page-btn');
+    if (gp && !gp.querySelector('input')) { gp.textContent = 'Go to Page'; }
   }
 
   function goTo(index, direction) {
@@ -665,19 +595,56 @@ const ReaderState = (function () {
     goTo(n, n > current ? 'next' : 'prev');
   }
 
-  btnNext.addEventListener('click', () => goTo(current + 1, 'next'));
-  btnPrev.addEventListener('click', () => goTo(current - 1, 'prev'));
+  // Wire the in-page footer nav buttons (injected by auto-numbering IIFE above)
+  document.querySelectorAll('.page-prev-btn').forEach(b => b.addEventListener('click', () => goTo(current - 1, 'prev')));
+  document.querySelectorAll('.page-next-btn').forEach(b => b.addEventListener('click', () => goTo(current + 1, 'next')));
   document.getElementById('cover-btn').addEventListener('click', () => goTo(0, 'prev'));
-  document.getElementById('fs-cover-btn').addEventListener('click', () => goTo(0, 'prev'));
-  document.getElementById('fs-prev-btn').addEventListener('click', () => goTo(current - 1, 'prev'));
-  document.getElementById('fs-next-btn').addEventListener('click', () => goTo(current + 1, 'next'));
-  jumpBtn.addEventListener('click', () => jumpToPage(parseInt(jumpInput.value, 10)));
-  jumpInput.addEventListener('keydown', e => { if (e.key === 'Enter') jumpToPage(parseInt(jumpInput.value, 10)); });
+
+  // Tap bar page-number → jump-to-page input
+  const barPn = document.getElementById('bar-page-num');
+  if (barPn) {
+    barPn.setAttribute('title', 'Tap to jump to a page');
+    barPn.addEventListener('click', () => {
+      if (barPn.querySelector('input')) return;
+      const inp = document.createElement('input');
+      inp.type = 'number'; inp.min = 1; inp.max = totalContent;
+      inp.placeholder = '1\u2013' + totalContent;
+      inp.className = 'page-jump-input';
+      inp.style.cssText = 'color:#f5dd8c;border-bottom-color:rgba(227,193,77,0.4);width:5em';
+      barPn.textContent = ''; barPn.appendChild(inp); inp.focus();
+      let done = false;
+      function restore() { if (!done) { done = true; updateUI(); } }
+      function commit()  { const n = parseInt(inp.value, 10); restore(); jumpToPage(n); }
+      inp.addEventListener('click', e => e.stopPropagation());
+      inp.addEventListener('keydown', e => { if (e.key==='Enter'){e.preventDefault();commit();} if(e.key==='Escape')restore(); });
+      inp.addEventListener('blur', restore);
+    });
+  }
+
+  // Go-to-page button beneath controls
+  const gpBtn = document.getElementById('goto-page-btn');
+  if (gpBtn) {
+    gpBtn.addEventListener('click', () => {
+      if (gpBtn.querySelector('input')) return;
+      const inp = document.createElement('input');
+      inp.type = 'number'; inp.min = 1; inp.max = totalContent;
+      inp.placeholder = '1\u2013' + totalContent;
+      inp.className = 'page-jump-input';
+      gpBtn.textContent = ''; gpBtn.appendChild(inp); inp.focus();
+      let done = false;
+      // Directly reset button text — updateUI() would fail because input is still in DOM at blur time
+      function restore() { if (!done) { done = true; gpBtn.textContent = 'Go to Page'; } }
+      function commit()  { const n = parseInt(inp.value, 10); restore(); jumpToPage(n); }
+      inp.addEventListener('click', e => e.stopPropagation());
+      inp.addEventListener('keydown', e => { if (e.key==='Enter'){e.preventDefault();commit();} if(e.key==='Escape')restore(); });
+      inp.addEventListener('blur', restore);
+    });
+  }
 
   document.addEventListener('keydown', e => {
+    if (e.target && e.target.tagName === 'INPUT') return;
     if (e.key === 'ArrowRight') goTo(current + 1, 'next');
     if (e.key === 'ArrowLeft')  goTo(current - 1, 'prev');
-    if (e.key === 'Escape') exitFullscreen();
   });
 
   let touchStartX = 0;
@@ -690,163 +657,361 @@ const ReaderState = (function () {
   }, { passive: true });
 
   updateUI();
-  return { goTo, pages, total, getCurrent: () => current };
+  return { goTo, jumpToPage, pages, total, getCurrent: () => current };
 })();
 
 // ══════════════════════════════════════════
 // FULLSCREEN
 // ══════════════════════════════════════════
 (function () {
-  const body       = document.body;
-  const fsBtn      = document.getElementById('fullscreen-btn');
-  const exitBtn    = document.getElementById('exit-fullscreen-btn');
-  const fsControls = document.getElementById('fs-controls');
-  let hideTimer    = null;
-  let isFS         = false;
+  const body    = document.body;
+  const fsBtn   = document.getElementById('fullscreen-btn');
+  const exitBtn = document.getElementById('exit-fullscreen-btn');
+  let isFS      = false;
 
-  function enterFullscreen() {
-    isFS = true;
-    body.classList.add('reader-fullscreen');
-    fsBtn.style.display = 'none';
-    showFsChrome();
-    // Try native fullscreen API
+  function enter() {
+    isFS = true; body.classList.add('reader-fullscreen'); fsBtn.style.display = 'none';
+    if (window.__chromeActivity) window.__chromeActivity();
     const el = document.documentElement;
     if (el.requestFullscreen) el.requestFullscreen().catch(() => {});
     else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
   }
-
-  function exitFullscreen() {
-    if (!isFS) return;
-    isFS = false;
-    body.classList.remove('reader-fullscreen');
-    fsBtn.style.display = '';
-    clearTimeout(hideTimer);
-    // Exit native fullscreen
+  function exit() {
+    if (!isFS) return; isFS = false; body.classList.remove('reader-fullscreen'); fsBtn.style.display = '';
     if (document.exitFullscreen && document.fullscreenElement) document.exitFullscreen();
     else if (document.webkitExitFullscreen && document.webkitFullscreenElement) document.webkitExitFullscreen();
   }
 
-  function showFsChrome() {
-    exitBtn.classList.remove('hidden');
-    fsControls.classList.remove('hidden');
-    clearTimeout(hideTimer);
-    // Auto-hide after 3 seconds of inactivity
-    hideTimer = setTimeout(() => {
-      exitBtn.classList.add('hidden');
-      fsControls.classList.add('hidden');
-    }, 3000);
-  }
+  fsBtn.addEventListener('click', enter);
+  exitBtn.addEventListener('click', exit);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') exit(); });
+  document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && isFS) exit(); });
+  document.addEventListener('webkitfullscreenchange', () => { if (!document.webkitFullscreenElement && isFS) exit(); });
 
-  fsBtn.addEventListener('click', enterFullscreen);
-  exitBtn.addEventListener('click', exitFullscreen);
-
-  // Show chrome on any touch/move in fullscreen
-  document.addEventListener('touchstart', () => { if (isFS) showFsChrome(); }, { passive: true });
-  document.addEventListener('mousemove',  () => { if (isFS) showFsChrome(); });
-
-  // Handle native fullscreen exit (e.g. swipe down on iOS)
-  document.addEventListener('fullscreenchange', () => {
-    if (!document.fullscreenElement && isFS) exitFullscreen();
-  });
-  document.addEventListener('webkitfullscreenchange', () => {
-    if (!document.webkitFullscreenElement && isFS) exitFullscreen();
-  });
+  document.getElementById('fs-prev').addEventListener('click', () => ReaderState.goTo(ReaderState.getCurrent() - 1, 'prev'));
+  document.getElementById('fs-next').addEventListener('click', () => ReaderState.goTo(ReaderState.getCurrent() + 1, 'next'));
 })();
 
 // ══════════════════════════════════════════
-// BOOKMARK
+// HIGHLIGHT FEATURE — fixed: wraps per text-node, text never disappears
+// ══════════════════════════════════════════
+(function () {
+  const HL_KEY  = 'noegenesis-highlights-lam';
+  const action  = document.getElementById('hl-action');
+  const actBtn  = action.querySelector('button');
+  const menu    = document.getElementById('highlights-menu');
+  const menuBtn = document.getElementById('highlights-btn');
+  let highlights = [];   // {id, pageIndex, text, spans:[...]}
+  let nextId = 1;
+
+  function load() { try { return JSON.parse(localStorage.getItem(HL_KEY)) || []; } catch { return []; } }
+  function persist() {
+    localStorage.setItem(HL_KEY, JSON.stringify(highlights.map(h => ({ id: h.id, pageIndex: h.pageIndex, text: h.text }))));
+  }
+
+  function makeDraggable(span, fullText) {
+    span.setAttribute('draggable', 'true');
+    span.addEventListener('dragstart', e => {
+      e.dataTransfer.setData('text/plain', fullText);
+      e.dataTransfer.effectAllowed = 'copy';
+    });
+  }
+
+  // Safely wrap a portion of ONE text node — no block element extraction, text never vanishes
+  function wrapPortion(textNode, start, end, id, fullText) {
+    const r = document.createRange();
+    r.setStart(textNode, start);
+    r.setEnd(textNode, end);
+    const span = document.createElement('span');
+    span.className = 'user-highlight';
+    span.dataset.hlId = id;
+    r.surroundContents(span);           // safe: single text node only
+    makeDraggable(span, fullText);
+    return span;
+  }
+
+  // Collect all text nodes inside a range (handles multi-paragraph selections)
+  function getTextNodes(range) {
+    let root = range.commonAncestorContainer;
+    if (root.nodeType === Node.TEXT_NODE) root = root.parentNode;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        return range.intersectsNode(node) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
+    });
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    return nodes;
+  }
+
+  // Highlight a range by wrapping each intersecting text node individually
+  function highlightRangeSafe(range, id, fullText) {
+    const textNodes = getTextNodes(range);
+    const spans = [];
+    textNodes.forEach(tn => {
+      let s = 0, e = tn.length;
+      if (tn === range.startContainer) s = range.startOffset;
+      if (tn === range.endContainer)   e = range.endOffset;
+      if (s >= e) return;
+      try { spans.push(wrapPortion(tn, s, e, id, fullText)); } catch (err) {}
+    });
+    return spans;
+  }
+
+  function addFromSelection() {
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed) return;
+    const text = sel.toString().trim();
+    if (!text) return;
+    const range = sel.getRangeAt(0);
+    let node = range.commonAncestorContainer;
+    if (node.nodeType === 3) node = node.parentNode;
+    const pageEl = node.closest ? node.closest('.page') : null;
+    if (!pageEl) return;
+    const pageIndex = parseInt(pageEl.getAttribute('data-page'), 10);
+    const id = nextId++;
+    const spans = highlightRangeSafe(range, id, text);
+    if (!spans.length) { hideAction(); return; }
+    highlights.push({ id, pageIndex, text, spans });
+    persist();
+    sel.removeAllRanges();
+    hideAction();
+  }
+
+  // Best-effort single-node find for reapply on reload
+  function findAndWrapSingle(root, text, id) {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    let n;
+    while ((n = walker.nextNode())) {
+      const idx = n.textContent.indexOf(text);
+      if (idx !== -1) {
+        try { return wrapPortion(n, idx, idx + text.length, id, text); } catch (e) { return null; }
+      }
+    }
+    return null;
+  }
+
+  function reapply() {
+    load().forEach(item => {
+      const pageEl = document.querySelector('.page[data-page="' + item.pageIndex + '"]');
+      if (!pageEl) return;
+      const body = pageEl.querySelector('.page-body') || pageEl;
+      const id = nextId++;
+      const span = findAndWrapSingle(body, item.text, id);
+      if (span) highlights.push({ id, pageIndex: item.pageIndex, text: item.text, spans: [span] });
+    });
+    persist();
+  }
+
+  function showActionAt(rect) {
+    action.style.display = 'block';
+    const aw = action.offsetWidth;
+    let left = rect.left + rect.width / 2 - aw / 2;
+    left = Math.max(8, Math.min(left, window.innerWidth - aw - 8));
+    action.style.left = left + 'px';
+    action.style.top  = Math.max(8, rect.top - action.offsetHeight - 8) + 'px';
+  }
+  function hideAction() { action.style.display = 'none'; }
+  function onSelect() {
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed || !sel.toString().trim()) { hideAction(); return; }
+    let el = sel.anchorNode;
+    if (el && el.nodeType === 3) el = el.parentNode;
+    if (!el || !el.closest || !el.closest('.page-body')) { hideAction(); return; }
+    const rect = sel.getRangeAt(0).getBoundingClientRect();
+    if (rect.width === 0 && rect.height === 0) { hideAction(); return; }
+    showActionAt(rect);
+  }
+  document.addEventListener('mouseup', () => setTimeout(onSelect, 10));
+  document.addEventListener('touchend', () => setTimeout(onSelect, 10), { passive: true });
+  document.addEventListener('selectionchange', () => { if (window.getSelection().isCollapsed) hideAction(); });
+  actBtn.addEventListener('mousedown', e => e.preventDefault());
+  actBtn.addEventListener('click', addFromSelection);
+
+  function goToHighlight(h) {
+    const target = h.spans && h.spans[0];
+    const cur = ReaderState.getCurrent();
+    if (h.pageIndex !== cur) {
+      ReaderState.goTo(h.pageIndex, h.pageIndex > cur ? 'next' : 'prev');
+      setTimeout(() => { if (target) target.scrollIntoView({ block: 'center' }); }, 560);
+    } else if (target) {
+      target.scrollIntoView({ block: 'center' });
+    }
+  }
+  function removeHighlight(h) {
+    (h.spans || []).forEach(span => {
+      if (span && span.parentNode) {
+        const tn = document.createTextNode(span.textContent);
+        span.parentNode.replaceChild(tn, span);
+        tn.parentNode.normalize();
+      }
+    });
+    highlights = highlights.filter(x => x !== h);
+    persist();
+  }
+  function renderMenu() {
+    menu.innerHTML = '';
+    const title = document.createElement('div');
+    title.className = 'hl-title'; title.textContent = 'Highlights';
+    menu.appendChild(title);
+    if (!highlights.length) {
+      const e = document.createElement('div');
+      e.className = 'hl-empty';
+      e.textContent = 'No highlights yet. Select text in the book, then tap "Highlight".';
+      menu.appendChild(e); return;
+    }
+    highlights.forEach(h => {
+      const item = document.createElement('div'); item.className = 'hl-item';
+      const pg = document.createElement('span'); pg.className = 'hl-page';
+      pg.textContent = h.pageIndex === 0 ? 'Cover' : 'P.\u2009' + h.pageIndex;
+      const t  = document.createElement('span'); t.className  = 'hl-text';   t.textContent = h.text;
+      const rm = document.createElement('span'); rm.className = 'hl-remove'; rm.textContent = '✕';
+      item.appendChild(pg); item.appendChild(t); item.appendChild(rm);
+      t.addEventListener('click', () => { goToHighlight(h); menu.classList.remove('open'); });
+      rm.addEventListener('click', e => { e.stopPropagation(); removeHighlight(h); renderMenu(); });
+      menu.appendChild(item);
+    });
+  }
+  menuBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    const open = !menu.classList.contains('open');
+    if (open) renderMenu();
+    menu.classList.toggle('open', open);
+  });
+  document.addEventListener('click', e => {
+    if (!menu.contains(e.target) && e.target !== menuBtn) menu.classList.remove('open');
+  });
+
+  reapply();
+})();
+
+// ══════════════════════════════════════════
+// DRAG HIGHLIGHTS INTO COMMENT BOX
+// ══════════════════════════════════════════
+(function () {
+  const ta = document.getElementById('c-message');
+  if (!ta) return;
+  ta.addEventListener('dragenter', () => ta.classList.add('drag-over'));
+  ta.addEventListener('dragover',  () => ta.classList.add('drag-over'));
+  ta.addEventListener('dragleave', () => ta.classList.remove('drag-over'));
+  ta.addEventListener('drop',      () => setTimeout(() => ta.classList.remove('drag-over'), 0));
+})();
+
+// ══════════════════════════════════════════
+// BOOKMARK — ribbon always visible; single-tap bookmarks/jumps; double-tap clears
 // ══════════════════════════════════════════
 (function () {
   const STORAGE_KEY  = 'noegenesis-bookmark-lam';
-  const indicator    = document.getElementById('bookmark-indicator');
+  const ribbon       = document.getElementById('bookmark-ribbon');
+  const ribbonNum    = document.getElementById('bm-num');
   let bookmarkedPage = parseInt(localStorage.getItem(STORAGE_KEY), 10) || null;
+  let tapTimer       = null;
 
-  function updateIndicator() {
-    indicator.textContent = (bookmarkedPage !== null && bookmarkedPage > 0)
-      ? '🔖 Bookmark on page ' + bookmarkedPage + ' — tap to return' : '';
-    document.querySelectorAll('.bookmark-btn').forEach(btn => {
-      const pageNum = parseInt(btn.closest('.page').getAttribute('data-page'), 10);
-      btn.classList.toggle('bookmarked', pageNum === bookmarkedPage);
-      btn.setAttribute('aria-label', pageNum === bookmarkedPage ? 'Remove bookmark' : 'Bookmark this page');
-    });
+  function refresh() {
+    const has = bookmarkedPage !== null && bookmarkedPage > 0;
+    ribbon.classList.toggle('has-bookmark', has);
+    if (ribbonNum) ribbonNum.textContent = has ? bookmarkedPage : '';
+    ribbon.setAttribute('aria-label', has
+      ? 'Go to page ' + bookmarkedPage + ' (double-tap to clear)'
+      : 'Tap to bookmark this page');
   }
 
-  document.querySelectorAll('.bookmark-btn').forEach(btn => {
-    btn.addEventListener('click', e => {
-      e.stopPropagation();
-      const pageNum = parseInt(btn.closest('.page').getAttribute('data-page'), 10);
-      if (bookmarkedPage === pageNum) { bookmarkedPage = null; localStorage.removeItem(STORAGE_KEY); }
-      else { bookmarkedPage = pageNum; localStorage.setItem(STORAGE_KEY, pageNum); }
-      updateIndicator();
-    });
-  });
+  // Expose so updateUI() refreshes the ribbon's active state after navigation
+  window.__refreshBookmarkBar = refresh;
 
-  indicator.addEventListener('click', () => {
-    if (bookmarkedPage !== null)
+  // Single tap: if bookmarked → navigate to it; if not → bookmark current page
+  function handleSingleTap() {
+    if (bookmarkedPage !== null && bookmarkedPage > 0) {
       ReaderState.goTo(bookmarkedPage, bookmarkedPage > ReaderState.getCurrent() ? 'next' : 'prev');
+    } else {
+      const cur = ReaderState.getCurrent();
+      bookmarkedPage = cur;
+      localStorage.setItem(STORAGE_KEY, cur);
+      refresh();
+    }
+  }
+
+  // Double tap: clear bookmark → ribbon becomes ornamental
+  function handleDoubleTap() {
+    bookmarkedPage = null;
+    localStorage.removeItem(STORAGE_KEY);
+    refresh();
+  }
+
+  ribbon.addEventListener('click', () => {
+    if (tapTimer) {
+      clearTimeout(tapTimer);
+      tapTimer = null;
+      handleDoubleTap();
+    } else {
+      tapTimer = setTimeout(() => { tapTimer = null; handleSingleTap(); }, 280);
+    }
   });
 
-  updateIndicator();
+  ribbon.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleSingleTap(); }
+  });
+
+  refresh();
 })();
 
 // ══════════════════════════════════════════
-// SHARE PAGE
+// SHARE PAGE — bar share button shares the currently visible page
 // ══════════════════════════════════════════
 (function () {
-  const toast = document.getElementById('share-toast');
-
+  const toast  = document.getElementById('share-toast');
+  const barShr = document.getElementById('bar-share');
   function showToast(msg) {
-    toast.textContent = msg;
-    toast.classList.add('visible');
+    toast.textContent = msg; toast.classList.add('visible');
     setTimeout(() => toast.classList.remove('visible'), 2800);
   }
-
-  document.querySelectorAll('.share-btn').forEach(btn => {
-    btn.addEventListener('click', async e => {
-      e.stopPropagation();
-      const page = btn.closest('.page');
-      const body = page.querySelector('.page-body');
-      const header = page.querySelector('.page-header');
-      const num  = page.querySelector('.page-number');
-      const text = body ? body.innerText.trim() : '';
-      const title = (header ? header.textContent.trim() : 'Light As Meaning')
-                  + (num ? ' — Page ' + num.textContent.trim() : '');
-      const shareData = {
-        title,
-        text: text + '\n\n— From "Light As Meaning" by Kawnur Earnlight\nhttps://www.mynoegenesis.com',
-      };
-
-      if (navigator.share) {
-        try { await navigator.share(shareData); }
-        catch (err) { if (err.name !== 'AbortError') showToast('Could not share'); }
-      } else {
-        const ta = document.createElement('textarea');
-        ta.value = shareData.text;
-        ta.style.cssText = 'position:fixed;opacity:0';
-        document.body.appendChild(ta);
-        ta.focus(); ta.select();
-        try {
-          const ok = document.execCommand('copy');
-          showToast(ok ? 'Page text copied to clipboard' : 'Could not copy — please select and copy manually');
-        } catch { showToast('Could not copy — please select and copy manually'); }
-        document.body.removeChild(ta);
-      }
-    });
+  if (!barShr) return;
+  barShr.addEventListener('click', async e => {
+    e.stopPropagation();
+    const page   = document.querySelector('.page.active');
+    const body   = page ? page.querySelector('.page-body') : null;
+    const header = page ? page.querySelector('.page-header') : null;
+    const pgNum  = document.getElementById('bar-page-num');
+    const text   = body ? body.innerText.trim() : '';
+    const title  = (header ? header.textContent.trim() : 'Light As Meaning')
+                 + (pgNum ? ' \u2014 ' + pgNum.textContent.trim() : '');
+    const shareData = {
+      title,
+      text: text + '\n\n\u2014 From \u201cLight As Meaning\u201d by Kawnur Earnlight\nhttps://www.mynoegenesis.com',
+    };
+    if (navigator.share) {
+      try { await navigator.share(shareData); }
+      catch (err) { if (err.name !== 'AbortError') showToast('Could not share'); }
+    } else {
+      const t = document.createElement('textarea');
+      t.value = shareData.text; t.style.cssText = 'position:fixed;opacity:0';
+      document.body.appendChild(t); t.focus(); t.select();
+      try {
+        const ok = document.execCommand('copy');
+        showToast(ok ? 'Page text copied to clipboard' : 'Could not copy \u2014 please select and copy manually');
+      } catch { showToast('Could not copy \u2014 please select and copy manually'); }
+      document.body.removeChild(t);
+    }
   });
 })();
 
 // ══════════════════════════════════════════
-// TEXT SEARCH
+// TEXT SEARCH — fixed: new term searched immediately; same term advances
 // ══════════════════════════════════════════
 (function () {
   const input    = document.getElementById('search-input');
   const btn      = document.getElementById('search-btn');
+  const clearBtn = document.getElementById('search-clear');
   const resultEl = document.getElementById('search-result');
   const navEl    = document.getElementById('search-nav');
   const countEl  = document.getElementById('search-count');
   const prevBtn  = document.getElementById('search-prev-btn');
   const nextBtn  = document.getElementById('search-next-btn');
-  let matches = [], matchIndex = 0;
+  let matches = [], matchIndex = 0, lastQuery = '';
+
+  function showClearBtn(visible) {
+    clearBtn.classList.toggle('visible', visible);
+  }
 
   function clearHighlights() {
     document.querySelectorAll('mark.search-highlight').forEach(m => {
@@ -855,40 +1020,40 @@ const ReaderState = (function () {
     });
   }
 
-  function buildMatches(query) {
-    matches = [];
-    ReaderState.pages.forEach((page, i) => {
-      if (i === 0) return;
-      const walker = document.createTreeWalker(page, NodeFilter.SHOW_TEXT, null);
-      let node;
-      while ((node = walker.nextNode())) {
-        const lower = node.textContent.toLowerCase();
-        const q = query.toLowerCase();
-        let pos = 0;
-        while ((pos = lower.indexOf(q, pos)) !== -1) { matches.push({ pageIndex: i }); pos += q.length; }
-      }
-    });
+  function clearSearch() {
+    clearHighlights();
+    input.value = ''; matches = []; matchIndex = 0; lastQuery = '';
+    resultEl.textContent = ''; countEl.textContent = '';
+    navEl.style.display = 'none';
+    showClearBtn(false);
+    input.focus();
   }
 
   function highlightAll(query) {
-    clearHighlights();
-    ReaderState.pages.forEach((page, i) => {
-      if (i === 0) return;
-      const walker = document.createTreeWalker(page, NodeFilter.SHOW_TEXT, null);
-      const nodes = []; let node;
-      while ((node = walker.nextNode())) nodes.push(node);
+    clearHighlights(); matches = [];
+    const q = query.toLowerCase();
+    document.querySelectorAll('.page-body').forEach(body => {
+      const pageEl   = body.closest('.page');
+      const pageIndex = parseInt(pageEl.getAttribute('data-page'), 10);
+      const walker   = document.createTreeWalker(body, NodeFilter.SHOW_TEXT, null);
+      const nodes = []; let n;
+      while ((n = walker.nextNode())) nodes.push(n);
       nodes.forEach(tn => {
-        const lower = tn.textContent.toLowerCase();
-        const q = query.toLowerCase();
+        const text = tn.textContent, lower = text.toLowerCase();
         if (!lower.includes(q)) return;
-        const mark = document.createElement('mark');
-        mark.className = 'search-highlight';
-        try {
-          const range = document.createRange();
-          const idx = lower.indexOf(q);
-          range.setStart(tn, idx); range.setEnd(tn, idx + q.length);
-          range.surroundContents(mark);
-        } catch {}
+        const frag = document.createDocumentFragment();
+        let pos = 0, idx;
+        while ((idx = lower.indexOf(q, pos)) !== -1) {
+          if (idx > pos) frag.appendChild(document.createTextNode(text.slice(pos, idx)));
+          const mark = document.createElement('mark');
+          mark.className = 'search-highlight';
+          mark.textContent = text.slice(idx, idx + q.length);
+          frag.appendChild(mark);
+          matches.push({ el: mark, pageIndex });
+          pos = idx + q.length;
+        }
+        if (pos < text.length) frag.appendChild(document.createTextNode(text.slice(pos)));
+        tn.parentNode.replaceChild(frag, tn);
       });
     });
   }
@@ -897,30 +1062,90 @@ const ReaderState = (function () {
     if (!matches.length) return;
     matchIndex = (idx + matches.length) % matches.length;
     countEl.textContent = (matchIndex + 1) + ' of ' + matches.length;
-    const pi = matches[matchIndex].pageIndex;
-    if (pi !== ReaderState.getCurrent()) ReaderState.goTo(pi, pi > ReaderState.getCurrent() ? 'next' : 'prev');
+    matches.forEach(m => m.el.classList.remove('current'));
+    const cur = matches[matchIndex];
+    cur.el.classList.add('current');
+    const pi = cur.pageIndex;
+    if (pi !== ReaderState.getCurrent()) {
+      ReaderState.goTo(pi, pi > ReaderState.getCurrent() ? 'next' : 'prev');
+      setTimeout(() => cur.el.scrollIntoView({ block: 'center' }), 560);
+    } else {
+      cur.el.scrollIntoView({ block: 'center' });
+    }
+  }
+
+  function freshSearch(query) {
+    highlightAll(query);
+    lastQuery = query;
+    addRecent(query);
+    showClearBtn(true);
+    if (!matches.length) { resultEl.textContent = 'Not found'; navEl.style.display = 'none'; return; }
+    resultEl.textContent = matches.length + (matches.length === 1 ? ' result' : ' results');
+    navEl.style.display = 'flex';
+    goToMatch(0);
   }
 
   function doSearch() {
     const query = input.value.trim();
-    clearHighlights(); navEl.style.display = 'none'; resultEl.textContent = '';
-    matches = []; matchIndex = 0;
-    if (!query) return;
-    buildMatches(query);
-    if (!matches.length) { resultEl.textContent = 'Not found'; return; }
-    highlightAll(query);
-    navEl.style.display = 'flex';
-    resultEl.textContent = matches.length + (matches.length === 1 ? ' result' : ' results');
-    goToMatch(0);
+    if (!query) { clearSearch(); return; }
+    resultEl.textContent = '';
+    // Same term → advance to next match; different term → fresh search immediately
+    if (query.toLowerCase() === lastQuery.toLowerCase() && matches.length) {
+      goToMatch(matchIndex + 1);
+    } else {
+      clearHighlights(); matches = []; matchIndex = 0;
+      navEl.style.display = 'none'; countEl.textContent = '';
+      freshSearch(query);
+    }
   }
 
   btn.addEventListener('click', doSearch);
+  clearBtn.addEventListener('click', clearSearch);
   input.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
   input.addEventListener('input', () => {
-    if (!input.value) { clearHighlights(); resultEl.textContent = ''; navEl.style.display = 'none'; matches = []; }
+    if (!input.value) { clearSearch(); }
   });
   nextBtn.addEventListener('click', () => goToMatch(matchIndex + 1));
   prevBtn.addEventListener('click', () => goToMatch(matchIndex - 1));
+
+  // Previous searches
+  const RECENT_KEY = 'noegenesis-recent-searches';
+  const recentBtn  = document.getElementById('recent-btn');
+  const recentMenu = document.getElementById('recent-menu');
+  function getRecent() { try { return JSON.parse(localStorage.getItem(RECENT_KEY)) || []; } catch { return []; } }
+  function saveRecent(list) { localStorage.setItem(RECENT_KEY, JSON.stringify(list)); }
+  function addRecent(q) {
+    let list = getRecent().filter(item => item.toLowerCase() !== q.toLowerCase());
+    list.unshift(q); saveRecent(list.slice(0, 10));
+  }
+  function renderRecent() {
+    const list = getRecent(); recentMenu.innerHTML = '';
+    if (!list.length) { recentMenu.innerHTML = '<div class="recent-empty">No previous searches</div>'; return; }
+    const title = document.createElement('div'); title.className = 'recent-title'; title.textContent = 'Previous Searches';
+    recentMenu.appendChild(title);
+    list.forEach(q => {
+      const item = document.createElement('div'); item.className = 'recent-item';
+      const term = document.createElement('span'); term.className = 'term'; term.textContent = q;
+      const rm   = document.createElement('span'); rm.className = 'remove'; rm.textContent = '✕';
+      item.appendChild(term); item.appendChild(rm);
+      term.addEventListener('click', () => { input.value = q; recentMenu.classList.remove('open'); doSearch(); });
+      rm.addEventListener('click', e => { e.stopPropagation(); saveRecent(getRecent().filter(x => x !== q)); renderRecent(); });
+      recentMenu.appendChild(item);
+    });
+    const clear = document.createElement('button');
+    clear.className = 'recent-clear'; clear.textContent = 'Clear history';
+    clear.addEventListener('click', () => { localStorage.removeItem(RECENT_KEY); renderRecent(); });
+    recentMenu.appendChild(clear);
+  }
+  recentBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    const willOpen = !recentMenu.classList.contains('open');
+    if (willOpen) renderRecent();
+    recentMenu.classList.toggle('open', willOpen);
+  });
+  document.addEventListener('click', e => {
+    if (!recentMenu.contains(e.target) && e.target !== recentBtn) recentMenu.classList.remove('open');
+  });
 })();
 
 // ══════════════════════════════════════════
@@ -942,8 +1167,7 @@ const ReaderState = (function () {
   }
   function showBubble(x, y) {
     bubble.style.display = 'block';
-    const bw = 260;
-    let left = x - bw / 2;
+    const bw = 260; let left = x - bw / 2;
     if (left < 8) left = 8;
     if (left + bw > window.innerWidth - 8) left = window.innerWidth - bw - 8;
     bubble.style.left = left + 'px';
@@ -996,14 +1220,36 @@ document.getElementById('public-toggle').addEventListener('change', function () 
   form.addEventListener('submit', async function (e) {
     e.preventDefault();
     const btn = document.getElementById('submit-btn');
-    btn.textContent = 'Sending…'; btn.disabled = true;
+    btn.textContent = 'Sending\u2026'; btn.disabled = true;
     try {
       const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
       if (res.ok) { msg.textContent = 'Your message has been received. Thank you.'; form.reset(); document.getElementById('public-value').value = 'No'; }
       else { msg.textContent = 'Something went wrong. Please try again or email directly.'; }
     } catch { msg.textContent = 'Could not send. Please check your connection.'; }
-    btn.textContent = 'Send ✦'; btn.disabled = false;
+    btn.textContent = 'Send \u2736'; btn.disabled = false;
   });
+})();
+
+// ══════════════════════════════════════════
+// APPROVED PUBLIC COMMENTS
+// ══════════════════════════════════════════
+(function () {
+  const wrap = document.getElementById('comments-display');
+  if (!wrap) return;
+  fetch('comments.json', { cache: 'no-store' })
+    .then(r => r.ok ? r.json() : [])
+    .then(list => {
+      if (!Array.isArray(list) || !list.length) return;
+      const title = document.createElement('div');
+      title.className = 'comments-title'; title.textContent = 'Shared Reflections';
+      wrap.appendChild(title);
+      list.forEach(c => {
+        const card = document.createElement('div'); card.className = 'comment-card';
+        const nm  = document.createElement('div'); nm.className = 'cc-name'; nm.textContent = c.name || 'Anonymous';
+        const ms  = document.createElement('div'); ms.className = 'cc-msg';  ms.textContent = c.message || '';
+        card.appendChild(nm); card.appendChild(ms); wrap.appendChild(card);
+      });
+    }).catch(() => {});
 })();
 </script>
 <script>
