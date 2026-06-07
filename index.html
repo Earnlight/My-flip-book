@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
  <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#1a1208">
+<meta name="theme-color" content="#1d1a0e">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Noegenesis — Kawnur Earnlight</title>
@@ -11,12 +11,12 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --gold: #c9a84c;
-    --gold-light: #e8cc80;
-    --gold-dim: rgba(201, 168, 76, 0.4);
-    --bg: #0e0b06;
-    --surface: #1a1208;
-    --surface-2: #2d1f0a;
+    --gold: #e3c14d;
+    --gold-light: #f5dd8c;
+    --gold-dim: rgba(227, 193, 77, 0.4);
+    --bg: #1d1a0e;
+    --surface: #3a3114;
+    --surface-2: #4a3d18;
   }
 
   html { scroll-behavior: smooth; }
@@ -25,8 +25,8 @@
     min-height: 100vh;
     background: var(--bg);
     background-image:
-      radial-gradient(ellipse 80% 60% at 50% 0%, #2d1f0a 0%, transparent 70%),
-      radial-gradient(ellipse 60% 40% at 80% 100%, #1a0f02 0%, transparent 60%);
+      radial-gradient(ellipse 80% 60% at 50% 0%, #4a3d18 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 80% 100%, #2a2410 0%, transparent 60%);
     font-family: 'Cormorant Garamond', Georgia, serif;
     color: var(--gold-light);
     overflow-x: hidden;
@@ -63,7 +63,7 @@
     color: var(--gold-light);
     line-height: 1.1;
     letter-spacing: 0.04em;
-    text-shadow: 0 0 60px rgba(201, 168, 76, 0.15), 0 2px 20px rgba(0,0,0,0.8);
+    text-shadow: 0 0 60px rgba(227, 193, 77, 0.15), 0 2px 20px rgba(0,0,0,0.8);
     animation: fadeDown 1s 0.15s ease both;
   }
 
@@ -88,7 +88,7 @@
     font-family: 'Cinzel', serif;
     font-size: clamp(0.5rem, 1.2vw, 0.7rem);
     letter-spacing: 0.3em;
-    color: rgba(201, 168, 76, 0.4);
+    color: rgba(227, 193, 77, 0.4);
     text-transform: uppercase;
     margin-top: 0.6em;
     animation: fadeDown 1s 0.45s ease both;
@@ -104,7 +104,7 @@
     font-family: 'Cinzel', serif;
     font-size: clamp(0.5rem, 1.2vw, 0.65rem);
     letter-spacing: 0.35em;
-    color: rgba(201, 168, 76, 0.35);
+    color: rgba(227, 193, 77, 0.35);
     text-transform: uppercase;
     text-align: center;
     margin-bottom: clamp(20px, 3vw, 36px);
@@ -129,7 +129,7 @@
   .grid-divider {
     width: min(300px, 60%);
     height: 1px;
-    background: linear-gradient(to right, transparent, rgba(201,168,76,0.25), transparent);
+    background: linear-gradient(to right, transparent, rgba(227,193,77,0.25), transparent);
     margin: 0 auto clamp(24px, 4vw, 40px);
   }
 
@@ -146,8 +146,8 @@
     align-items: center;
     gap: 16px;
     padding: clamp(14px, 2.5vw, 20px) clamp(16px, 3vw, 24px);
-    background: linear-gradient(135deg, rgba(45, 31, 10, 0.6) 0%, rgba(26, 18, 8, 0.8) 100%);
-    border: 1px solid rgba(201, 168, 76, 0.18);
+    background: linear-gradient(135deg, rgba(58, 49, 20, 0.6) 0%, rgba(29, 26, 14, 0.8) 100%);
+    border: 1px solid rgba(227, 193, 77, 0.18);
     border-radius: 4px;
     text-decoration: none;
     position: relative;
@@ -162,7 +162,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(201, 168, 76, 0.06) 0%, transparent 60%);
+    background: linear-gradient(135deg, rgba(227, 193, 77, 0.06) 0%, transparent 60%);
     opacity: 0;
     transition: opacity 0.3s;
   }
@@ -178,20 +178,20 @@
   }
 
   .book-btn:hover {
-    border-color: rgba(201, 168, 76, 0.5);
+    border-color: rgba(227, 193, 77, 0.5);
     transform: translateY(-2px) translateX(2px);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(201, 168, 76, 0.1);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(227, 193, 77, 0.1);
   }
 
   .book-btn:hover::before { opacity: 1; }
   .book-btn:hover::after  { opacity: 1; }
   .book-btn:hover .btn-number { color: var(--gold); }
-  .book-btn:hover .btn-title  { color: #f5e4b0; }
+  .book-btn:hover .btn-title  { color: #fef6df; }
 
   .btn-number {
     font-family: 'Cinzel', serif;
     font-size: clamp(0.55rem, 1.2vw, 0.68rem);
-    color: rgba(201, 168, 76, 0.35);
+    color: rgba(227, 193, 77, 0.35);
     letter-spacing: 0.1em;
     min-width: 28px;
     transition: color 0.3s;
@@ -203,7 +203,7 @@
   .btn-divider {
     width: 1px;
     height: 28px;
-    background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.25), transparent);
+    background: linear-gradient(to bottom, transparent, rgba(227,193,77,0.25), transparent);
     flex-shrink: 0;
   }
 
@@ -225,7 +225,7 @@
 
   .btn-arrow {
     font-size: 0.7rem;
-    color: rgba(201, 168, 76, 0.2);
+    color: rgba(227, 193, 77, 0.2);
     transition: color 0.3s, transform 0.3s;
     flex-shrink: 0;
     position: relative;
@@ -275,7 +275,7 @@
     max-width: 1100px;
     margin: 0 auto;
     padding: clamp(48px, 8vw, 80px) clamp(20px, 5vw, 48px) clamp(48px, 8vw, 80px);
-    border-top: 1px solid rgba(201, 168, 76, 0.12);
+    border-top: 1px solid rgba(227, 193, 77, 0.12);
     text-align: center;
   }
 
@@ -283,7 +283,7 @@
     font-family: 'Cinzel', serif;
     font-size: clamp(0.5rem, 1.2vw, 0.65rem);
     letter-spacing: 0.35em;
-    color: rgba(201, 168, 76, 0.35);
+    color: rgba(227, 193, 77, 0.35);
     text-transform: uppercase;
     margin-bottom: clamp(20px, 4vw, 36px);
   }
@@ -301,10 +301,10 @@
     align-items: center;
     gap: 8px;
     padding: clamp(10px, 2vw, 14px) clamp(16px, 3vw, 24px);
-    background: linear-gradient(135deg, rgba(45, 31, 10, 0.5), rgba(26, 18, 8, 0.7));
-    border: 1px solid rgba(201, 168, 76, 0.2);
+    background: linear-gradient(135deg, rgba(58, 49, 20, 0.5), rgba(29, 26, 14, 0.7));
+    border: 1px solid rgba(227, 193, 77, 0.2);
     border-radius: 4px;
-    color: rgba(201, 168, 76, 0.65);
+    color: rgba(227, 193, 77, 0.65);
     font-family: 'Cinzel', serif;
     font-size: clamp(0.5rem, 1.2vw, 0.65rem);
     letter-spacing: 0.15em;
@@ -315,8 +315,8 @@
 
   .contact-btn:hover {
     color: var(--gold-light);
-    border-color: rgba(201, 168, 76, 0.5);
-    background: linear-gradient(135deg, rgba(45, 31, 10, 0.8), rgba(26, 18, 8, 0.9));
+    border-color: rgba(227, 193, 77, 0.5);
+    background: linear-gradient(135deg, rgba(58, 49, 20, 0.8), rgba(29, 26, 14, 0.9));
     transform: translateY(-2px);
   }
 
@@ -325,13 +325,13 @@
   footer {
     text-align: center;
     padding: 24px 24px 40px;
-    border-top: 1px solid rgba(201, 168, 76, 0.08);
+    border-top: 1px solid rgba(227, 193, 77, 0.08);
   }
 
   footer p {
     font-family: 'Cinzel', serif;
     font-size: clamp(0.45rem, 1.1vw, 0.6rem);
-    color: rgba(201, 168, 76, 0.2);
+    color: rgba(227, 193, 77, 0.2);
     letter-spacing: 0.3em;
     text-transform: uppercase;
   }
@@ -358,7 +358,7 @@
 <body>
 
 <header>
-  <div class="header-ornament">✦ ✦ ✦</div>
+  <div class="header-ornament">&#10022; &#10022; &#10022;</div>
   <h1 class="header-title">My Noegenesis</h1>
   <div class="header-divider"></div>
   <div class="header-author">Kawnur Earnlight</div>
@@ -368,237 +368,237 @@
 <main class="library">
   <p class="section-label">Select a chapter to begin reading</p>
 
-  <!-- ── FRONT MATTER (centred) ── -->
+  <!-- FRONT MATTER (centred) -->
   <div class="front-matter">
 
     <a href="introduction.html" class="book-btn">
       <span class="btn-number">I</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Introduction</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="foreword.html" class="book-btn">
       <span class="btn-number">II</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Foreword</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="authors-notes.html" class="book-btn">
       <span class="btn-number">III</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Author's Notes</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
   </div>
 
   <div class="grid-divider"></div>
 
-  <!-- ── MAIN CHAPTERS ── -->
+  <!-- MAIN CHAPTERS -->
   <div class="grid">
 
     <a href="light-as-meaning.html" class="book-btn">
       <span class="btn-number">IV</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Light as Meaning</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="how-to-build-your-light.html" class="book-btn">
       <span class="btn-number">V</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">How to Build Your Light</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="advice.html" class="book-btn">
       <span class="btn-number">VI</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Advice</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="our-heart.html" class="book-btn">
       <span class="btn-number">VII</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Our Heart</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="the-continuum.html" class="book-btn">
       <span class="btn-number">VIII</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">The Continuum</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="imagination.html" class="book-btn">
       <span class="btn-number">IX</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Imagination</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="the-pen.html" class="book-btn">
       <span class="btn-number">X</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">The Pen</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="greatness.html" class="book-btn">
       <span class="btn-number">XI</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Greatness</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="our-mind.html" class="book-btn">
       <span class="btn-number">XII</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Our Mind</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="truth.html" class="book-btn">
       <span class="btn-number">XIII</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Truth</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="reality.html" class="book-btn">
       <span class="btn-number">XIV</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Reality</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="thoughts.html" class="book-btn">
       <span class="btn-number">XV</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Thoughts</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="honour.html" class="book-btn">
       <span class="btn-number">XVI</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Honour</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="power.html" class="book-btn">
       <span class="btn-number">XVII</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Power</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="reason.html" class="book-btn">
       <span class="btn-number">XVIII</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Reason</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="purity.html" class="book-btn">
       <span class="btn-number">XIX</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Purity</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="belief.html" class="book-btn">
       <span class="btn-number">XX</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Belief</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="pleasure.html" class="book-btn">
       <span class="btn-number">XXI</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Pleasure</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="understanding.html" class="book-btn">
       <span class="btn-number">XXII</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Understanding</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="morality.html" class="book-btn">
       <span class="btn-number">XXIII</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Morality</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="the-unseen.html" class="book-btn">
       <span class="btn-number">XXIV</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">The Unseen</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="age-vs-evolution.html" class="book-btn">
       <span class="btn-number">XXV</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Age vs Evolution</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="the-conscience.html" class="book-btn">
       <span class="btn-number">XXVI</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">The Conscience</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="gravitation.html" class="book-btn">
       <span class="btn-number">XXVII</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Gravitation</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="the-nature-of-life.html" class="book-btn">
       <span class="btn-number">XXVIII</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">The Nature of Life</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="reading.html" class="book-btn">
       <span class="btn-number">XXIX</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Reading</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="delusion.html" class="book-btn">
       <span class="btn-number">XXX</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Delusion</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="weakness.html" class="book-btn">
       <span class="btn-number">XXXI</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">Weakness</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
     <a href="the-finality.html" class="book-btn">
       <span class="btn-number">XXXII</span><span class="btn-divider"></span>
       <span class="btn-text"><span class="btn-title">The Finality</span></span>
-      <span class="btn-arrow">→</span>
+      <span class="btn-arrow">&rarr;</span>
     </a>
 
   </div>
 </main>
 
-<!-- ── CONTACT ── -->
+<!-- CONTACT -->
 <section class="contact">
   <p class="contact-label">Get in touch</p>
   <div class="contact-links">
 
     <a href="mailto:earnlight@mynoegenesis.com" class="contact-btn">
-      <span class="icon">✉</span> Email
+      <span class="icon">&#x2709;</span> Email
     </a>
 
     <a href="https://twitter.com/earnlight" target="_blank" rel="noopener" class="contact-btn">
-      <span class="icon">𝕏</span> Twitter
+      <span class="icon">&#120143;</span> Twitter
     </a>
 
     <a href="https://bsky.app/profile/mynoegenesis.com" target="_blank" rel="noopener" class="contact-btn">
-      <span class="icon">☁</span> Bluesky
+      <span class="icon">&#9729;</span> Bluesky
     </a>
 
     <a href="https://substack.com/@earnlight" target="_blank" rel="noopener" class="contact-btn">
-      <span class="icon">✦</span> Substack
+      <span class="icon">&#10022;</span> Substack
     </a>
 
   </div>
 </section>
 
 <footer>
-  <p>My Noegenesis &nbsp;·&nbsp; Kawnur Earnlight &nbsp;·&nbsp; All rights reserved</p>
+  <p>My Noegenesis &nbsp;&middot;&nbsp; Kawnur Earnlight &nbsp;&middot;&nbsp; All rights reserved</p>
 </footer>
 <script>
   if ('serviceWorker' in navigator) {
@@ -607,4 +607,4 @@
 </script>
 
 </body>
-</html
+</html>
