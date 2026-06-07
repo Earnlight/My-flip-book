@@ -1015,28 +1015,46 @@ const ReaderState = (function () {
   function showClearBtn(visible) { clearBtn.classList.toggle('visible', visible); }
 
   function clearHighlights() {
-    document.querySelectorAll('mark.search-highlight').forEach(m => {
-      m.parentNode.replaceChild(document.createTextNode(m.textContent), m);
-      m.parentNode.normalize();
-    });
+    // While-loop: always query fresh so detached/nested marks can't slip through.
+    // Each iteration removes exactly the FIRST mark found until none remain.
+    let m;
+    while ((m = document.querySelector('mark.search-highlight'))) {
+      const parent = m.parentNode;
+      if (!parent) { try { m.remove(); } catch(e) {} continue; }
+      // Move mark's children before the mark (handles any nested content)
+      while (m.firstChild) parent.insertBefore(m.firstChild, m);
+      parent.removeChild(m);
+    }
+    // Merge any split text nodes left behind
+    document.querySelectorAll('.page-body').forEach(b => { try { b.normalize(); } catch(e) {} });
   }
 
   function clearSearch() {
+    matches = []; matchIndex = 0;   // reset state FIRST so nothing can re-use stale matches
     clearHighlights();
-    input.value = ''; matches = []; matchIndex = 0;
+    input.value = '';
     resultEl.textContent = ''; countEl.textContent = '';
     navEl.style.display = 'none';
     showClearBtn(false);
-    input.focus();
   }
 
   function highlightAll(query) {
     clearHighlights(); matches = [];
     const q = query.toLowerCase();
     document.querySelectorAll('.page-body').forEach(body => {
-      const pageEl   = body.closest('.page');
+      const pageEl    = body.closest('.page');
       const pageIndex = parseInt(pageEl.getAttribute('data-page'), 10);
-      const walker   = document.createTreeWalker(body, NodeFilter.SHOW_TEXT, null);
+      // Filter: never walk into an existing mark (prevents nesting)
+      const walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT, {
+        acceptNode(node) {
+          let p = node.parentNode;
+          while (p && p !== body) {
+            if (p.nodeName === 'MARK') return NodeFilter.FILTER_REJECT;
+            p = p.parentNode;
+          }
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
       const nodes = []; let n;
       while ((n = walker.nextNode())) nodes.push(n);
       nodes.forEach(tn => {
@@ -1063,13 +1081,15 @@ const ReaderState = (function () {
     if (!matches.length) return;
     matchIndex = (idx + matches.length) % matches.length;
     countEl.textContent = (matchIndex + 1) + ' of ' + matches.length;
-    matches.forEach(m => m.el.classList.remove('current'));
+    matches.forEach(m => { if (m.el.isConnected) m.el.classList.remove('current'); });
     const cur = matches[matchIndex];
+    // Guard: if this mark was removed by a clearSearch during animation, do nothing
+    if (!cur.el.isConnected) return;
     cur.el.classList.add('current');
     const pi = cur.pageIndex;
     if (pi !== ReaderState.getCurrent()) {
       ReaderState.goTo(pi, pi > ReaderState.getCurrent() ? 'next' : 'prev');
-      setTimeout(() => cur.el.scrollIntoView({ block: 'center' }), 560);
+      setTimeout(() => { if (cur.el.isConnected) cur.el.scrollIntoView({ block: 'center' }); }, 560);
     } else {
       cur.el.scrollIntoView({ block: 'center' });
     }
