@@ -49,10 +49,14 @@
       radial-gradient(ellipse at 20% 20%, #4a3d18 0%, transparent 60%),
       radial-gradient(ellipse at 80% 80%, #2a2410 0%, transparent 62%);
   }
-  body.reader-fullscreen #book-scene { flex: 1; display: flex; align-items: center; justify-content: center; }
+  body.reader-fullscreen #book-scene { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0; }
   body.reader-fullscreen #book {
     flex: 0 0 auto; padding-top: 0 !important;
-    width: min(96vw, calc(96vh / 1.24)); aspect-ratio: 1 / 1.24; height: auto;
+    /* Height-driven: always fill the screen minus the page bar (~48px).
+       Width is capped at 640px; height fills down to the bar.
+       The 2.2× cap stops it becoming absurdly narrow on very wide screens. */
+    width: min(96vw, 640px);
+    height: min(calc(100vh - 48px), calc(min(96vw, 640px) * 2.2));
   }
   body.reader-fullscreen .page { position: absolute; inset: 0; }
 
@@ -177,12 +181,13 @@
   /* ── BOOK ── */
   #book-container { position: relative; width: min(640px, 88vw); margin-top: 16px; overflow: visible; }
   #book-scene { width: 100%; perspective: 2500px; }
-  #book { position: relative; width: 100%; padding-top: min(124%, 84vh); transform-style: preserve-3d; }
+  #book { position: relative; width: 100%; padding-top: min(150%, 90vh); transform-style: preserve-3d; touch-action: manipulation; }
 
   .page {
     position: absolute; inset: 0; container-type: inline-size;
     background: var(--paper); border-radius: 4px; border: 1px solid var(--frame-soft);
     overflow: hidden; display: flex; flex-direction: column; opacity: 0; pointer-events: none;
+    touch-action: manipulation;
     box-shadow: 0 20px 54px rgba(0,0,0,0.55), 0 5px 16px rgba(0,0,0,0.35),
       inset 0 0 0 1px rgba(255,255,255,0.05), inset 0 1px 0 rgba(255,255,255,0.14);
     transition: opacity 0.05s, background 0.3s;
@@ -409,7 +414,7 @@
           <div class="cover-ornament">✦ ✦ ✦</div>
           <div class="cover-title">Light As Meaning</div>
           <div class="cover-divider"></div>
-          <div class="cover-author">By Kawn Earnlight</div>
+          <div class="cover-author">By Kawnur Earnlight</div>
           <div class="cover-summary">
             <p>The only thing we take with us from this world into the next life when we die is our light, the accumulation of which is the purpose of life.</p>
           </div>
@@ -692,6 +697,30 @@ const ReaderState = (function () {
 
   document.getElementById('fs-prev').addEventListener('click', () => ReaderState.goTo(ReaderState.getCurrent() - 1, 'prev'));
   document.getElementById('fs-next').addEventListener('click', () => ReaderState.goTo(ReaderState.getCurrent() + 1, 'next'));
+
+  // ── Double-tap (mobile) / double-click (desktop) on the e-reader toggles fullscreen ──
+  const book = document.getElementById('book');
+  let dtTime = 0, dtX = 0, dtY = 0;
+
+  // Mobile: two taps within 400 ms and within 50 px of each other = double-tap
+  book.addEventListener('touchend', e => {
+    // Ignore taps on interactive elements (buttons, bookmark ribbon, etc.)
+    if (e.target.closest('button, a, input, [role="button"]')) return;
+    const t   = e.changedTouches[0];
+    const now = Date.now();
+    if (now - dtTime < 400 && Math.abs(t.clientX - dtX) < 50 && Math.abs(t.clientY - dtY) < 50) {
+      dtTime = 0; // reset so a triple-tap doesn't re-trigger
+      if (isFS) exit(); else enter();
+    } else {
+      dtTime = now; dtX = t.clientX; dtY = t.clientY;
+    }
+  }, { passive: true });
+
+  // Desktop: standard double-click
+  book.addEventListener('dblclick', e => {
+    if (e.target.closest('button, a, input, [role="button"]')) return;
+    if (isFS) exit(); else enter();
+  });
 })();
 
 // ══════════════════════════════════════════
@@ -980,8 +1009,8 @@ const ReaderState = (function () {
   }
   async function sharePassage(text) {
     const payload = {
-      title: 'From \u201cLight As Meaning\u201d by Kawn Earnlight',
-      text: text + '\n\n\u2014 From \u201cLight As Meaning\u201d by Kawn Earnlight\nhttps://www.mynoegenesis.com',
+      title: 'From \u201cLight As Meaning\u201d by Kawnur Earnlight',
+      text: text + '\n\n\u2014 From \u201cLight As Meaning\u201d by Kawnur Earnlight\nhttps://www.mynoegenesis.com',
     };
     if (navigator.share) {
       try { await navigator.share(payload); return; }
