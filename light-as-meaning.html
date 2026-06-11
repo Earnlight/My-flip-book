@@ -385,6 +385,27 @@
   .comment-card .cc-name { font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 7px; }
   .comment-card .cc-msg { font-family: 'Cormorant Garamond', serif; font-size: clamp(0.8rem, 1.8vw, 0.95rem); color: var(--text); line-height: 1.65; }
 
+  /* ── LATEST ADDITIONS ── */
+  #latest-additions { width: min(640px, 88vw); margin-top: 28px; }
+  .la-section-title { font-family: 'Cinzel', serif; font-size: clamp(0.55rem, 1.4vw, 0.72rem); letter-spacing: 0.25em; color: var(--form-heading); text-transform: uppercase; text-align: center; margin-bottom: 14px; }
+  .la-section-title::before, .la-section-title::after { content: ' ✦ '; opacity: 0.5; }
+  .la-card {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--form-bg); border: 1px solid var(--form-border); border-left: 2px solid var(--gold);
+    border-radius: 4px; padding: 13px 16px; margin-bottom: 10px;
+    cursor: pointer; transition: background 0.2s, border-left-color 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .la-card:hover  { background: var(--btn-hover); border-left-color: var(--gold-light); }
+  .la-card:active { background: rgba(227,193,77,0.18); }
+  .la-badge { font-family: 'Cinzel', serif; font-size: 0.48rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); background: rgba(227,193,77,0.12); padding: 4px 8px; border-radius: 3px; flex-shrink: 0; white-space: nowrap; text-align: center; min-width: 36px; }
+  .la-body { flex: 1; min-width: 0; }
+  .la-title { font-family: 'Cinzel', serif; font-size: clamp(0.58rem, 1.4vw, 0.7rem); letter-spacing: 0.1em; color: var(--input-color); line-height: 1.4; }
+  .la-note  { font-family: 'Cormorant Garamond', serif; font-size: clamp(0.74rem, 1.7vw, 0.88rem); font-style: italic; color: var(--text-dim); line-height: 1.5; margin-top: 3px; }
+  .la-date  { font-family: 'Cinzel', serif; font-size: 0.44rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); margin-top: 4px; }
+  .la-arrow { font-size: 1rem; color: var(--text-dim); flex-shrink: 0; transition: color 0.2s, transform 0.2s; line-height: 1; }
+  .la-card:hover .la-arrow { color: var(--gold); transform: translateX(4px); }
+
   #definition-bubble { position: fixed; z-index: 9999; max-width: 260px; background: var(--menu-bg); border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; box-shadow: 0 8px 32px rgba(0,0,0,0.6); display: none; pointer-events: none; }
   #definition-bubble::before { content: ''; position: absolute; bottom: -7px; left: 50%; width: 12px; height: 12px; background: var(--menu-bg); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); transform: translateX(-50%) rotate(45deg); }
   #def-word { font-family: 'Cinzel', serif; font-size: 0.72rem; color: var(--gold-light); letter-spacing: 0.1em; margin-bottom: 4px; }
@@ -567,6 +588,19 @@
 </section>
 
 <div id="comments-display"></div>
+
+<!-- ══════════════════════════════════════════
+  LATEST ADDITIONS — edit the entries array in the JS below to add items for this page.
+  Each entry: { title, note, page, date }
+    title  — headline text (required)
+    note   — short italic description (optional)
+    page   — page number in this e-reader (0 = cover, 1 = first page, etc.)
+    date   — display date string, e.g. 'June 2025' (optional)
+══════════════════════════════════════════ -->
+<section id="latest-additions" style="display:none">
+  <div class="la-section-title">Latest Additions</div>
+  <div id="la-list"></div>
+</section>
 
 <script>
 // ══════════════════════════════════════════
@@ -1492,6 +1526,60 @@ document.getElementById('public-toggle').addEventListener('change', function () 
         card.appendChild(nm); card.appendChild(ms); wrap.appendChild(card);
       });
     }).catch(() => {});
+})();
+
+// ══════════════════════════════════════════
+// LATEST ADDITIONS
+// Add entries below — each appears as a tappable card linking to a page.
+// ══════════════════════════════════════════
+(function () {
+  // ── Edit this array to populate the section ──────────────────────────────
+  const entries = [
+  { title: 'Chapter IV added',  note: 'The fourth chapter is now live.',   page: 1, date: 'June 2025' },
+  { title: 'Opening revised',   note: 'Clarified the opening passage.',    page: 1, date: 'May 2025'  },
+];
+  // ─────────────────────────────────────────────────────────────────────────
+
+  const section = document.getElementById('latest-additions');
+  const list    = document.getElementById('la-list');
+  if (!section || !list || !entries.length) return;
+  section.style.display = '';   // reveal only when there are entries
+
+  entries.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'la-card';
+
+    // Page badge
+    const badge = document.createElement('div');
+    badge.className = 'la-badge';
+    badge.textContent = item.page === 0 ? 'Cover' : 'P.\u2009' + item.page;
+
+    // Body
+    const body  = document.createElement('div'); body.className = 'la-body';
+    const ttl   = document.createElement('div'); ttl.className  = 'la-title'; ttl.textContent = item.title;
+    body.appendChild(ttl);
+    if (item.note) {
+      const note = document.createElement('div'); note.className = 'la-note'; note.textContent = item.note;
+      body.appendChild(note);
+    }
+    if (item.date) {
+      const date = document.createElement('div'); date.className = 'la-date'; date.textContent = item.date;
+      body.appendChild(date);
+    }
+
+    // Arrow indicator
+    const arrow = document.createElement('div'); arrow.className = 'la-arrow'; arrow.textContent = '→';
+
+    card.appendChild(badge); card.appendChild(body); card.appendChild(arrow);
+
+    card.addEventListener('click', () => {
+      const pg = typeof item.page === 'number' ? item.page : 1;
+      ReaderState.goTo(pg, pg > ReaderState.getCurrent() ? 'next' : 'prev');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    list.appendChild(card);
+  });
 })();
 
 // ══════════════════════════════════════════
