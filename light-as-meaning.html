@@ -229,7 +229,53 @@
   }
   .user-highlight:active { cursor: grabbing; }
 
-  /* ── CONNECTED PAGE BAR — sits flush below the book, visible on every page ── */
+  /* ── BOOKMARK MINI MENU ── */
+  /* ── BOOKMARK PANEL (multi-bookmark list) ── */
+  #bookmark-menu {
+    position: absolute; top: 60px; left: 0; z-index: 200;
+    display: none; flex-direction: column;
+    width: min(300px, calc(100% - 8px)); max-height: min(72vh, 520px); overflow: hidden;
+    background: var(--menu-bg); border: 1px solid var(--border); border-radius: 6px;
+    box-shadow: 0 10px 36px rgba(0,0,0,0.72);
+  }
+  #bookmark-menu.open { display: flex; }
+  .bm-panel-head { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px 8px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+  .bm-panel-title { font-family: 'Cinzel', serif; font-size: 0.52rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); flex: 1; }
+  .bm-panel-close { background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 0.82rem; padding: 0 2px; line-height: 1; transition: color 0.2s; }
+  .bm-panel-close:hover { color: var(--gold); }
+  .bm-add-btn { background: var(--btn-bg); border: none; border-bottom: 1px solid var(--border); color: var(--gold); font-family: 'Cinzel', serif; font-size: 0.52rem; letter-spacing: 0.1em; text-transform: uppercase; text-align: left; padding: 10px 13px; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
+  .bm-add-btn:hover { background: var(--btn-hover); }
+  .bm-list { flex: 1; overflow-y: auto; padding: 4px; }
+  .bm-empty { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--text-dim); font-size: 0.82rem; text-align: center; padding: 14px 10px; }
+  .bm-item { padding: 8px 10px; border-radius: 4px; margin-bottom: 2px; border-bottom: 1px solid rgba(227,193,77,0.08); cursor: pointer; transition: background 0.15s; }
+  .bm-item:hover { background: rgba(245,221,140,0.07); }
+  .bm-item:last-child { border-bottom: none; }
+  .bm-item-top { display: flex; align-items: center; gap: 7px; margin-bottom: 5px; }
+  .bm-pg { font-family: 'Cinzel', serif; font-size: 0.46rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); background: rgba(227,193,77,0.12); padding: 3px 6px; border-radius: 3px; flex-shrink: 0; white-space: nowrap; }
+  .bm-name-input { flex: 1; min-width: 0; background: transparent; border: none; border-bottom: 1px solid transparent; color: var(--input-color); font-family: 'Cinzel', serif; font-size: 0.52rem; letter-spacing: 0.04em; outline: none; padding: 2px 3px; cursor: pointer; transition: border-color 0.2s; }
+  .bm-name-input:focus { border-bottom-color: var(--gold); cursor: text; }
+  .bm-name-input::placeholder { color: var(--text-dim); font-style: italic; font-family: 'Cormorant Garamond', serif; }
+  .bm-item-actions { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+  .bm-go { background: var(--btn-bg); border: 1px solid var(--border); color: var(--gold); font-family: 'Cinzel', serif; font-size: 0.44rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+  .bm-go:hover { background: var(--btn-hover); border-color: var(--gold); }
+  .bm-del { background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 0.7rem; line-height: 1; transition: color 0.2s; padding: 0 2px; }
+  .bm-del:hover { color: var(--gold); }
+  .bm-confirm-wrap { display: flex; align-items: center; gap: 5px; }
+  .bm-confirm-label { font-family: 'Cinzel', serif; font-size: 0.44rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); white-space: nowrap; }
+  .bm-confirm-yes { background: rgba(220,80,60,0.15); border: 1px solid rgba(220,80,60,0.4); color: #e07060; font-family: 'Cinzel', serif; font-size: 0.44rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; cursor: pointer; transition: background 0.2s; }
+  .bm-confirm-yes:hover { background: rgba(220,80,60,0.28); }
+  .bm-confirm-no { background: var(--btn-bg); border: 1px solid var(--border); color: var(--text-dim); font-family: 'Cinzel', serif; font-size: 0.44rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 3px; cursor: pointer; transition: background 0.2s; }
+  .bm-confirm-no:hover { background: var(--btn-hover); color: var(--gold); }
+
+  /* ── FLOATING TOOLTIP ── */
+  #ui-tooltip {
+    position: fixed; z-index: 9998; display: none;
+    background: var(--menu-bg); border: 1px solid var(--border);
+    color: var(--text); font-family: 'Cinzel', serif;
+    font-size: 0.48rem; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 5px 10px; border-radius: 3px; pointer-events: none;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.55); white-space: nowrap;
+  }
   #page-bar {
     width: 100%; background: #221e11;
     border: 1px solid var(--frame-soft); border-top: 1px solid rgba(245,221,140,0.12);
@@ -356,7 +402,7 @@
 <body>
 
 <!-- Fixed top-left library link -->
-<a href="index.html" id="home-btn">← Library</a>
+<a href="index.html" id="home-btn" data-tip="Back to library">← Library</a>
 
 <div id="definition-bubble">
   <div id="def-word"></div>
@@ -367,34 +413,34 @@
 
 <div id="share-toast">Page text copied to clipboard</div>
 <div id="hl-action">
-  <button type="button" id="hl-btn-highlight">✦ Highlight</button>
-  <button type="button" id="hl-btn-share">↑ Share</button>
+  <button type="button" id="hl-btn-highlight" data-tip="Highlight selected text">✦ Highlight</button>
+  <button type="button" id="hl-btn-share" data-tip="Share selected text">↑ Share</button>
 </div>
 
 <!-- Fullscreen pop-up bars -->
 <div id="fs-topbar">
-  <button id="exit-fullscreen-btn" class="fs-chip">✕ Exit</button>
+  <button id="exit-fullscreen-btn" class="fs-chip" data-tip="Exit fullscreen">✕ Exit</button>
 </div>
 <div id="fs-navbar">
-  <button id="fs-prev" class="fs-chip">← Prev</button>
+  <button id="fs-prev" class="fs-chip" data-tip="Previous page">← Prev</button>
   <span id="fs-indicator">Cover</span>
-  <button id="fs-next" class="fs-chip">Next →</button>
+  <button id="fs-next" class="fs-chip" data-tip="Next page">Next →</button>
 </div>
 
 <!-- Search bar with clear button -->
 <div id="search-bar">
   <label for="search-input">Find</label>
   <input type="text" id="search-input" placeholder="Search text in the book…">
-  <button id="search-btn">Search</button>
-  <button id="search-clear" aria-label="Clear search" title="Clear search">✕</button>
-  <button id="recent-btn" aria-label="Previous searches" title="Previous searches">▾</button>
+  <button id="search-btn" data-tip="Search the book">Search</button>
+  <button id="search-clear" aria-label="Clear search" data-tip="Clear search">✕</button>
+  <button id="recent-btn" aria-label="Previous searches" data-tip="Recent searches">▾</button>
   <span id="search-result"></span>
   <div id="recent-menu"></div>
 </div>
 <div id="search-nav">
-  <button id="search-prev-btn">← Prev</button>
+  <button id="search-prev-btn" data-tip="Previous match">← Prev</button>
   <span id="search-count"></span>
-  <button id="search-next-btn">Next →</button>
+  <button id="search-next-btn" data-tip="Next match">Next →</button>
 </div>
 
 <div id="book-container">
@@ -402,9 +448,19 @@
     <div id="book">
 
       <!-- Bookmark ribbon lives INSIDE #book so it stays on the e-reader in normal and fullscreen modes -->
-      <div id="bookmark-ribbon" role="button" tabindex="0" aria-label="Go to bookmarked page">
+      <div id="bookmark-ribbon" role="button" tabindex="0" aria-label="Go to bookmarked page" data-tip="Tap: navigate/bookmark · Double-tap: clear · Long-press: menu">
         <span class="bm-tick">✦</span>
         <span class="bm-num" id="bm-num"></span>
+      </div>
+
+      <!-- Bookmark panel — shown on long-press of ribbon; lives inside #book for correct positioning -->
+      <div id="bookmark-menu">
+        <div class="bm-panel-head">
+          <span class="bm-panel-title">✦ Bookmarks</span>
+          <button class="bm-panel-close" id="bm-panel-close" aria-label="Close">✕</button>
+        </div>
+        <button class="bm-add-btn" id="bm-add-btn">🔖 Bookmark this page</button>
+        <div class="bm-list" id="bm-list"></div>
       </div>
 
       <!-- PAGE 0: COVER -->
@@ -455,26 +511,26 @@
 
   <!-- ── PAGE BAR — connected to book bottom, visible on every page including cover ── -->
   <div id="page-bar">
-    <button class="page-nav-btn page-prev-btn" id="bar-prev" aria-label="Previous page">← Prev</button>
-    <span class="page-number" id="bar-page-num">Cover</span>
-    <button class="page-nav-btn page-next-btn" id="bar-next" aria-label="Next page">Next →</button>
+    <button class="page-nav-btn page-prev-btn" id="bar-prev" aria-label="Previous page" data-tip="Previous page">← Prev</button>
+    <span class="page-number" id="bar-page-num" data-tip="Tap to jump to any page">Cover</span>
+    <button class="page-nav-btn page-next-btn" id="bar-next" aria-label="Next page" data-tip="Next page">Next →</button>
   </div>
 
   <!-- Fullscreen button — on the e-reader, top-right corner -->
-  <button id="fullscreen-btn" aria-label="Enter fullscreen">⛶</button>
+  <button id="fullscreen-btn" aria-label="Enter fullscreen" data-tip="Enter fullscreen · double-tap page to toggle">⛶</button>
 </div>
 
 <div id="controls">
-  <button id="cover-btn">Cover</button>
+  <button id="cover-btn" data-tip="Return to cover">Cover</button>
   <span id="spread-indicator">Cover</span>
-  <button id="highlights-btn">Highlights</button>
+  <button id="highlights-btn" data-tip="View saved highlights">Highlights</button>
 </div>
 
 <div id="highlights-menu"></div>
 
 <!-- Go-to-page button (replaces old bookmark indicator) -->
 <div id="goto-page-row">
-  <button id="goto-page-btn" type="button">Go to Page</button>
+  <button id="goto-page-btn" type="button" data-tip="Jump to any page">Go to Page</button>
 </div>
 
 <section id="comment-section">
@@ -698,28 +754,21 @@ const ReaderState = (function () {
   document.getElementById('fs-prev').addEventListener('click', () => ReaderState.goTo(ReaderState.getCurrent() - 1, 'prev'));
   document.getElementById('fs-next').addEventListener('click', () => ReaderState.goTo(ReaderState.getCurrent() + 1, 'next'));
 
-  // ── Double-tap (mobile) / double-click (desktop) on the e-reader toggles fullscreen ──
+  // ── Double-tap on the e-reader toggles fullscreen ──
+  // 'click' fires exactly once per confirmed tap on all browsers (Safari, DuckDuckGo,
+  // Chrome) and never fires for swipes — more reliable than touchend or dblclick
   const book = document.getElementById('book');
   let dtTime = 0, dtX = 0, dtY = 0;
 
-  // Mobile: two taps within 400 ms and within 50 px of each other = double-tap
-  book.addEventListener('touchend', e => {
-    // Ignore taps on interactive elements (buttons, bookmark ribbon, etc.)
+  book.addEventListener('click', e => {
     if (e.target.closest('button, a, input, [role="button"]')) return;
-    const t   = e.changedTouches[0];
     const now = Date.now();
-    if (now - dtTime < 400 && Math.abs(t.clientX - dtX) < 50 && Math.abs(t.clientY - dtY) < 50) {
-      dtTime = 0; // reset so a triple-tap doesn't re-trigger
+    if (now - dtTime < 400 && Math.abs(e.clientX - dtX) < 50 && Math.abs(e.clientY - dtY) < 50) {
+      dtTime = 0;
       if (isFS) exit(); else enter();
     } else {
-      dtTime = now; dtX = t.clientX; dtY = t.clientY;
+      dtTime = now; dtX = e.clientX; dtY = e.clientY;
     }
-  }, { passive: true });
-
-  // Desktop: standard double-click
-  book.addEventListener('dblclick', e => {
-    if (e.target.closest('button, a, input, [role="button"]')) return;
-    if (isFS) exit(); else enter();
   });
 })();
 
@@ -941,58 +990,209 @@ const ReaderState = (function () {
 })();
 
 // ══════════════════════════════════════════
-// BOOKMARK — ribbon always visible; single-tap bookmarks/jumps; double-tap clears
+// BOOKMARK — multi-page bookmarks with names and text previews
 // ══════════════════════════════════════════
 (function () {
-  const STORAGE_KEY  = 'noegenesis-bookmark-lam';
-  const ribbon       = document.getElementById('bookmark-ribbon');
-  const ribbonNum    = document.getElementById('bm-num');
-  let bookmarkedPage = parseInt(localStorage.getItem(STORAGE_KEY), 10) || null;
+  const STORAGE_KEY = 'noegenesis-bookmarks-v2-lam';
+  const ribbon      = document.getElementById('bookmark-ribbon');
+  const ribbonNum   = document.getElementById('bm-num');
+  const bmMenu      = document.getElementById('bookmark-menu');
+  const bmList      = document.getElementById('bm-list');
+  const bmAddBtn    = document.getElementById('bm-add-btn');
+  const bmClose     = document.getElementById('bm-panel-close');
+  let longPressTimer = null;
+  let longPressFired = false;
   let tapTimer       = null;
 
-  function refresh() {
-    const has = bookmarkedPage !== null && bookmarkedPage > 0;
-    ribbon.classList.toggle('has-bookmark', has);
-    if (ribbonNum) ribbonNum.textContent = has ? bookmarkedPage : '';
-    ribbon.setAttribute('aria-label', has
-      ? 'Go to page ' + bookmarkedPage + ' (double-tap to clear)'
-      : 'Tap to bookmark this page');
+  // ── Storage ──
+  function load() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { return []; }
+  }
+  function save(arr) { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); }
+
+  // Migrate from old single-bookmark format
+  (function migrate() {
+    const oldKey = 'noegenesis-bookmark-lam';
+    const oldVal = localStorage.getItem(oldKey);
+    if (oldVal && !localStorage.getItem(STORAGE_KEY)) {
+      const p = parseInt(oldVal, 10);
+      if (!isNaN(p) && p >= 0) save([{ id: Date.now(), page: p, name: '', addedAt: Date.now() }]);
+      localStorage.removeItem(oldKey);
+    }
+  })();
+
+  // ── Helpers ──
+  function getMostRecent(arr) {
+    if (!arr.length) return null;
+    return arr.reduce((a, b) => b.addedAt > a.addedAt ? b : a);
   }
 
-  // Expose so updateUI() refreshes the ribbon's active state after navigation
+  function getTextPreview(pageIndex) {
+    if (pageIndex === 0) return 'Book cover';
+    const pg = document.querySelector('.page[data-page="' + pageIndex + '"]');
+    if (!pg) return '';
+    const el = pg.querySelector('.page-body p, .page-body .chapter-title, .page-body .chapter-ornament + p');
+    const text = el ? el.textContent.trim() : '';
+    return text.length > 70 ? text.slice(0, 70) + '\u2026' : text;
+  }
+
+  // ── Ribbon refresh ──
+  function refresh() {
+    const arr = load();
+    const recent = getMostRecent(arr);
+    const has = arr.length > 0;
+    ribbon.classList.toggle('has-bookmark', has);
+    if (ribbonNum) ribbonNum.textContent = has && recent.page > 0 ? recent.page : '';
+    ribbon.setAttribute('aria-label', has
+      ? arr.length + ' bookmark' + (arr.length > 1 ? 's' : '') + ' · tap to go to most recent · long-press for list'
+      : 'No bookmarks · tap to add one');
+  }
   window.__refreshBookmarkBar = refresh;
 
-  // Single tap: if bookmarked → navigate to it; if not → bookmark current page
-  function handleSingleTap() {
-    if (bookmarkedPage !== null && bookmarkedPage > 0) {
-      ReaderState.goTo(bookmarkedPage, bookmarkedPage > ReaderState.getCurrent() ? 'next' : 'prev');
+  // ── Add / remove ──
+  function addBookmark(page) {
+    const arr = load();
+    // Update timestamp if already bookmarked, otherwise add new
+    const existing = arr.find(b => b.page === page);
+    if (existing) {
+      existing.addedAt = Date.now();
+      save(arr);
     } else {
-      const cur = ReaderState.getCurrent();
-      bookmarkedPage = cur;
-      localStorage.setItem(STORAGE_KEY, cur);
-      refresh();
+      arr.push({ id: Date.now(), page, name: '', addedAt: Date.now() });
+      save(arr);
     }
-  }
-
-  // Double tap: clear bookmark → ribbon becomes ornamental
-  function handleDoubleTap() {
-    bookmarkedPage = null;
-    localStorage.removeItem(STORAGE_KEY);
     refresh();
+    renderMenu();
+  }
+  function removeBookmark(id) {
+    save(load().filter(b => b.id !== id));
+    refresh();
+    renderMenu();
+  }
+  function updateName(id, name) {
+    const arr = load();
+    const b = arr.find(b => b.id === id);
+    if (b) { b.name = name; save(arr); }
   }
 
+  // ── Menu ──
+  function openMenu() { if (bmMenu) bmMenu.classList.add('open'); renderMenu(); }
+  function closeMenu() { if (bmMenu) bmMenu.classList.remove('open'); }
+
+  function renderMenu() {
+    if (!bmList) return;
+    const arr = load().slice().sort((a, b) => b.addedAt - a.addedAt); // most recent first
+    bmList.innerHTML = '';
+    if (!arr.length) {
+      bmList.innerHTML = '<div class="bm-empty">No bookmarks yet.<br>Tap "Bookmark this page" to add one.</div>';
+      return;
+    }
+    arr.forEach(bm => {
+      const item = document.createElement('div');
+      item.className = 'bm-item';
+
+      // Top row: page badge | name input | actions
+      const top = document.createElement('div'); top.className = 'bm-item-top';
+
+      const pg = document.createElement('span'); pg.className = 'bm-pg';
+      pg.textContent = bm.page === 0 ? 'Cover' : 'P. ' + bm.page;
+
+      const nameInp = document.createElement('input');
+      nameInp.type = 'text'; nameInp.className = 'bm-name-input';
+      nameInp.value = bm.name;
+      nameInp.placeholder = bm.page === 0 ? 'Cover' : 'Page ' + bm.page;
+      nameInp.addEventListener('change', () => updateName(bm.id, nameInp.value.trim()));
+      nameInp.addEventListener('click', e => e.stopPropagation());
+      nameInp.addEventListener('keydown', e => { if (e.key === 'Enter') nameInp.blur(); });
+
+      // Delete button only — whole item is the navigate target
+      const actions = document.createElement('div'); actions.className = 'bm-item-actions';
+      const delBtn = document.createElement('button'); delBtn.className = 'bm-del'; delBtn.textContent = '✕';
+      delBtn.title = 'Remove bookmark';
+      delBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        // Replace actions with inline confirmation
+        actions.innerHTML = '';
+        const wrap  = document.createElement('span'); wrap.className = 'bm-confirm-wrap';
+        const label = document.createElement('span'); label.className = 'bm-confirm-label'; label.textContent = 'Delete?';
+        const yes   = document.createElement('button'); yes.className = 'bm-confirm-yes'; yes.textContent = 'Yes';
+        const no    = document.createElement('button'); no.className  = 'bm-confirm-no';  no.textContent  = 'No';
+        yes.addEventListener('click', ev => { ev.stopPropagation(); removeBookmark(bm.id); });
+        no.addEventListener('click',  ev => { ev.stopPropagation(); actions.innerHTML = ''; actions.appendChild(delBtn); });
+        wrap.appendChild(label); wrap.appendChild(yes); wrap.appendChild(no);
+        actions.appendChild(wrap);
+      });
+
+      actions.appendChild(delBtn);
+      top.appendChild(pg); top.appendChild(nameInp); top.appendChild(actions);
+
+      // Whole item taps to navigate — except the name input and delete/confirm buttons
+      item.addEventListener('click', e => {
+        if (e.target.closest('.bm-item-actions, .bm-name-input')) return;
+        closeMenu();
+        ReaderState.goTo(bm.page, bm.page > ReaderState.getCurrent() ? 'next' : 'prev');
+      });
+
+      // Preview row
+      const preview = document.createElement('div'); preview.className = 'bm-preview';
+      preview.textContent = getTextPreview(bm.page);
+
+      item.appendChild(top); item.appendChild(preview);
+      bmList.appendChild(item);
+    });
+  }
+
+  if (bmAddBtn) bmAddBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    addBookmark(ReaderState.getCurrent());
+  });
+  if (bmClose) bmClose.addEventListener('click', e => { e.stopPropagation(); closeMenu(); });
+  document.addEventListener('click', e => {
+    if (bmMenu && !bmMenu.contains(e.target) && e.target !== ribbon) closeMenu();
+  });
+
+  // ── Long-press (touch + mouse) — opens the panel ──
+  function startLongPress() {
+    longPressTimer = setTimeout(() => {
+      longPressFired = true;
+      if (tapTimer) { clearTimeout(tapTimer); tapTimer = null; }
+      openMenu();
+    }, 600);
+  }
+  function cancelLongPress() {
+    if (longPressTimer) { clearTimeout(longPressTimer); longPressTimer = null; }
+  }
+  ribbon.addEventListener('touchstart',  startLongPress, { passive: true });
+  ribbon.addEventListener('mousedown',   startLongPress);
+  ['touchend','touchcancel','touchmove'].forEach(ev =>
+    ribbon.addEventListener(ev, cancelLongPress, { passive: true }));
+  ['mouseup','mouseleave'].forEach(ev => ribbon.addEventListener(ev, cancelLongPress));
+
+  // ── Tap: single = navigate to most recent; double = clear most recent bookmark ──
   ribbon.addEventListener('click', () => {
+    if (longPressFired) { longPressFired = false; return; }
     if (tapTimer) {
-      clearTimeout(tapTimer);
-      tapTimer = null;
-      handleDoubleTap();
+      // Double-tap → remove the most recent bookmark
+      clearTimeout(tapTimer); tapTimer = null;
+      const recent = getMostRecent(load());
+      if (recent) removeBookmark(recent.id);
     } else {
-      tapTimer = setTimeout(() => { tapTimer = null; handleSingleTap(); }, 280);
+      tapTimer = setTimeout(() => {
+        tapTimer = null;
+        const arr = load();
+        const recent = getMostRecent(arr);
+        if (recent) {
+          ReaderState.goTo(recent.page, recent.page > ReaderState.getCurrent() ? 'next' : 'prev');
+        } else {
+          // No bookmarks — add one for current page
+          addBookmark(ReaderState.getCurrent());
+        }
+      }, 400);
     }
   });
 
   ribbon.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleSingleTap(); }
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openMenu(); }
   });
 
   refresh();
@@ -1292,6 +1492,63 @@ document.getElementById('public-toggle').addEventListener('change', function () 
         card.appendChild(nm); card.appendChild(ms); wrap.appendChild(card);
       });
     }).catch(() => {});
+})();
+
+// ══════════════════════════════════════════
+// TOOLTIP SYSTEM — floating hover box for all data-tip elements
+// ══════════════════════════════════════════
+(function () {
+  const tip = document.createElement('div');
+  tip.id = 'ui-tooltip';
+  document.body.appendChild(tip);
+
+  let current   = null;
+  let showTimer = null;
+  let mx = 0, my = 0;   // last known mouse position
+
+  function position() {
+    const tw = tip.offsetWidth, th = tip.offsetHeight;
+    let left = mx + 14;
+    let top  = my - th - 10;
+    if (left + tw > window.innerWidth  - 8) left = mx - tw - 14;
+    if (top < 8)                            top  = my + 20;
+    tip.style.left = left + 'px';
+    tip.style.top  = top  + 'px';
+  }
+
+  function cancelShow() {
+    if (showTimer) { clearTimeout(showTimer); showTimer = null; }
+    tip.style.display = 'none';
+    current = null;
+  }
+
+  // Always track the cursor, even before any tooltip is active
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    if (current && tip.style.display !== 'none') position();
+  });
+
+  document.addEventListener('mouseover', e => {
+    const el = e.target.closest('[data-tip]');
+    if (el === current) return;
+    if (showTimer) { clearTimeout(showTimer); showTimer = null; }
+    tip.style.display = 'none';
+    if (!el) { current = null; return; }
+    current = el;
+    showTimer = setTimeout(() => {
+      tip.textContent = el.dataset.tip;
+      tip.style.display = 'block';
+      position();   // place at current cursor immediately, no movement required
+    }, 500);
+  });
+
+  document.addEventListener('mouseout', e => {
+    if (!e.relatedTarget || !e.relatedTarget.closest('[data-tip]')) cancelShow();
+  });
+
+  ['scroll', 'touchstart'].forEach(ev =>
+    document.addEventListener(ev, cancelShow, { passive: true })
+  );
 })();
 </script>
 <script>
