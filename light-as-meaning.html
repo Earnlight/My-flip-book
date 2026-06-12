@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="mobile-web-app-capable" content="yes">
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#1d1a0e">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Light As Meaning</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -43,7 +46,9 @@
   /* ── FULLSCREEN MODE ── */
   body.reader-fullscreen { padding: 0; justify-content: center; overflow: hidden; height: 100vh; }
   body.reader-fullscreen #book-container {
-    position: fixed; inset: 0; width: 100vw !important; height: 100vh; margin: 0; z-index: 1000;
+    position: fixed; inset: 0; width: 100vw !important;
+    height: 100vh; height: 100dvh; /* dvh overrides vh on browsers that support it */
+    margin: 0; z-index: 1000;
     display: flex; flex-direction: column; background: #1d1a0e;
     background-image:
       radial-gradient(ellipse at 20% 20%, #4a3d18 0%, transparent 60%),
@@ -52,11 +57,9 @@
   body.reader-fullscreen #book-scene { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0; }
   body.reader-fullscreen #book {
     flex: 0 0 auto; padding-top: 0 !important;
-    /* Height-driven: always fill the screen minus the page bar (~48px).
-       Width is capped at 640px; height fills down to the bar.
-       The 2.2× cap stops it becoming absurdly narrow on very wide screens. */
     width: min(96vw, 640px);
     height: min(calc(100vh - 48px), calc(min(96vw, 640px) * 2.2));
+    height: min(calc(100dvh - 48px), calc(min(96vw, 640px) * 2.2));
   }
   body.reader-fullscreen .page { position: absolute; inset: 0; }
 
@@ -216,6 +219,10 @@
   .page-header { font-family: 'Cinzel', serif; font-size: max(0.5rem, 2.1cqi); letter-spacing: 0.2em; color: var(--ink-light); text-transform: uppercase; border-bottom: 1px solid var(--paper-dark); padding-bottom: 0.6em; margin-bottom: 1.2em; text-align: center; }
   .page-body { flex: 1; font-size: max(0.72rem, 2.5cqi); line-height: 1.72; color: var(--ink); font-weight: 300; text-align: justify; hyphens: auto; overflow-y: auto; }
   .page-body p + p { margin-top: 0.9em; text-indent: 1.5em; }
+  .page-body strong, .page-body b { font-weight: 600; }
+  .page-body em, .page-body i { font-style: italic; }
+  .page-body strong em, .page-body em strong,
+  .page-body b i,      .page-body i b { font-weight: 600; font-style: italic; }
   .chapter-title { font-family: 'Cinzel', serif; font-size: max(1rem, 5cqi); font-weight: 600; color: var(--ink); margin-bottom: 0.4em; letter-spacing: 0.05em; text-align: center; }
   .chapter-ornament { color: var(--gold); font-size: max(0.78rem, 3cqi); text-align: center; margin: 0.4em 0 1.2em; letter-spacing: 0.3em; }
 
@@ -764,12 +771,14 @@ const ReaderState = (function () {
   const exitBtn = document.getElementById('exit-fullscreen-btn');
   let isFS      = false;
 
-  function enter() {
+  async function enter() {
     isFS = true; body.classList.add('reader-fullscreen'); fsBtn.style.display = 'none';
     if (window.__chromeActivity) window.__chromeActivity();
-    const el = document.documentElement;
-    if (el.requestFullscreen) el.requestFullscreen().catch(() => {});
-    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    try {
+      const el = document.documentElement;
+      if (el.requestFullscreen)            await el.requestFullscreen({ navigationUI: 'hide' });
+      else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    } catch(e) { /* silently ignore — CSS fullscreen is still active */ }
   }
   function exit() {
     if (!isFS) return; isFS = false; body.classList.remove('reader-fullscreen'); fsBtn.style.display = '';
@@ -1532,10 +1541,10 @@ document.getElementById('public-toggle').addEventListener('change', function () 
 (function () {
   // ── Edit this array to populate the section ──────────────────────────────
   const entries = [
-  { title: 'Chapter IV published',  note: 'The fourth chapter is now live.',         page: 1, date: 'June 2025' },
-  { title: 'Cover text revised',    note: 'Updated the summary on the cover page.',  page: 0, date: 'May 2025'  },
-  { title: 'New passage added',     note: 'A reflection on inherited memory.',       page: 2, date: 'April 2025' },
-];
+    // { title: 'Chapter IV added', note: 'The fourth chapter is now live.', page: 1, date: 'June 2025' },
+    // { title: 'Opening revised',  note: 'Clarified the opening passage.',  page: 1, date: 'May 2025'  },
+    // Leave empty → section stays hidden.
+  ];
   // ─────────────────────────────────────────────────────────────────────────
 
   const PER_PAGE   = 7;
